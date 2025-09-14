@@ -1,6 +1,8 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { User, Session } from '@supabase/supabase-js';
+import { supabase } from "@/integrations/supabase/client";
 
-type User = {
+type UserData = {
   email: string;
   name: string;
   profilePicture: string;
@@ -8,46 +10,96 @@ type User = {
 
 type UserProviderProps = {
   children: React.ReactNode;
-  storageKey?: string;
 };
 
 type UserProviderState = {
   user: User | null;
-  setUser: (user: User) => void;
+  session: Session | null;
+  userData: UserData | null;
+  isLoading: boolean;
+  setUserData: (data: UserData) => void;
   clearUser: () => void;
 };
 
 const initialState: UserProviderState = {
   user: null,
-  setUser: () => null,
+  session: null,
+  userData: null,
+  isLoading: true,
+  setUserData: () => null,
   clearUser: () => null,
 };
 
 const UserProviderContext = createContext<UserProviderState>(initialState);
 
-export function UserProvider({
-  children,
-  storageKey = "ai-coach-user",
-  ...props
-}: UserProviderProps) {
-  const [user, setUserState] = useState<User | null>(() => {
-    const storedUser = localStorage.getItem(storageKey);
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
+export function UserProvider({ children, ...props }: UserProviderProps) {
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [userData, setUserDataState] = useState<UserData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const setUser = (userData: User) => {
-    localStorage.setItem(storageKey, JSON.stringify(userData));
-    setUserState(userData);
+  useEffect(() => {
+    // Set up auth state listener first
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        // Handle user metadata
+        if (session?.user) {
+          const metadata = session.user.user_metadata;
+          if (metadata?.full_name || metadata?.profile_picture) {
+            setUserDataState({
+              email: session.user.email || '',
+              name: metadata.full_name || '',
+              profilePicture: metadata.profile_picture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${metadata.full_name || session.user.email}`
+            });
+          }
+        } else {
+          setUserDataState(null);
+        }
+        setIsLoading(false);
+      }
+    );
+
+    // Then check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        const metadata = session.user.user_metadata;
+        if (metadata?.full_name || metadata?.profile_picture) {
+          setUserDataState({
+            email: session.user.email || '',
+            name: metadata.full_name || '',
+            profilePicture: metadata.profile_picture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${metadata.full_name || session.user.email}`
+          });
+        }
+      }
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const setUserData = (data: UserData) => {
+    setUserDataState(data);
   };
 
-  const clearUser = () => {
-    localStorage.removeItem(storageKey);
-    setUserState(null);
+  const clearUser = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    setSession(null);
+    setUserDataState(null);
   };
 
   const value = {
     user,
-    setUser,
+    session,
+    userData,
+    isLoading,
+    setUserData,
     clearUser,
   };
 

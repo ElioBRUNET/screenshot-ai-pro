@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,19 +7,24 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Brain, Mail, Lock, User, Camera } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/hooks/useUser";
+import { supabase } from "@/integrations/supabase/client";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
-  const {
-    toast
-  } = useToast();
-  const {
-    setUser
-  } = useUser();
+  const { toast } = useToast();
+  const { user } = useUser();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
   const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -34,29 +39,97 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate authentication
-    setTimeout(() => {
-      if (email && password && name) {
-        const userData = {
+    try {
+      if (isSignUp) {
+        // Sign up flow
+        if (!name.trim()) {
+          toast({
+            title: "Name required",
+            description: "Please enter your full name.",
+            variant: "destructive"
+          });
+          setIsLoading(false);
+          return;
+        }
+
+        const redirectUrl = `${window.location.origin}/dashboard`;
+        const { error } = await supabase.auth.signUp({
           email,
-          name,
-          profilePicture: profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`
-        };
-        setUser(userData);
-        toast({
-          title: "Welcome!",
-          description: `Successfully set up your profile, ${name}!`
+          password,
+          options: {
+            emailRedirectTo: redirectUrl,
+            data: {
+              full_name: name,
+              profile_picture: profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`
+            }
+          }
         });
-        navigate("/dashboard");
+
+        if (error) {
+          if (error.message.includes("already registered")) {
+            toast({
+              title: "Account exists",
+              description: "This email is already registered. Try signing in instead.",
+              variant: "destructive"
+            });
+            setIsSignUp(false);
+          } else {
+            toast({
+              title: "Sign up failed",
+              description: error.message,
+              variant: "destructive"
+            });
+          }
+        } else {
+          toast({
+            title: "Check your email",
+            description: "We've sent you a confirmation link to complete your signup."
+          });
+        }
       } else {
-        toast({
-          title: "Setup incomplete",
-          description: "Please fill in all required fields.",
-          variant: "destructive"
+        // Sign in flow
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password
         });
+
+        if (error) {
+          if (error.message.includes("Invalid login credentials")) {
+            toast({
+              title: "Sign in failed",
+              description: "Invalid email or password. Please check your credentials.",
+              variant: "destructive"
+            });
+          } else if (error.message.includes("Email not confirmed")) {
+            toast({
+              title: "Email not confirmed",
+              description: "Please check your email and click the confirmation link.",
+              variant: "destructive"
+            });
+          } else {
+            toast({
+              title: "Sign in failed", 
+              description: error.message,
+              variant: "destructive"
+            });
+          }
+        } else {
+          toast({
+            title: "Welcome back!",
+            description: "Successfully signed in."
+          });
+          navigate("/dashboard");
+        }
       }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
   return <div className="flex min-h-screen items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
       {/* Main Container */}
@@ -66,9 +139,11 @@ export default function Login() {
         {/* Logo and Title */}
         <div className="mb-8 text-center">
           
-          <h1 className="text-3xl font-bold glass-text-high-contrast">Get Started</h1>
+          <h1 className="text-3xl font-bold glass-text-high-contrast">
+            {isSignUp ? "Get Started" : "Welcome Back"}
+          </h1>
           <p className="mt-2 glass-text-muted">
-            Set up your AI Implementation Coach profile
+            {isSignUp ? "Set up your AI Implementation Coach profile" : "Sign in to your account"}
           </p>
         </div>
 
@@ -91,55 +166,71 @@ export default function Login() {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="name" className="glass-text-high-contrast">Full Name</Label>
-              <div className="relative">
-                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10" required />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="profile-picture" className="glass-text-high-contrast">Profile Picture</Label>
-              <div className="flex items-center space-x-4">
-                <Avatar className="h-16 w-16 border-2 border-border glass-subtle">
-                  <AvatarImage src={profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
-                  <AvatarFallback className="glass-text-container glass-text-high-contrast">
-                    {name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
+            {isSignUp && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="glass-text-high-contrast">Full Name</Label>
                   <div className="relative">
-                    <input
-                      id="profile-picture"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleProfilePictureChange}
-                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                    />
-                    <div className="glass-text-container border border-border rounded-lg px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-white/20 transition-smooth">
-                      <span className="glass-text text-sm">
-                        {profilePicture ? "Image selected" : "Choose image file"}
-                      </span>
-                      <Camera className="h-4 w-4 text-muted-foreground" />
+                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10" required />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="profile-picture" className="glass-text-high-contrast">Profile Picture</Label>
+                  <div className="flex items-center space-x-4">
+                    <Avatar className="h-16 w-16 border-2 border-border glass-subtle">
+                      <AvatarImage src={profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
+                      <AvatarFallback className="glass-text-container glass-text-high-contrast">
+                        {name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="relative">
+                        <input
+                          id="profile-picture"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleProfilePictureChange}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
+                        <div className="glass-text-container border border-border rounded-lg px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-white/20 transition-smooth">
+                          <span className="glass-text text-sm">
+                            {profilePicture ? "Image selected" : "Choose image file"}
+                          </span>
+                          <Camera className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                      </div>
+                      <p className="mt-2 text-xs glass-text-muted">
+                        Optional: Upload a profile picture or use auto-generated avatar
+                      </p>
                     </div>
                   </div>
-                  <p className="mt-2 text-xs glass-text-muted">
-                    Optional: Upload a profile picture or use auto-generated avatar
-                  </p>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
 
             <Button type="submit" disabled={isLoading} className="w-full glass-text-container glass-text-high-contrast border-0 transition-smooth">
-              {isLoading ? "Setting up profile..." : "Complete Setup"}
+              {isLoading ? (isSignUp ? "Creating account..." : "Signing in...") : (isSignUp ? "Create Account" : "Sign In")}
             </Button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-sm glass-text-muted">
-              Demo: Use any email, password, and name to get started
+              {isSignUp ? "Already have an account?" : "Don't have an account?"}
             </p>
+            <Button 
+              type="button"
+              variant="ghost"
+              className="mt-2 glass-text-high-contrast hover:glass-text-container"
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setName("");
+                setProfilePicture("");
+              }}
+            >
+              {isSignUp ? "Sign in instead" : "Sign up here"}
+            </Button>
           </div>
         </div>
       </div>

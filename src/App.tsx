@@ -17,7 +17,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="dark" storageKey="ai-coach-ui-theme">
-      <UserProvider storageKey="ai-coach-user">
+      <UserProvider>
         <TooltipProvider>
           <Toaster />
           <Sonner />

@@ -15,7 +15,7 @@ const navigation = [
 
 export default function Layout() {
   const location = useLocation();
-  const { user, clearUser } = useUser();
+  const { userData, clearUser } = useUser();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -35,14 +35,14 @@ export default function Layout() {
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <Avatar className="h-10 w-10">
-                  <AvatarImage src={user?.profilePicture} />
+                  <AvatarImage src={userData?.profilePicture} />
                   <AvatarFallback className="bg-primary text-primary-foreground">
-                    {user?.name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                    {userData?.name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h1 className="text-lg font-heading glass-text-high-contrast">{user?.name || 'User'}</h1>
-                  <p className="text-sm glass-text-muted">{user?.email || 'user@example.com'}</p>
+                  <h1 className="text-lg font-heading glass-text-high-contrast">{userData?.name || 'User'}</h1>
+                  <p className="text-sm glass-text-muted">{userData?.email || 'user@example.com'}</p>
                 </div>
               </div>
               
