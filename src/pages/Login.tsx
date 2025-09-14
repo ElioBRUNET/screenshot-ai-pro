@@ -133,7 +133,7 @@ export default function Login() {
   };
   return <div className="flex min-h-screen items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
       {/* Main Container */}
-      <div className="absolute inset-3 sm:inset-4 md:inset-6 lg:inset-8 glass-main rounded-2xl sm:rounded-3xl"></div>
+      <div className="absolute inset-1 sm:inset-2 md:inset-3 lg:inset-4 glass-main rounded-2xl sm:rounded-3xl"></div>
       
       <div className={`relative w-full max-w-md z-10 ${isSignUp ? 'px-4 sm:px-6 md:px-8 lg:px-12' : ''}`}>
         {/* Logo and Title */}
