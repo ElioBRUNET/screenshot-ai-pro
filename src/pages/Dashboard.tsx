@@ -57,7 +57,7 @@ export default function Dashboard() {
         <div className="mx-auto max-w-2xl">
           <div className="mb-6">
             <Shield className="mx-auto h-12 w-12 text-primary mb-4" />
-            <h2 className="text-3xl font-bold text-foreground mb-2">
+            <h2 className="text-3xl font-heading text-foreground mb-2">
               Screenshot Analysis
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -93,13 +93,13 @@ export default function Dashboard() {
         {stats.map((stat) => (
           <Card key={stat.title} className="glass-subtle border-0 transition-smooth hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
+              <CardTitle className="text-sm font-body text-muted-foreground">
                 {stat.title}
               </CardTitle>
               <stat.icon className={`h-4 w-4 ${stat.color}`} />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+              <div className="text-2xl font-heading text-foreground">{stat.value}</div>
               <div className="flex items-center space-x-1 text-xs">
                 <span className="text-green-400">{stat.change}</span>
                 <span className="text-muted-foreground">from yesterday</span>
@@ -112,7 +112,7 @@ export default function Dashboard() {
       {/* Recent Activity */}
       <Card className="glass-subtle border-0 transition-smooth">
         <CardHeader>
-          <CardTitle className="text-foreground">Recent AI Insights</CardTitle>
+          <CardTitle className="text-foreground font-heading">Recent AI Insights</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {[

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* Fonts imported in index.html */
 
 @tailwind base;
 @tailwind components;
@@ -111,7 +111,8 @@
   }
 
   body {
-    @apply bg-background text-foreground font-inter;
+    @apply bg-background text-foreground font-jakarta;
+    line-height: 1.5;
     background: var(--gradient-primary);
     background-attachment: fixed;
     min-height: 100vh;
@@ -172,6 +173,22 @@
     border: 1px solid hsla(var(--glass-border));
     box-shadow: 0 4px 16px hsla(var(--glass-shadow));
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Typography utilities */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-manrope font-medium;
+    letter-spacing: -0.025em;
+  }
+  
+  .font-heading {
+    @apply font-manrope font-medium;
+    letter-spacing: -0.025em;
+  }
+  
+  .font-body {
+    @apply font-jakarta font-normal;
+    line-height: 1.5;
   }
   
   /* Smooth transitions */

@@ -38,7 +38,7 @@ export default function Layout() {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h1 className="text-lg font-semibold text-foreground">{user?.name || 'User'}</h1>
+                  <h1 className="text-lg font-heading text-foreground">{user?.name || 'User'}</h1>
                   <p className="text-sm text-muted-foreground">{user?.email || 'user@example.com'}</p>
                 </div>
               </div>
