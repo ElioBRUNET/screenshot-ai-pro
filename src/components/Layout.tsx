@@ -28,7 +28,7 @@ export default function Layout() {
       {/* Main Container */}
       <div className="absolute inset-3 sm:inset-4 md:inset-6 lg:inset-8 glass-main rounded-2xl sm:rounded-3xl"></div>
       
-      <div className="relative mx-auto max-w-6xl z-10">
+      <div className="relative mx-auto max-w-6xl z-10 px-2 sm:px-4 md:px-6">
         {/* Header */}
         <header className="mb-6 sm:mb-8">
           <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-smooth">
