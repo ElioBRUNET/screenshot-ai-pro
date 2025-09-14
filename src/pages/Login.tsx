@@ -102,15 +102,29 @@ export default function Login() {
             <div className="space-y-2">
               <Label htmlFor="profile-picture" className="text-white glass-text">Profile Picture</Label>
               <div className="flex items-center space-x-4">
-                <Avatar className="h-16 w-16 border-2 border-white/20">
+                <Avatar className="h-16 w-16 border-2 border-white/20 glass-subtle">
                   <AvatarImage src={profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
-                  <AvatarFallback className="bg-primary text-primary-foreground">
+                  <AvatarFallback className="bg-white/20 text-white backdrop-blur-sm">
                     {name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <Input id="profile-picture" type="file" accept="image/*" onChange={handleProfilePictureChange} className="glass-subtle border-0 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-white/20 file:text-white hover:file:bg-white/30 file:backdrop-blur-sm" />
-                  <p className="mt-1 text-xs text-white/60 glass-text">
+                  <div className="relative">
+                    <input
+                      id="profile-picture"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleProfilePictureChange}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                    />
+                    <div className="glass-subtle border border-white/20 rounded-lg px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-white/20 transition-smooth">
+                      <span className="text-white/80 text-sm">
+                        {profilePicture ? "Image selected" : "Choose image file"}
+                      </span>
+                      <Camera className="h-4 w-4 text-white/60" />
+                    </div>
+                  </div>
+                  <p className="mt-2 text-xs text-white/60 glass-text">
                     Optional: Upload a profile picture or use auto-generated avatar
                   </p>
                 </div>
