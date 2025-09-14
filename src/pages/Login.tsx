@@ -148,7 +148,7 @@ export default function Login() {
         </div>
 
         {/* Login Form */}
-        <div className={`glass rounded-xl sm:rounded-2xl transition-smooth ${isSignUp ? 'p-8 sm:p-10 md:p-12' : 'p-6 sm:p-8'}`}>
+        <div className={`glass rounded-xl sm:rounded-2xl transition-smooth ${isSignUp ? 'px-8 py-6 sm:px-10 sm:py-8 md:px-12 md:py-8' : 'p-6 sm:p-8'}`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="glass-text-high-contrast">Email</Label>
