@@ -63,7 +63,7 @@ export default function Login() {
       {/* Main Container */}
       <div className="absolute inset-3 sm:inset-4 md:inset-6 lg:inset-8 glass-main rounded-2xl sm:rounded-3xl"></div>
       
-      <div className="relative w-full max-w-md z-10 px-2 sm:px-4">
+      <div className="relative w-full max-w-md z-10">
         {/* Logo and Title */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">

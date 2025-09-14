@@ -79,9 +79,9 @@ export default function Reports() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="glass rounded-2xl p-6">
+      <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-smooth">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-foreground mb-2">AI Insights & Reports</h1>

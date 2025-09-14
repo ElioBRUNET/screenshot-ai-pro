@@ -39,15 +39,15 @@ export default function Settings() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="glass rounded-2xl p-6">
+    <div className="space-y-6 sm:space-y-8">
+      <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-smooth">
         <h1 className="text-2xl font-bold text-foreground mb-2">Settings</h1>
         <p className="text-muted-foreground">
           Configure your AI Implementation Coach preferences and privacy settings
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
         {/* Screenshot Settings */}
         <Card className="glass-subtle border-0">
           <CardHeader>
