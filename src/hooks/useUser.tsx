@@ -48,13 +48,11 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
         // Handle user metadata
         if (session?.user) {
           const metadata = session.user.user_metadata;
-          if (metadata?.full_name || metadata?.profile_picture) {
-            setUserDataState({
-              email: session.user.email || '',
-              name: metadata.full_name || '',
-              profilePicture: metadata.profile_picture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${metadata.full_name || session.user.email}`
-            });
-          }
+          setUserDataState({
+            email: session.user.email || '',
+            name: metadata?.full_name || session.user.email?.split('@')[0] || 'User',
+            profilePicture: metadata?.profile_picture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${metadata?.full_name || session.user.email}`
+          });
         } else {
           setUserDataState(null);
         }
@@ -69,13 +67,11 @@ export function UserProvider({ children, ...props }: UserProviderProps) {
       
       if (session?.user) {
         const metadata = session.user.user_metadata;
-        if (metadata?.full_name || metadata?.profile_picture) {
-          setUserDataState({
-            email: session.user.email || '',
-            name: metadata.full_name || '',
-            profilePicture: metadata.profile_picture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${metadata.full_name || session.user.email}`
-          });
-        }
+        setUserDataState({
+          email: session.user.email || '',
+          name: metadata?.full_name || session.user.email?.split('@')[0] || 'User',
+          profilePicture: metadata?.profile_picture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${metadata?.full_name || session.user.email}`
+        });
       }
       setIsLoading(false);
     });

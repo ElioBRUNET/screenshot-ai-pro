@@ -135,7 +135,7 @@ export default function Login() {
       {/* Main Container */}
       <div className="absolute inset-3 sm:inset-4 md:inset-6 lg:inset-8 glass-main rounded-2xl sm:rounded-3xl"></div>
       
-      <div className="relative w-full max-w-md z-10">
+      <div className={`relative w-full max-w-md z-10 ${isSignUp ? 'px-4 sm:px-6 md:px-8 lg:px-12' : ''}`}>
         {/* Logo and Title */}
         <div className="mb-8 text-center">
           
@@ -148,7 +148,7 @@ export default function Login() {
         </div>
 
         {/* Login Form */}
-        <div className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-smooth">
+        <div className={`glass rounded-xl sm:rounded-2xl transition-smooth ${isSignUp ? 'p-8 sm:p-10 md:p-12' : 'p-6 sm:p-8'}`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="glass-text-high-contrast">Email</Label>
