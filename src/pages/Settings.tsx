@@ -41,8 +41,8 @@ export default function Settings() {
   return (
     <div className="space-y-6">
       <div className="glass rounded-2xl p-6">
-        <h1 className="text-2xl font-bold text-foreground mb-2">Settings</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl font-bold glass-text-high-contrast mb-2">Settings</h1>
+        <p className="glass-text-muted">
           Configure your AI Implementation Coach preferences and privacy settings
         </p>
       </div>
@@ -51,14 +51,14 @@ export default function Settings() {
         {/* Screenshot Settings */}
         <Card className="glass-subtle border-0">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-foreground">
+            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
               <Camera className="h-5 w-5 text-primary" />
               <span>Screenshot Settings</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3">
-              <Label className="text-foreground">Screenshot Interval</Label>
+              <Label className="glass-text-high-contrast">Screenshot Interval</Label>
               <div className="px-3">
                 <Slider
                   value={screenshotInterval}
@@ -69,7 +69,7 @@ export default function Settings() {
                   className="w-full"
                 />
               </div>
-              <div className="flex justify-between text-sm text-muted-foreground">
+              <div className="flex justify-between text-sm glass-text-muted">
                 <span>5 seconds</span>
                 <span className="font-medium text-primary">
                   {screenshotInterval[0]} seconds
@@ -80,8 +80,8 @@ export default function Settings() {
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-foreground">Auto-start tracking</Label>
-                <p className="text-sm text-muted-foreground">
+                <Label className="glass-text-high-contrast">Auto-start tracking</Label>
+                <p className="text-sm glass-text-muted">
                   Start screenshot analysis when app launches
                 </p>
               </div>
@@ -96,7 +96,7 @@ export default function Settings() {
         {/* Privacy Settings */}
         <Card className="glass-subtle border-0">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-foreground">
+            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
               <Shield className="h-5 w-5 text-primary" />
               <span>Privacy & Security</span>
             </CardTitle>
@@ -104,8 +104,8 @@ export default function Settings() {
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-foreground">Privacy mode</Label>
-                <p className="text-sm text-muted-foreground">
+                <Label className="glass-text-high-contrast">Privacy mode</Label>
+                <p className="text-sm glass-text-muted">
                   Blur sensitive information in screenshots
                 </p>
               </div>
@@ -116,9 +116,9 @@ export default function Settings() {
             </div>
 
             <div className="space-y-3">
-              <Label className="text-foreground">Data retention period</Label>
+              <Label className="glass-text-high-contrast">Data retention period</Label>
               <Select value={dataRetention} onValueChange={setDataRetention}>
-                <SelectTrigger className="glass-subtle border-0 text-foreground">
+                <SelectTrigger className="glass-text-container glass-text border-0">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="glass border-0">
@@ -135,7 +135,7 @@ export default function Settings() {
         {/* Notifications */}
         <Card className="glass-subtle border-0">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-foreground">
+            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
               <Bell className="h-5 w-5 text-primary" />
               <span>Notifications</span>
             </CardTitle>
@@ -143,8 +143,8 @@ export default function Settings() {
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="text-foreground">AI insights notifications</Label>
-                <p className="text-sm text-muted-foreground">
+                <Label className="glass-text-high-contrast">AI insights notifications</Label>
+                <p className="text-sm glass-text-muted">
                   Get notified about productivity insights
                 </p>
               </div>
@@ -159,7 +159,7 @@ export default function Settings() {
         {/* Data Management */}
         <Card className="glass-subtle border-0">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-foreground">
+            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
               <Clock className="h-5 w-5 text-primary" />
               <span>Data Management</span>
             </CardTitle>
@@ -168,7 +168,7 @@ export default function Settings() {
             <Button
               onClick={handleExportData}
               variant="outline"
-              className="w-full glass-subtle border-0 text-foreground hover:bg-secondary"
+              className="w-full glass-text-container glass-text border-0 hover:bg-secondary"
             >
               <Download className="h-4 w-4 mr-2" />
               Export Data
@@ -177,7 +177,7 @@ export default function Settings() {
             <Button
               onClick={handleClearData}
               variant="outline"
-              className="w-full glass-subtle border-0 text-destructive hover:bg-destructive/10"
+              className="w-full glass-text-container text-destructive border-0 hover:bg-destructive/10"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Clear All Data
@@ -190,7 +190,7 @@ export default function Settings() {
       <div className="flex justify-end">
         <Button
           onClick={handleSaveSettings}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+          className="glass-text-container glass-text-high-contrast border-0 px-8"
         >
           Save Settings
         </Button>

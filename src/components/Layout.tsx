@@ -41,8 +41,8 @@ export default function Layout() {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h1 className="text-lg font-heading text-foreground glass-text">{user?.name || 'User'}</h1>
-                  <p className="text-sm text-muted-foreground glass-text">{user?.email || 'user@example.com'}</p>
+                  <h1 className="text-lg font-heading glass-text-high-contrast">{user?.name || 'User'}</h1>
+                  <p className="text-sm glass-text-muted">{user?.email || 'user@example.com'}</p>
                 </div>
               </div>
               
@@ -55,10 +55,10 @@ export default function Layout() {
                       key={item.name}
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-2 rounded-xl px-4 py-2 text-sm font-medium transition-smooth glass-text",
+                        "flex items-center space-x-2 rounded-xl px-4 py-2 text-sm font-medium transition-smooth",
                         isActive
-                          ? "bg-white/20 text-white backdrop-blur-sm"
-                          : "text-white/80 hover:bg-white/10 hover:text-white"
+                          ? "bg-white/20 backdrop-blur-sm glass-text-high-contrast"
+                          : "glass-text-muted hover:bg-white/10 hover:glass-text-high-contrast"
                       )}
                     >
                       <item.icon className="h-4 w-4" />

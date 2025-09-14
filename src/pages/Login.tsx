@@ -66,8 +66,8 @@ export default function Login() {
         {/* Logo and Title */}
         <div className="mb-8 text-center">
           
-          <h1 className="text-3xl font-bold text-white glass-text">Get Started</h1>
-          <p className="mt-2 text-white/80 glass-text">
+          <h1 className="text-3xl font-bold glass-text-high-contrast">Get Started</h1>
+          <p className="mt-2 glass-text-muted">
             Set up your AI Implementation Coach profile
           </p>
         </div>
@@ -76,35 +76,35 @@ export default function Login() {
         <div className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-smooth">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-white glass-text">Email</Label>
+              <Label htmlFor="email" className="glass-text-high-contrast">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-white/60" />
-                <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 glass-subtle border-0 text-white placeholder:text-white/50 glass-text" required />
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10" required />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-white glass-text">Password</Label>
+              <Label htmlFor="password" className="glass-text-high-contrast">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-white/60" />
-                <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10 glass-subtle border-0 text-white placeholder:text-white/50 glass-text" required />
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10" required />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-white glass-text">Full Name</Label>
+              <Label htmlFor="name" className="glass-text-high-contrast">Full Name</Label>
               <div className="relative">
-                <User className="absolute left-3 top-3 h-4 w-4 text-white/60" />
-                <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10 glass-subtle border-0 text-white placeholder:text-white/50 glass-text" required />
+                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10" required />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="profile-picture" className="text-white glass-text">Profile Picture</Label>
+              <Label htmlFor="profile-picture" className="glass-text-high-contrast">Profile Picture</Label>
               <div className="flex items-center space-x-4">
-                <Avatar className="h-16 w-16 border-2 border-white/20 glass-subtle">
+                <Avatar className="h-16 w-16 border-2 border-border glass-subtle">
                   <AvatarImage src={profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
-                  <AvatarFallback className="bg-white/20 text-white backdrop-blur-sm">
+                  <AvatarFallback className="glass-text-container glass-text-high-contrast">
                     {name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
                   </AvatarFallback>
                 </Avatar>
@@ -117,27 +117,27 @@ export default function Login() {
                       onChange={handleProfilePictureChange}
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                     />
-                    <div className="glass-subtle border border-white/20 rounded-lg px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-white/20 transition-smooth">
-                      <span className="text-white/80 text-sm">
+                    <div className="glass-text-container border border-border rounded-lg px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-white/20 transition-smooth">
+                      <span className="glass-text text-sm">
                         {profilePicture ? "Image selected" : "Choose image file"}
                       </span>
-                      <Camera className="h-4 w-4 text-white/60" />
+                      <Camera className="h-4 w-4 text-muted-foreground" />
                     </div>
                   </div>
-                  <p className="mt-2 text-xs text-white/60 glass-text">
+                  <p className="mt-2 text-xs glass-text-muted">
                     Optional: Upload a profile picture or use auto-generated avatar
                   </p>
                 </div>
               </div>
             </div>
 
-            <Button type="submit" disabled={isLoading} className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm glass-text transition-smooth">
+            <Button type="submit" disabled={isLoading} className="w-full glass-text-container glass-text-high-contrast border-0 transition-smooth">
               {isLoading ? "Setting up profile..." : "Complete Setup"}
             </Button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-white/60 glass-text">
+            <p className="text-sm glass-text-muted">
               Demo: Use any email, password, and name to get started
             </p>
           </div>

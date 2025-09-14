@@ -84,17 +84,17 @@ export default function Reports() {
       <div className="glass rounded-2xl p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-foreground mb-2">AI Insights & Reports</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl font-bold glass-text-high-contrast mb-2">AI Insights & Reports</h1>
+            <p className="glass-text-muted">
               Personalized recommendations based on your workflow analysis
             </p>
           </div>
           <div className="flex space-x-2">
-            <Button variant="outline" className="glass-subtle border-0 text-foreground">
+            <Button variant="outline" className="glass-text-container glass-text border-0">
               <Calendar className="h-4 w-4 mr-2" />
               This Week
             </Button>
-            <Button variant="outline" className="glass-subtle border-0 text-foreground">
+            <Button variant="outline" className="glass-text-container glass-text border-0">
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
@@ -108,7 +108,7 @@ export default function Reports() {
           <Card key={metric.label} className="glass-subtle border-0">
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm text-muted-foreground">{metric.label}</p>
+                <p className="text-sm glass-text-muted">{metric.label}</p>
                 <div className={`flex items-center text-xs ${metric.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
                   {metric.trend === 'up' ? (
                     <ArrowUp className="h-3 w-3 mr-1" />
@@ -119,7 +119,7 @@ export default function Reports() {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="text-2xl font-bold text-foreground">{metric.value}%</div>
+                <div className="text-2xl font-bold glass-text-high-contrast">{metric.value}%</div>
                 <Progress value={metric.value} className="h-2" />
               </div>
             </CardContent>
@@ -130,7 +130,7 @@ export default function Reports() {
       {/* AI Recommendations */}
       <Card className="glass-subtle border-0">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2 text-foreground">
+          <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
             <Lightbulb className="h-5 w-5 text-primary" />
             <span>AI Recommendations</span>
           </CardTitle>
@@ -140,8 +140,8 @@ export default function Reports() {
             <div key={rec.id} className="glass-subtle rounded-lg p-4 space-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-foreground mb-1">{rec.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-2">{rec.description}</p>
+                  <h3 className="font-semibold glass-text-high-contrast mb-1">{rec.title}</h3>
+                  <p className="text-sm glass-text-muted mb-2">{rec.description}</p>
                   
                   <div className="flex items-center space-x-2 text-xs">
                     <Badge className={`${getImpactColor(rec.impact)} text-white`}>
@@ -150,11 +150,11 @@ export default function Reports() {
                     <Badge className={`${getStatusColor(rec.status)} text-white`}>
                       {rec.status}
                     </Badge>
-                    <span className="text-muted-foreground flex items-center">
+                    <span className="glass-text-muted flex items-center">
                       <Clock className="h-3 w-3 mr-1" />
                       {rec.timeToImplement}
                     </span>
-                    <span className="text-muted-foreground flex items-center">
+                    <span className="glass-text-muted flex items-center">
                       <Target className="h-3 w-3 mr-1" />
                       {rec.category}
                     </span>
@@ -163,7 +163,7 @@ export default function Reports() {
                 
                 <Button 
                   size="sm" 
-                  className="ml-4 bg-primary hover:bg-primary/90 text-primary-foreground"
+                  className="ml-4 glass-text-container glass-text-high-contrast border-0"
                 >
                   Implement
                 </Button>
@@ -176,7 +176,7 @@ export default function Reports() {
       {/* Implementation Progress */}
       <Card className="glass-subtle border-0">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2 text-foreground">
+          <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
             <TrendingUp className="h-5 w-5 text-primary" />
             <span>Implementation Progress</span>
           </CardTitle>
@@ -184,16 +184,16 @@ export default function Reports() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-1">12</div>
-              <div className="text-sm text-muted-foreground">Total Recommendations</div>
+              <div className="text-3xl font-bold glass-text-high-contrast mb-1">12</div>
+              <div className="text-sm glass-text-muted">Total Recommendations</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-green-400 mb-1">8</div>
-              <div className="text-sm text-muted-foreground">Implemented</div>
+              <div className="text-sm glass-text-muted">Implemented</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-orange-400 mb-1">23%</div>
-              <div className="text-sm text-muted-foreground">Avg. Productivity Gain</div>
+              <div className="text-sm glass-text-muted">Avg. Productivity Gain</div>
             </div>
           </div>
         </CardContent>

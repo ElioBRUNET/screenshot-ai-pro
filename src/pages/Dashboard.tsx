@@ -56,11 +56,11 @@ export default function Dashboard() {
       <div className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-12 text-center transition-smooth">
         <div className="mx-auto max-w-2xl">
           <div className="mb-6">
-            <Shield className="mx-auto h-12 w-12 text-white mb-4 drop-shadow-lg" />
-            <h2 className="text-3xl font-heading text-white glass-text mb-2">
+            <Shield className="mx-auto h-12 w-12 text-foreground mb-4 drop-shadow-lg" />
+            <h2 className="text-3xl font-heading glass-text-high-contrast mb-2">
               Screenshot Analysis
             </h2>
-            <p className="text-lg text-white/80 glass-text">
+            <p className="text-lg glass-text-muted">
               Enable AI-powered workflow tracking to get personalized insights and recommendations
             </p>
           </div>
@@ -77,11 +77,11 @@ export default function Dashboard() {
           <div className="flex items-center justify-center space-x-2">
             <Badge 
               variant={isTracking ? "default" : "secondary"}
-              className={`${isTracking ? 'bg-green-600/80 text-white backdrop-blur-sm' : 'bg-white/20 text-white backdrop-blur-sm'} transition-smooth border-0`}
+              className={`${isTracking ? 'bg-green-600/80 backdrop-blur-sm glass-text-high-contrast' : 'bg-white/20 backdrop-blur-sm glass-text'} transition-smooth border-0`}
             >
               {isTracking ? "Active" : "Inactive"}
             </Badge>
-            <span className="text-sm text-white/70 glass-text">
+            <span className="text-sm glass-text-muted">
               {isTracking ? "Monitoring your workflow" : "Click to start tracking"}
             </span>
           </div>
@@ -93,16 +93,16 @@ export default function Dashboard() {
         {stats.map((stat) => (
           <Card key={stat.title} className="glass-subtle border-0 transition-smooth hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-body text-white/80 glass-text">
+              <CardTitle className="text-sm font-body glass-text-muted">
                 {stat.title}
               </CardTitle>
               <stat.icon className={`h-4 w-4 ${stat.color} drop-shadow-sm`} />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-heading text-white glass-text">{stat.value}</div>
+              <div className="text-2xl font-heading glass-text-high-contrast">{stat.value}</div>
               <div className="flex items-center space-x-1 text-xs">
                 <span className="text-green-400 drop-shadow-sm">{stat.change}</span>
-                <span className="text-white/60 glass-text">from yesterday</span>
+                <span className="glass-text-muted">from yesterday</span>
               </div>
             </CardContent>
           </Card>
@@ -112,7 +112,7 @@ export default function Dashboard() {
       {/* Recent Activity */}
       <Card className="glass-subtle border-0 transition-smooth">
         <CardHeader>
-          <CardTitle className="text-white font-heading glass-text">Recent AI Insights</CardTitle>
+          <CardTitle className="font-heading glass-text-high-contrast">Recent AI Insights</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {[
@@ -137,12 +137,12 @@ export default function Dashboard() {
                 <div className="h-2 w-2 rounded-full bg-white/60 mt-2 shadow-sm"></div>
               </div>
               <div className="flex-1">
-                <p className="text-sm text-white glass-text">{item.insight}</p>
+                <p className="text-sm glass-text">{item.insight}</p>
                 <div className="flex items-center space-x-2 mt-1">
-                  <Badge variant="outline" className="text-xs bg-white/10 text-white/80 border-white/20 backdrop-blur-sm">
+                  <Badge variant="outline" className="text-xs glass-text-container border-0 backdrop-blur-sm">
                     {item.type}
                   </Badge>
-                  <span className="text-xs text-white/60 glass-text">{item.time}</span>
+                  <span className="text-xs glass-text-muted">{item.time}</span>
                 </div>
               </div>
             </div>
