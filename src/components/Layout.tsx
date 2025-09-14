@@ -25,7 +25,10 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen p-6">
-      <div className="mx-auto max-w-6xl">
+      {/* Main Container */}
+      <div className="absolute inset-6 glass-main rounded-3xl"></div>
+      
+      <div className="relative mx-auto max-w-6xl z-10">
         {/* Header */}
         <header className="mb-8">
           <div className="glass rounded-2xl p-6 transition-smooth">

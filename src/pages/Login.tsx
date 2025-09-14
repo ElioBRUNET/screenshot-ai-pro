@@ -60,7 +60,10 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen items-center justify-center p-6">
-      <div className="w-full max-w-md">
+      {/* Main Container */}
+      <div className="absolute inset-6 glass-main rounded-3xl"></div>
+      
+      <div className="relative w-full max-w-md z-10">
         {/* Logo and Title */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
