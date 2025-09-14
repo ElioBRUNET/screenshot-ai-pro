@@ -26,7 +26,7 @@ export default function Layout() {
   return (
     <div className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
       {/* Main Container */}
-      <div className="absolute inset-3 sm:inset-4 md:inset-6 lg:inset-8 glass-main rounded-2xl sm:rounded-3xl"></div>
+      <div className="absolute inset-1 sm:inset-2 md:inset-3 lg:inset-4 glass-main rounded-2xl sm:rounded-3xl"></div>
       
       <div className="relative mx-auto max-w-6xl z-10">
         {/* Header */}
