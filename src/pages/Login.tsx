@@ -59,11 +59,11 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-6">
+    <div className="flex min-h-screen items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
       {/* Main Container */}
-      <div className="absolute inset-6 glass-main rounded-3xl"></div>
+      <div className="absolute inset-3 sm:inset-4 md:inset-6 lg:inset-8 glass-main rounded-2xl sm:rounded-3xl"></div>
       
-      <div className="relative w-full max-w-md z-10">
+      <div className="relative w-full max-w-md z-10 px-2 sm:px-4">
         {/* Logo and Title */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
@@ -76,7 +76,7 @@ export default function Login() {
         </div>
 
         {/* Login Form */}
-        <div className="glass rounded-2xl p-8">
+        <div className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-smooth">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-white glass-text">Email</Label>

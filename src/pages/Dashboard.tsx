@@ -51,9 +51,9 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Main Toggle Section */}
-      <div className="glass rounded-2xl p-12 text-center transition-smooth">
+      <div className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 lg:p-12 text-center transition-smooth">
         <div className="mx-auto max-w-2xl">
           <div className="mb-6">
             <Shield className="mx-auto h-12 w-12 text-white mb-4 drop-shadow-lg" />
@@ -89,7 +89,7 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {stats.map((stat) => (
           <Card key={stat.title} className="glass-subtle border-0 transition-smooth hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between pb-2">

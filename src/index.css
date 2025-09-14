@@ -182,13 +182,13 @@
   }
 
   .glass-main {
-    background: hsla(255 255% 100% / 0.03);
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    border: 1px solid hsla(255 255% 100% / 0.08);
+    background: hsla(255 255% 100% / 0.08);
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    border: 1px solid hsla(255 255% 100% / 0.12);
     box-shadow: 
-      0 20px 60px hsla(0 0% 0% / 0.15),
-      inset 0 1px 0 hsla(255 255% 100% / 0.05);
+      0 20px 60px hsla(0 0% 0% / 0.20),
+      inset 0 1px 0 hsla(255 255% 100% / 0.08);
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
   

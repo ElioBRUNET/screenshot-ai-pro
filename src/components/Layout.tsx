@@ -24,14 +24,14 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
       {/* Main Container */}
-      <div className="absolute inset-6 glass-main rounded-3xl"></div>
+      <div className="absolute inset-3 sm:inset-4 md:inset-6 lg:inset-8 glass-main rounded-2xl sm:rounded-3xl"></div>
       
-      <div className="relative mx-auto max-w-6xl z-10">
+      <div className="relative mx-auto max-w-6xl z-10 px-2 sm:px-4 md:px-6">
         {/* Header */}
-        <header className="mb-8">
-          <div className="glass rounded-2xl p-6 transition-smooth">
+        <header className="mb-6 sm:mb-8">
+          <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-smooth">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4">
                 <Avatar className="h-10 w-10">
