@@ -1,6 +1,7 @@
 import { Outlet, useLocation, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { Settings, BarChart3, Home, Brain } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
@@ -29,7 +30,7 @@ export default function Layout() {
               </div>
               
               {/* Navigation */}
-              <nav className="flex space-x-2">
+              <nav className="flex items-center space-x-2">
                 {navigation.map((item) => {
                   const isActive = location.pathname === item.href;
                   return (
@@ -48,6 +49,7 @@ export default function Layout() {
                     </Link>
                   );
                 })}
+                <ThemeToggle />
               </nav>
             </div>
           </div>

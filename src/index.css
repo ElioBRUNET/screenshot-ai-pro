@@ -18,7 +18,7 @@
     --glass-border: 255 255% 100% / 0.1;
     --glass-shadow: 0 0% 0% / 0.3;
     
-    /* Core colors - HSL format */
+    /* Core colors - HSL format - Dark Mode */
     --background: 220 26% 7%;
     --foreground: 0 0% 98%;
 
@@ -58,6 +58,51 @@
     --warning: 38 92% 50%;
     --error: 0 65% 51%;
   }
+
+  .light {
+    /* Light mode background gradients */
+    --gradient-primary: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 15%, #7dd3fc 30%, #38bdf8 45%, #fed7aa 60%, #fdba74 75%, #fbbf24 90%, #fef3c7 100%);
+    --gradient-secondary: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 25%, #e1bee7 50%, #ffcc80 75%, #ffcdd2 100%);
+    --gradient-subtle: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    
+    /* Light mode glassmorphism */
+    --glass-background: 255 255% 100% / 0.8;
+    --glass-border: 0 0% 0% / 0.1;
+    --glass-shadow: 0 0% 0% / 0.1;
+    
+    /* Light mode colors */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+
+    --card: 255 255% 100% / 0.8;
+    --card-foreground: 240 10% 3.9%;
+
+    --popover: 255 255% 100% / 0.95;
+    --popover-foreground: 240 10% 3.9%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 262 83% 58%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 217 91% 60%;
+
+    /* Light mode toggle colors */
+    --toggle-active: 146 64% 47%;
+    --toggle-inactive: 240 4.8% 85%;
+  }
 }
 
 @layer base {
@@ -71,6 +116,7 @@
     background-attachment: fixed;
     min-height: 100vh;
     position: relative;
+    transition: background 0.3s ease, color 0.3s ease;
   }
   
   body::before {
@@ -82,6 +128,7 @@
     height: 100%;
     background: var(--gradient-primary);
     background-attachment: fixed;
+    transition: background 0.3s ease;
     z-index: -2;
   }
   
@@ -98,7 +145,16 @@
       radial-gradient(circle at 50% 50%, rgba(255, 165, 0, 0.04) 1px, transparent 1px);
     background-size: 50px 50px, 30px 30px, 20px 20px;
     opacity: 0.8;
+    transition: background-image 0.3s ease, opacity 0.3s ease;
     z-index: -1;
+  }
+  
+  .light body::after {
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(0, 0, 0, 0.015) 1px, transparent 1px),
+      radial-gradient(circle at 50% 50%, rgba(255, 165, 0, 0.03) 1px, transparent 1px);
+    opacity: 0.6;
   }
   
   /* Glassmorphism utility classes */
@@ -107,6 +163,7 @@
     backdrop-filter: blur(20px);
     border: 1px solid hsla(var(--glass-border));
     box-shadow: 0 8px 32px hsla(var(--glass-shadow));
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
   
   .glass-subtle {
@@ -114,6 +171,7 @@
     backdrop-filter: blur(10px);
     border: 1px solid hsla(var(--glass-border));
     box-shadow: 0 4px 16px hsla(var(--glass-shadow));
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   }
   
   /* Smooth transitions */
