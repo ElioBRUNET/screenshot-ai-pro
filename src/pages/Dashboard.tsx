@@ -56,11 +56,11 @@ export default function Dashboard() {
       <div className="glass rounded-2xl p-12 text-center transition-smooth">
         <div className="mx-auto max-w-2xl">
           <div className="mb-6">
-            <Shield className="mx-auto h-12 w-12 text-primary mb-4" />
-            <h2 className="text-3xl font-heading text-foreground mb-2">
+            <Shield className="mx-auto h-12 w-12 text-white mb-4 drop-shadow-lg" />
+            <h2 className="text-3xl font-heading text-white glass-text mb-2">
               Screenshot Analysis
             </h2>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg text-white/80 glass-text">
               Enable AI-powered workflow tracking to get personalized insights and recommendations
             </p>
           </div>
@@ -77,11 +77,11 @@ export default function Dashboard() {
           <div className="flex items-center justify-center space-x-2">
             <Badge 
               variant={isTracking ? "default" : "secondary"}
-              className={`${isTracking ? 'bg-green-600' : ''} transition-smooth`}
+              className={`${isTracking ? 'bg-green-600/80 text-white backdrop-blur-sm' : 'bg-white/20 text-white backdrop-blur-sm'} transition-smooth border-0`}
             >
               {isTracking ? "Active" : "Inactive"}
             </Badge>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-white/70 glass-text">
               {isTracking ? "Monitoring your workflow" : "Click to start tracking"}
             </span>
           </div>
@@ -93,16 +93,16 @@ export default function Dashboard() {
         {stats.map((stat) => (
           <Card key={stat.title} className="glass-subtle border-0 transition-smooth hover:scale-105">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-body text-muted-foreground">
+              <CardTitle className="text-sm font-body text-white/80 glass-text">
                 {stat.title}
               </CardTitle>
-              <stat.icon className={`h-4 w-4 ${stat.color}`} />
+              <stat.icon className={`h-4 w-4 ${stat.color} drop-shadow-sm`} />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-heading text-foreground">{stat.value}</div>
+              <div className="text-2xl font-heading text-white glass-text">{stat.value}</div>
               <div className="flex items-center space-x-1 text-xs">
-                <span className="text-green-400">{stat.change}</span>
-                <span className="text-muted-foreground">from yesterday</span>
+                <span className="text-green-400 drop-shadow-sm">{stat.change}</span>
+                <span className="text-white/60 glass-text">from yesterday</span>
               </div>
             </CardContent>
           </Card>
@@ -112,7 +112,7 @@ export default function Dashboard() {
       {/* Recent Activity */}
       <Card className="glass-subtle border-0 transition-smooth">
         <CardHeader>
-          <CardTitle className="text-foreground font-heading">Recent AI Insights</CardTitle>
+          <CardTitle className="text-white font-heading glass-text">Recent AI Insights</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {[
@@ -134,15 +134,15 @@ export default function Dashboard() {
           ].map((item, index) => (
             <div key={index} className="flex items-start space-x-3 p-3 rounded-lg glass-subtle">
               <div className="flex-shrink-0">
-                <div className="h-2 w-2 rounded-full bg-primary mt-2"></div>
+                <div className="h-2 w-2 rounded-full bg-white/60 mt-2 shadow-sm"></div>
               </div>
               <div className="flex-1">
-                <p className="text-sm text-foreground">{item.insight}</p>
+                <p className="text-sm text-white glass-text">{item.insight}</p>
                 <div className="flex items-center space-x-2 mt-1">
-                  <Badge variant="outline" className="text-xs">
+                  <Badge variant="outline" className="text-xs bg-white/10 text-white/80 border-white/20 backdrop-blur-sm">
                     {item.type}
                   </Badge>
-                  <span className="text-xs text-muted-foreground">{item.time}</span>
+                  <span className="text-xs text-white/60 glass-text">{item.time}</span>
                 </div>
               </div>
             </div>

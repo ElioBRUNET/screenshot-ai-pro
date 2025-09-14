@@ -7,15 +7,15 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="ghost"
+      variant="glass-subtle"
       size="sm"
       onClick={toggleTheme}
-      className="h-9 w-9 p-0 transition-smooth hover:bg-secondary"
+      className="h-9 w-9 p-0 transition-smooth"
     >
       {theme === 'dark' ? (
-        <Sun className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
+        <Sun className="h-4 w-4 text-white/80 drop-shadow-sm" />
       ) : (
-        <Moon className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
+        <Moon className="h-4 w-4 text-white/80 drop-shadow-sm" />
       )}
       <span className="sr-only">Toggle theme</span>
     </Button>

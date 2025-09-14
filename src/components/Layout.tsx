@@ -38,8 +38,8 @@ export default function Layout() {
                   </AvatarFallback>
                 </Avatar>
                 <div>
-                  <h1 className="text-lg font-heading text-foreground">{user?.name || 'User'}</h1>
-                  <p className="text-sm text-muted-foreground">{user?.email || 'user@example.com'}</p>
+                  <h1 className="text-lg font-heading text-foreground glass-text">{user?.name || 'User'}</h1>
+                  <p className="text-sm text-muted-foreground glass-text">{user?.email || 'user@example.com'}</p>
                 </div>
               </div>
               
@@ -52,10 +52,10 @@ export default function Layout() {
                       key={item.name}
                       to={item.href}
                       className={cn(
-                        "flex items-center space-x-2 rounded-xl px-4 py-2 text-sm font-medium transition-smooth",
+                        "flex items-center space-x-2 rounded-xl px-4 py-2 text-sm font-medium transition-smooth glass-text",
                         isActive
-                          ? "bg-primary text-primary-foreground"
-                          : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                          ? "bg-white/20 text-white backdrop-blur-sm"
+                          : "text-white/80 hover:bg-white/10 hover:text-white"
                       )}
                     >
                       <item.icon className="h-4 w-4" />
@@ -65,12 +65,12 @@ export default function Layout() {
                 })}
                 <ThemeToggle />
                 <Button
-                  variant="ghost"
+                  variant="glass-subtle"
                   size="sm"
                   onClick={handleLogout}
-                  className="h-9 w-9 p-0 transition-smooth hover:bg-secondary"
+                  className="h-9 w-9 p-0 transition-smooth"
                 >
-                  <LogOut className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
+                  <LogOut className="h-4 w-4" />
                   <span className="sr-only">Logout</span>
                 </Button>
               </nav>
