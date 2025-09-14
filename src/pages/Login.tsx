@@ -3,15 +3,31 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Brain, Mail, Lock } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Brain, Mail, Lock, User, Camera } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useUser } from "@/hooks/useUser";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { setUser } = useUser();
+
+  const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setProfilePicture(event.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,16 +35,22 @@ export default function Login() {
 
     // Simulate authentication
     setTimeout(() => {
-      if (email && password) {
+      if (email && password && name) {
+        const userData = {
+          email,
+          name,
+          profilePicture: profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`,
+        };
+        setUser(userData);
         toast({
-          title: "Welcome back!",
-          description: "Successfully logged in to AI Implementation Coach.",
+          title: "Welcome!",
+          description: `Successfully set up your profile, ${name}!`,
         });
         navigate("/dashboard");
       } else {
         toast({
-          title: "Login failed",
-          description: "Please enter both email and password.",
+          title: "Setup incomplete",
+          description: "Please fill in all required fields.",
           variant: "destructive",
         });
       }
@@ -44,9 +66,9 @@ export default function Login() {
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
             <Brain className="h-8 w-8 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">AI Implementation Coach</h1>
+          <h1 className="text-3xl font-bold text-foreground">Get Started</h1>
           <p className="mt-2 text-muted-foreground">
-            Sign in to optimize your workflow with AI insights
+            Set up your AI Implementation Coach profile
           </p>
         </div>
 
@@ -85,18 +107,58 @@ export default function Login() {
               </div>
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-foreground">Full Name</Label>
+              <div className="relative">
+                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="Enter your full name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="pl-10 glass-subtle border-0 text-foreground placeholder:text-muted-foreground"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="profile-picture" className="text-foreground">Profile Picture</Label>
+              <div className="flex items-center space-x-4">
+                <Avatar className="h-16 w-16">
+                  <AvatarImage src={profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
+                  <AvatarFallback className="bg-primary text-primary-foreground">
+                    {name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex-1">
+                  <Input
+                    id="profile-picture"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleProfilePictureChange}
+                    className="glass-subtle border-0 text-foreground file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  />
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    Optional: Upload a profile picture or use auto-generated avatar
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <Button
               type="submit"
               disabled={isLoading}
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground transition-smooth"
             >
-              {isLoading ? "Signing in..." : "Sign In"}
+              {isLoading ? "Setting up profile..." : "Complete Setup"}
             </Button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
-              Demo credentials: any email and password
+              Demo: Use any email, password, and name to get started
             </p>
           </div>
         </div>

@@ -1,7 +1,11 @@
 import { Outlet, useLocation, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Settings, BarChart3, Home, Brain } from "lucide-react";
+import { Settings, BarChart3, Home, LogOut } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { useUser } from "@/hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
@@ -11,6 +15,13 @@ const navigation = [
 
 export default function Layout() {
   const location = useLocation();
+  const { user, clearUser } = useUser();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearUser();
+    navigate("/login");
+  };
 
   return (
     <div className="min-h-screen p-6">
@@ -19,13 +30,16 @@ export default function Layout() {
         <header className="mb-8">
           <div className="glass rounded-2xl p-6 transition-smooth">
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-                  <Brain className="h-6 w-6 text-primary-foreground" />
-                </div>
+              <div className="flex items-center space-x-4">
+                <Avatar className="h-10 w-10">
+                  <AvatarImage src={user?.profilePicture} />
+                  <AvatarFallback className="bg-primary text-primary-foreground">
+                    {user?.name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                  </AvatarFallback>
+                </Avatar>
                 <div>
-                  <h1 className="text-xl font-semibold text-foreground">AI Implementation Coach</h1>
-                  <p className="text-sm text-muted-foreground">Intelligent workflow optimization</p>
+                  <h1 className="text-lg font-semibold text-foreground">{user?.name || 'User'}</h1>
+                  <p className="text-sm text-muted-foreground">{user?.email || 'user@example.com'}</p>
                 </div>
               </div>
               
@@ -50,6 +64,15 @@ export default function Layout() {
                   );
                 })}
                 <ThemeToggle />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="h-9 w-9 p-0 transition-smooth hover:bg-secondary"
+                >
+                  <LogOut className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
+                  <span className="sr-only">Logout</span>
+                </Button>
               </nav>
             </div>
           </div>
