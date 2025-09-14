@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Brain, Mail, Lock, User, Camera } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Brain, Mail, Lock, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/hooks/useUser";
 import { supabase } from "@/integrations/supabase/client";
@@ -12,7 +12,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [profilePicture, setProfilePicture] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
@@ -25,16 +24,6 @@ export default function Login() {
       navigate("/dashboard");
     }
   }, [user, navigate]);
-  const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = event => {
-        setProfilePicture(event.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -59,8 +48,7 @@ export default function Login() {
           options: {
             emailRedirectTo: redirectUrl,
             data: {
-              full_name: name,
-              profile_picture: profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`
+              full_name: name
             }
           }
         });
@@ -177,35 +165,17 @@ export default function Login() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="profile-picture" className="glass-text-high-contrast">Profile Picture</Label>
-                  <div className="flex items-center space-x-4">
+                  <Label className="glass-text-high-contrast">Profile Avatar</Label>
+                  <div className="flex items-center justify-center">
                     <Avatar className="h-16 w-16 border-2 border-border glass-subtle">
-                      <AvatarImage src={profilePicture || `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}`} />
-                      <AvatarFallback className="glass-text-container glass-text-high-contrast">
+                      <AvatarFallback className="glass-text-container glass-text-high-contrast text-xl">
                         {name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
                       </AvatarFallback>
                     </Avatar>
-                    <div className="flex-1">
-                      <div className="relative">
-                        <input
-                          id="profile-picture"
-                          type="file"
-                          accept="image/*"
-                          onChange={handleProfilePictureChange}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                        />
-                        <div className="glass-text-container border border-border rounded-lg px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-white/20 transition-smooth">
-                          <span className="glass-text text-sm">
-                            {profilePicture ? "Image selected" : "Choose image file"}
-                          </span>
-                          <Camera className="h-4 w-4 text-muted-foreground" />
-                        </div>
-                      </div>
-                      <p className="mt-2 text-xs glass-text-muted">
-                        Optional: Upload a profile picture or use auto-generated avatar
-                      </p>
-                    </div>
                   </div>
+                  <p className="text-center text-xs glass-text-muted">
+                    Your avatar will show your initials
+                  </p>
                 </div>
               </>
             )}
@@ -226,7 +196,6 @@ export default function Login() {
               onClick={() => {
                 setIsSignUp(!isSignUp);
                 setName("");
-                setProfilePicture("");
               }}
             >
               {isSignUp ? "Sign in instead" : "Sign up here"}

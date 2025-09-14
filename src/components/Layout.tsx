@@ -18,8 +18,8 @@ export default function Layout() {
   const { userData, clearUser } = useUser();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    clearUser();
+  const handleLogout = async () => {
+    await clearUser();
     navigate("/login");
   };
 
