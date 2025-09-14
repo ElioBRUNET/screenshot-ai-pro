@@ -35,7 +35,7 @@
     --secondary-foreground: 0 0% 98%;
 
     --muted: 240 21% 15%;
-    --muted-foreground: 240 5% 65%;
+    --muted-foreground: 240 5% 85%;
 
     --accent: 262 83% 58%;
     --accent-foreground: 0 0% 98%;
@@ -202,32 +202,27 @@
   
   /* Enhanced glass components with better text readability */
   .glass-text {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     color: hsl(var(--foreground));
   }
   
   .light .glass-text {
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8), 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: hsl(var(--foreground));
   }
   
   .glass-text-high-contrast {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     color: hsl(var(--foreground));
     font-weight: 500;
   }
   
   .light .glass-text-high-contrast {
-    text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9), 0 2px 6px rgba(0, 0, 0, 0.3);
     color: hsl(var(--foreground));
   }
   
   .glass-text-muted {
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     color: hsl(var(--muted-foreground));
   }
   
   .light .glass-text-muted {
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7), 0 2px 3px rgba(0, 0, 0, 0.15);
     color: hsl(var(--muted-foreground));
   }
   
