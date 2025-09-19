@@ -69,10 +69,29 @@ export default function Login() {
             });
           }
         } else {
-          toast({
-            title: "Check your email",
-            description: "We've sent you a confirmation link to complete your signup."
-          });
+          // Check if user is immediately signed in (email confirmation disabled)
+          const { data: { session } } = await supabase.auth.getSession();
+          
+          if (session) {
+            // User is signed in, handle Electron app callback URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const callbackUrl = urlParams.get('callback');
+            
+            if (callbackUrl) {
+              const decodedCallback = decodeURIComponent(callbackUrl);
+              const authUrl = `${decodedCallback}?token=${session.access_token}&refresh_token=${session.refresh_token}`;
+              window.location.href = authUrl;
+              return;
+            }
+            
+            navigate("/dashboard");
+          } else {
+            // Email confirmation required
+            toast({
+              title: "Check your email",
+              description: "We've sent you a confirmation link to complete your signup."
+            });
+          }
         }
       } else {
         // Sign in flow
@@ -106,6 +125,22 @@ export default function Login() {
             title: "Welcome back!",
             description: "Successfully signed in."
           });
+          
+          // Handle Electron app callback URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const callbackUrl = urlParams.get('callback');
+          
+          if (callbackUrl) {
+            // Get the current session to extract tokens
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+              const decodedCallback = decodeURIComponent(callbackUrl);
+              const authUrl = `${decodedCallback}?token=${session.access_token}&refresh_token=${session.refresh_token}`;
+              window.location.href = authUrl;
+              return;
+            }
+          }
+          
           navigate("/dashboard");
         }
       }
