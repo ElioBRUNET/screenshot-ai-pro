@@ -25,7 +25,7 @@ export type Database = {
           screenshot_path: string | null
           sensitivity: string | null
           tasks: string[] | null
-          user_id: string | null
+          user_id: string
         }
         Insert: {
           app?: string | null
@@ -37,7 +37,7 @@ export type Database = {
           screenshot_path?: string | null
           sensitivity?: string | null
           tasks?: string[] | null
-          user_id?: string | null
+          user_id: string
         }
         Update: {
           app?: string | null
@@ -49,7 +49,7 @@ export type Database = {
           screenshot_path?: string | null
           sensitivity?: string | null
           tasks?: string[] | null
-          user_id?: string | null
+          user_id?: string
         }
         Relationships: []
       }
