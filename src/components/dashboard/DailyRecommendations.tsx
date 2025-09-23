@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Lightbulb, Zap, Target, RefreshCw } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Lightbulb, Zap, Target, RefreshCw, Clock, Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useUser } from "@/hooks/useUser";
+import { useToast } from "@/hooks/use-toast";
 
 interface Recommendation {
   id: string;
@@ -15,154 +18,186 @@ interface Recommendation {
 }
 
 export function DailyRecommendations() {
-  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [loading, setLoading] = useState(false);
+  const [scheduledTime, setScheduledTime] = useState('09:00');
+  const [isScheduled, setIsScheduled] = useState(false);
   const { session } = useUser();
+  const { toast } = useToast();
 
-  useEffect(() => {
-    generateDailyRecommendations();
-  }, []);
+  const WEBHOOK_URL = 'https://hook.eu2.make.com/chfv1ioms0x5r1jpk88fer19i25uu85v';
 
-  const generateDailyRecommendations = async () => {
+  const triggerWebhook = async (isScheduled = false) => {
+    if (!session?.user?.id) {
+      toast({
+        title: "Error",
+        description: "Please log in to generate a report",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setLoading(true);
     try {
-      // For MVP, we'll show static recommendations
-      // In production, this would call an AI service based on user's daily activity
-      const mockRecommendations: Recommendation[] = [
-        {
-          id: '1',
-          title: 'Focus Time Block',
-          description: 'Schedule a 2-hour deep work session for your most important task today.',
-          category: 'Productivity',
-          priority: 'high'
-        },
-        {
-          id: '2',
-          title: 'Break Reminder',
-          description: 'Take a 5-minute break every 25 minutes to maintain focus and avoid burnout.',
-          category: 'Wellness',
-          priority: 'medium'
-        },
-        {
-          id: '3',
-          title: 'Communication Batch',
-          description: 'Check and respond to messages in dedicated time slots instead of constantly.',
-          category: 'Communication',
-          priority: 'medium'
-        },
-        {
-          id: '4',
-          title: 'Task Prioritization',
-          description: 'Use the Eisenhower Matrix to prioritize your tasks by urgency and importance.',
-          category: 'Organization',
-          priority: 'low'
-        }
-      ];
+      const payload = {
+        user_id: session.user.id,
+        date: new Date().toISOString().split('T')[0],
+        scheduled: isScheduled,
+        scheduled_time: isScheduled ? scheduledTime : null,
+        timestamp: new Date().toISOString()
+      };
 
-      setRecommendations(mockRecommendations);
+      console.log('Triggering webhook with payload:', payload);
+
+      const response = await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+        body: JSON.stringify(payload),
+      });
+
+      toast({
+        title: isScheduled ? "Schedule Set" : "Report Requested",
+        description: isScheduled 
+          ? `Daily report will be generated at ${scheduledTime}` 
+          : "Your report is being generated. Please wait a moment...",
+      });
+
+      if (isScheduled) {
+        setIsScheduled(true);
+      }
+
     } catch (error) {
-      console.error('Error generating recommendations:', error);
+      console.error("Error triggering webhook:", error);
+      toast({
+        title: "Error",
+        description: "Failed to process request. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return 'bg-red-500/20 text-red-300';
-      case 'medium': return 'bg-yellow-500/20 text-yellow-300';
-      case 'low': return 'bg-green-500/20 text-green-300';
-      default: return 'bg-white/20 glass-text';
-    }
+  const handleGetReportNow = () => {
+    triggerWebhook(false);
   };
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case 'Productivity': return Target;
-      case 'Wellness': return Lightbulb;
-      case 'Communication': return Zap;
-      default: return Lightbulb;
-    }
+  const handleScheduleReport = () => {
+    triggerWebhook(true);
   };
-
-  if (loading) {
-    return (
-      <div className="space-y-4">
-        <div className="animate-pulse">
-          <div className="h-4 bg-white/10 rounded w-1/4 mb-4"></div>
-          <div className="space-y-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-20 bg-white/5 rounded"></div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-heading glass-text-high-contrast">
-            Today's AI Recommendations
+            Daily AI Report
           </h2>
           <p className="text-sm glass-text-muted">
-            Personalized tips to boost your productivity
+            Schedule your daily productivity report or get it instantly
           </p>
         </div>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={generateDailyRecommendations}
-          disabled={loading}
-          className="glass-subtle border-0"
-        >
-          <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-          Refresh
-        </Button>
       </div>
 
-      <div className="space-y-4">
-        {recommendations.map((rec) => {
-          const IconComponent = getCategoryIcon(rec.category);
-          return (
-            <Card key={rec.id} className="glass-subtle border-0">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <IconComponent className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-base font-heading glass-text-high-contrast">
-                      {rec.title}
-                    </CardTitle>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge 
-                      variant="outline" 
-                      className={`text-xs border-0 ${getPriorityColor(rec.priority)}`}
-                    >
-                      {rec.priority}
-                    </Badge>
-                    <Badge variant="outline" className="text-xs glass-text-container border-0">
-                      {rec.category}
-                    </Badge>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="glass-text">{rec.description}</p>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </div>
-
+      {/* Report Control Panel */}
       <Card className="glass-subtle border-0">
-        <CardContent className="pt-6">
-          <div className="text-center">
-            <Zap className="mx-auto h-8 w-8 text-primary mb-2" />
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base font-heading glass-text-high-contrast">
+            <Clock className="h-5 w-5 text-primary" />
+            Report Settings
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Schedule Section */}
+            <div className="space-y-3">
+              <Label htmlFor="schedule-time" className="text-sm font-medium glass-text">
+                Schedule Daily Report
+              </Label>
+              <div className="flex items-center gap-2">
+                <Input
+                  id="schedule-time"
+                  type="time"
+                  value={scheduledTime}
+                  onChange={(e) => setScheduledTime(e.target.value)}
+                  className="flex-1"
+                />
+                <Button
+                  onClick={handleScheduleReport}
+                  disabled={loading}
+                  size="sm"
+                  variant="outline"
+                  className="glass-subtle border-0"
+                >
+                  {isScheduled ? 'Update' : 'Schedule'}
+                </Button>
+              </div>
+              {isScheduled && (
+                <p className="text-xs glass-text-muted">
+                  ✓ Report scheduled for {scheduledTime} daily
+                </p>
+              )}
+            </div>
+
+            {/* Instant Report Section */}
+            <div className="space-y-3">
+              <Label className="text-sm font-medium glass-text">
+                Get Report Now
+              </Label>
+              <Button
+                onClick={handleGetReportNow}
+                disabled={loading}
+                className="w-full glass-subtle border-0"
+                variant="outline"
+              >
+                {loading ? (
+                  <>
+                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    Generating Report...
+                  </>
+                ) : (
+                  <>
+                    <Download className="h-4 w-4 mr-2" />
+                    Generate Report Now
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Loading State */}
+      {loading && (
+        <Card className="glass-subtle border-0">
+          <CardContent className="pt-6">
+            <div className="text-center">
+              <RefreshCw className="mx-auto h-8 w-8 text-primary mb-2 animate-spin" />
+              <p className="text-sm glass-text-muted">
+                Processing your activity data and generating insights...
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Future Report Display Space */}
+      <Card className="glass-subtle border-0">
+        <CardHeader>
+          <CardTitle className="text-base font-heading glass-text-high-contrast">
+            Your Latest Report
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center py-8">
+            <Lightbulb className="mx-auto h-12 w-12 text-primary/50 mb-3" />
             <p className="text-sm glass-text-muted">
-              More personalized recommendations will appear as you use the app more.
+              Your personalized AI report will appear here once generated.
+            </p>
+            <p className="text-xs glass-text-muted mt-2">
+              Reports include activity analysis, productivity insights, and actionable recommendations.
             </p>
           </div>
         </CardContent>
