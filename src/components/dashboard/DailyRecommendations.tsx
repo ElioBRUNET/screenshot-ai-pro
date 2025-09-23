@@ -60,8 +60,9 @@ export function DailyRecommendations() {
       
       const { data, error } = await supabase
         .from('daily_recommendations' as any)
-        .select('*')
+        .select('id,user_id,work_date,recommendations,created_at')
         .eq('user_id', session.user.id)
+        .order('work_date', { ascending: false })
         .order('created_at', { ascending: false })
         .limit(1);
 
@@ -98,31 +99,41 @@ export function DailyRecommendations() {
 
   const parseRecommendations = (recommendationsData: any): ParsedRecommendation[] => {
     try {
-      // Handle different possible JSON structures
-      let parsedData = recommendationsData;
-      
-      if (typeof recommendationsData === 'string') {
-        parsedData = JSON.parse(recommendationsData);
+      let parsed: any = recommendationsData;
+
+      // Repeatedly try to parse if we receive double-encoded JSON strings
+      for (let i = 0; i < 3 && typeof parsed === 'string'; i++) {
+        let s = parsed.trim();
+        // Remove wrapping quotes (including triple quotes) if present
+        if ((s.startsWith('"""') && s.endsWith('"""')) || (s.startsWith('"') && s.endsWith('"'))) {
+          s = s.replace(/^"+|"+$/g, '');
+        }
+        try {
+          parsed = JSON.parse(s);
+        } catch (_) {
+          // Try unescaping escaped quotes and parse again
+          try {
+            parsed = JSON.parse(s.replace(/\\\"/g, '"'));
+          } catch (__) {
+            break;
+          }
+        }
       }
 
-      // Extract recommendations array from various possible structures
-      let recommendationsArray = [];
-      
-      if (Array.isArray(parsedData)) {
-        recommendationsArray = parsedData;
-      } else if (parsedData.suggestions && Array.isArray(parsedData.suggestions)) {
-        // Handle the specific structure in your data
-        recommendationsArray = parsedData.suggestions;
-      } else if (parsedData.recommendations && Array.isArray(parsedData.recommendations)) {
-        recommendationsArray = parsedData.recommendations;
-      } else if (parsedData.daily_tips && Array.isArray(parsedData.daily_tips)) {
-        recommendationsArray = parsedData.daily_tips;
-      } else if (typeof parsedData === 'object') {
-        // If it's an object with recommendation-like properties, treat it as a single recommendation
-        recommendationsArray = [parsedData];
+      let arr: any[] = [];
+      if (Array.isArray(parsed)) {
+        arr = parsed;
+      } else if (parsed?.suggestions && Array.isArray(parsed.suggestions)) {
+        arr = parsed.suggestions;
+      } else if (parsed?.recommendations && Array.isArray(parsed.recommendations)) {
+        arr = parsed.recommendations;
+      } else if (parsed?.daily_tips && Array.isArray(parsed.daily_tips)) {
+        arr = parsed.daily_tips;
+      } else if (parsed && typeof parsed === 'object') {
+        arr = [parsed];
       }
 
-      return recommendationsArray.map((rec: any, index: number) => ({
+      return arr.map((rec: any, index: number) => ({
         id: rec.id || `rec-${index}`,
         title: rec.task || rec.title || rec.tip || rec.recommendation || 'Productivity Tip',
         description: rec.recommendation || rec.description || rec.details || rec.content || 'No description available',
@@ -134,7 +145,7 @@ export function DailyRecommendations() {
         actionSteps: rec.how_to_apply || rec.actionSteps || rec.action_steps || rec.steps || []
       }));
     } catch (error) {
-      console.error('Error parsing recommendations:', error);
+      console.error('Error parsing recommendations:', error, recommendationsData);
       return [];
     }
   };
