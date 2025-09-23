@@ -39,17 +39,11 @@ export function DailyRecommendations() {
     setLoading(true);
     try {
       const payload = {
-        user_data: {
-          uid: session.user.id
-        },
-        date_info: {
-          date: new Date().toISOString().split('T')[0]
-        },
-        request_details: {
-          scheduled: isScheduled,
-          scheduled_time: isScheduled ? scheduledTime : null,
-          timestamp: new Date().toISOString()
-        }
+        uid: session.user.id,
+        date: new Date().toISOString().split('T')[0],
+        scheduled: isScheduled,
+        scheduled_time: isScheduled ? scheduledTime : null,
+        timestamp: new Date().toISOString()
       };
 
       console.log('Triggering webhook with payload:', payload);
