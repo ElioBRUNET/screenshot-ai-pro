@@ -7,10 +7,9 @@ import { useUser } from "@/hooks/useUser";
 
 interface ActivityData {
   id: string;
-  app: string;
-  captured_at: string;
-  primary_activity: string | null;
-  tasks: string[] | null;
+  user_id: string;
+  ai_analysis: string;
+  created_at: string;
 }
 
 export function ActivitySummary() {
@@ -28,13 +27,13 @@ export function ActivitySummary() {
     try {
       const today = new Date().toISOString().split('T')[0];
       const { data, error } = await supabase
-        .from('activities')
+        .from('ai_analyses' as any)
         .select('*')
         .eq('user_id', session?.user?.id)
-        .gte('captured_at', `${today}T00:00:00`)
-        .lt('captured_at', `${today}T23:59:59`)
-        .order('captured_at', { ascending: false })
-        .limit(10);
+        .gte('created_at', `${today}T00:00:00`)
+        .lt('created_at', `${today}T23:59:59`)
+        .order('created_at', { ascending: false })
+        .limit(10) as any;
 
       if (error) throw error;
       setActivities(data || []);
@@ -52,9 +51,8 @@ export function ActivitySummary() {
     });
   };
 
-  const getUniqueApps = () => {
-    const apps = activities.map(a => a.app);
-    return [...new Set(apps)];
+  const getAnalysisCount = () => {
+    return activities.length;
   };
 
   if (loading) {
@@ -89,12 +87,12 @@ export function ActivitySummary() {
   return (
     <div className="space-y-6">
       {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card className="bg-background border border-border">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
-              <MousePointer className="h-4 w-4 text-accent" />
-              Screenshots Today
+              <Activity className="h-4 w-4 text-accent" />
+              AI Analyses Today
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -107,27 +105,13 @@ export function ActivitySummary() {
         <Card className="bg-background border border-border">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
-              <Activity className="h-4 w-4 text-accent" />
-              Apps Used
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-heading text-foreground">
-              {getUniqueApps().length}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-background border border-border">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
               <Clock className="h-4 w-4 text-accent" />
-              Last Activity
+              Last Analysis
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-heading text-foreground">
-              {activities.length > 0 ? formatTime(activities[0].captured_at) : '--'}
+              {activities.length > 0 ? formatTime(activities[0].created_at) : '--'}
             </div>
           </CardContent>
         </Card>
@@ -142,29 +126,15 @@ export function ActivitySummary() {
         </CardHeader>
         <CardContent className="space-y-3">
           {activities.slice(0, 5).map((activity) => (
-            <div key={activity.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 border border-border">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <Badge variant="outline" className="text-xs text-accent border-accent bg-accent/10">
-                    {activity.app}
-                  </Badge>
-                  <span className="text-xs text-muted-foreground">
-                    {formatTime(activity.captured_at)}
-                  </span>
-                </div>
-                {activity.primary_activity && (
-                  <p className="text-sm text-foreground">{activity.primary_activity}</p>
-                )}
-                {activity.tasks && activity.tasks.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mt-1">
-                    {activity.tasks.slice(0, 3).map((task, index) => (
-                      <span key={index} className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                        {task}
-                      </span>
-                    ))}
-                  </div>
-                )}
+            <div key={activity.id} className="p-3 rounded-lg bg-muted/30 border border-border">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs text-muted-foreground">
+                  {formatTime(activity.created_at)}
+                </span>
               </div>
+              <p className="text-sm text-foreground leading-relaxed">
+                {activity.ai_analysis}
+              </p>
             </div>
           ))}
         </CardContent>
