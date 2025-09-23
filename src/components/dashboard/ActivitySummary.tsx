@@ -61,8 +61,8 @@ export function ActivitySummary() {
     return (
       <div className="space-y-4">
         <div className="animate-pulse">
-          <div className="h-4 bg-white/10 rounded w-1/4 mb-2"></div>
-          <div className="h-20 bg-white/5 rounded"></div>
+          <div className="h-4 bg-muted rounded w-1/4 mb-2"></div>
+          <div className="h-20 bg-muted/50 rounded"></div>
         </div>
       </div>
     );
@@ -70,14 +70,14 @@ export function ActivitySummary() {
 
   if (!activities.length) {
     return (
-      <Card className="glass-subtle border-0">
+      <Card className="bg-background border border-border">
         <CardContent className="pt-6">
           <div className="text-center py-8">
-            <Activity className="mx-auto h-12 w-12 glass-text-muted mb-4" />
-            <h3 className="text-lg font-heading glass-text-high-contrast mb-2">
+            <Activity className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
+            <h3 className="text-lg font-heading text-foreground mb-2">
               No Activity Data Yet
             </h3>
-            <p className="glass-text-muted">
+            <p className="text-muted-foreground">
               Start your productivity tracking app to see your daily activity summary here.
             </p>
           </div>
@@ -90,43 +90,43 @@ export function ActivitySummary() {
     <div className="space-y-6">
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="glass-subtle border-0">
+        <Card className="bg-background border border-border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm glass-text-muted flex items-center gap-2">
-              <MousePointer className="h-4 w-4" />
+            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+              <MousePointer className="h-4 w-4 text-accent" />
               Screenshots Today
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-heading glass-text-high-contrast">
+            <div className="text-2xl font-heading text-foreground">
               {activities.length}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="glass-subtle border-0">
+        <Card className="bg-background border border-border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm glass-text-muted flex items-center gap-2">
-              <Activity className="h-4 w-4" />
+            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+              <Activity className="h-4 w-4 text-accent" />
               Apps Used
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-heading glass-text-high-contrast">
+            <div className="text-2xl font-heading text-foreground">
               {getUniqueApps().length}
             </div>
           </CardContent>
         </Card>
 
-        <Card className="glass-subtle border-0">
+        <Card className="bg-background border border-border">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm glass-text-muted flex items-center gap-2">
-              <Clock className="h-4 w-4" />
+            <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
+              <Clock className="h-4 w-4 text-accent" />
               Last Activity
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-heading glass-text-high-contrast">
+            <div className="text-2xl font-heading text-foreground">
               {activities.length > 0 ? formatTime(activities[0].captured_at) : '--'}
             </div>
           </CardContent>
@@ -134,31 +134,31 @@ export function ActivitySummary() {
       </div>
 
       {/* Recent Activities */}
-      <Card className="glass-subtle border-0">
+      <Card className="bg-background border border-border">
         <CardHeader>
-          <CardTitle className="font-heading glass-text-high-contrast">
+          <CardTitle className="font-heading text-foreground">
             Recent Activity
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           {activities.slice(0, 5).map((activity) => (
-            <div key={activity.id} className="flex items-center justify-between p-3 rounded-lg glass-subtle">
+            <div key={activity.id} className="flex items-center justify-between p-3 rounded-lg bg-muted/30 border border-border">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
-                  <Badge variant="outline" className="text-xs glass-text-container border-0">
+                  <Badge variant="outline" className="text-xs text-accent border-accent bg-accent/10">
                     {activity.app}
                   </Badge>
-                  <span className="text-xs glass-text-muted">
+                  <span className="text-xs text-muted-foreground">
                     {formatTime(activity.captured_at)}
                   </span>
                 </div>
                 {activity.primary_activity && (
-                  <p className="text-sm glass-text">{activity.primary_activity}</p>
+                  <p className="text-sm text-foreground">{activity.primary_activity}</p>
                 )}
                 {activity.tasks && activity.tasks.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-1">
                     {activity.tasks.slice(0, 3).map((task, index) => (
-                      <span key={index} className="text-xs glass-text-muted bg-white/5 px-2 py-1 rounded">
+                      <span key={index} className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
                         {task}
                       </span>
                     ))}
