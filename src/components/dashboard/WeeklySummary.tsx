@@ -39,22 +39,33 @@ export function WeeklySummary() {
       startOfWeek.setHours(0, 0, 0, 0);
 
       const { data: activities, error } = await supabase
-        .from('activities')
+        .from('ai_analyses')
         .select('*')
         .eq('user_id', session?.user?.id)
-        .gte('captured_at', startOfWeek.toISOString())
-        .order('captured_at', { ascending: false });
+        .gte('created_at', startOfWeek.toISOString())
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      // Calculate stats
-      const apps = activities?.map(a => a.app) || [];
+      // Calculate stats from AI analysis data
+      const apps: string[] = [];
+      activities?.forEach(activity => {
+        try {
+          const analysis = JSON.parse(activity.ai_analysis);
+          if (analysis.CONTEXT_ANALYSIS?.applications_visible) {
+            apps.push(...analysis.CONTEXT_ANALYSIS.applications_visible);
+          }
+        } catch (error) {
+          console.log('Error parsing AI analysis:', error);
+        }
+      });
+      
       const uniqueApps = [...new Set(apps)];
       const appCounts = apps.reduce((acc, app) => {
         acc[app] = (acc[app] || 0) + 1;
         return acc;
       }, {} as Record<string, number>);
-      const mostUsedApp = Object.entries(appCounts).sort(([,a], [,b]) => b - a)[0]?.[0] || 'None';
+      const mostUsedApp = Object.entries(appCounts).sort(([,a], [,b]) => (b as number) - (a as number))[0]?.[0] || 'None';
 
       setStats({
         totalScreenshots: activities?.length || 0,

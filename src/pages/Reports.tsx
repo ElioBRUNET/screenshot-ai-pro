@@ -45,10 +45,15 @@ export default function Reports() {
   const { toast } = useToast();
 
   const fetchDailyRecommendations = async () => {
-    if (!session?.user?.id) return;
+    if (!session?.user?.id) {
+      console.log('No user session available');
+      return;
+    }
 
     try {
       setLoading(true);
+      console.log('Fetching daily recommendations for user:', session.user.id);
+      
       const { data, error } = await supabase
         .from('daily_recommendations' as any)
         .select('*')
@@ -56,23 +61,43 @@ export default function Reports() {
         .order('created_at', { ascending: false })
         .limit(1);
 
+      console.log('Supabase query result:', { data, error });
+
       if (error) {
         console.error('Error fetching recommendations:', error);
         toast({
           title: "Error",
-          description: "Failed to fetch recommendations",
+          description: `Failed to fetch recommendations: ${error.message}`,
           variant: "destructive",
         });
         return;
       }
 
       if (data && data.length > 0) {
+        console.log('Found recommendations data:', data[0]);
         const dailyRec = data[0] as unknown as DailyRecommendation;
         const parsedRecommendations = parseRecommendations(dailyRec.recommendations);
+        console.log('Parsed recommendations:', parsedRecommendations);
         setRecommendations(parsedRecommendations);
+        toast({
+          title: "Success",
+          description: `Loaded ${parsedRecommendations.length} recommendations`,
+        });
+      } else {
+        console.log('No recommendations found for user');
+        setRecommendations([]);
+        toast({
+          title: "No Data",
+          description: "No daily recommendations found. Generate a report first.",
+        });
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Unexpected error:', error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -229,15 +254,17 @@ export default function Reports() {
       {/* AI Recommendations */}
       <Card className="glass-subtle border-0">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
-            <Lightbulb className="h-5 w-5 text-primary" />
-            <span>Daily AI Recommendations</span>
+          <CardTitle className="flex items-center justify-between glass-text-high-contrast">
+            <div className="flex items-center space-x-2">
+              <Lightbulb className="h-5 w-5 text-primary" />
+              <span>Daily AI Recommendations</span>
+            </div>
             <Button
               onClick={fetchDailyRecommendations}
               disabled={loading}
               size="sm"
               variant="ghost"
-              className="ml-auto"
+              className="glass-subtle border-0"
             >
               <RefreshCw className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             </Button>
