@@ -75,9 +75,16 @@ export function DailyRecommendations() {
       if (data && data.length > 0) {
         console.log('Found recommendations data:', data[0]);
         const dailyRec = data[0] as unknown as DailyRecommendation;
+        console.log('Raw recommendations field:', dailyRec.recommendations);
         const parsedRecommendations = parseRecommendations(dailyRec.recommendations);
         console.log('Parsed recommendations:', parsedRecommendations);
         setRecommendations(parsedRecommendations);
+        if (parsedRecommendations.length > 0) {
+          toast({
+            title: "Success",
+            description: `Loaded ${parsedRecommendations.length} recommendations`,
+          });
+        }
       } else {
         console.log('No recommendations found for user');
         setRecommendations([]);
@@ -103,6 +110,9 @@ export function DailyRecommendations() {
       
       if (Array.isArray(parsedData)) {
         recommendationsArray = parsedData;
+      } else if (parsedData.suggestions && Array.isArray(parsedData.suggestions)) {
+        // Handle the specific structure in your data
+        recommendationsArray = parsedData.suggestions;
       } else if (parsedData.recommendations && Array.isArray(parsedData.recommendations)) {
         recommendationsArray = parsedData.recommendations;
       } else if (parsedData.daily_tips && Array.isArray(parsedData.daily_tips)) {
@@ -114,14 +124,14 @@ export function DailyRecommendations() {
 
       return recommendationsArray.map((rec: any, index: number) => ({
         id: rec.id || `rec-${index}`,
-        title: rec.title || rec.tip || rec.recommendation || 'Productivity Tip',
-        description: rec.description || rec.details || rec.content || 'No description available',
-        impact: rec.impact || rec.priority || 'Medium',
-        timeToImplement: rec.timeToImplement || rec.time_required || rec.duration || '15 minutes',
-        category: rec.category || rec.topic || rec.area || 'General',
+        title: rec.task || rec.title || rec.tip || rec.recommendation || 'Productivity Tip',
+        description: rec.recommendation || rec.description || rec.details || rec.content || 'No description available',
+        impact: rec.impact || rec.priority || rec.difficulty || 'Medium',
+        timeToImplement: rec.timeToImplement || rec.time_required || rec.duration || rec.setup_time || '15 minutes',
+        category: rec.category || rec.topic || rec.area || rec.tool || 'General',
         status: rec.status || rec.implementation_status || 'New',
-        priority: rec.priority || rec.importance,
-        actionSteps: rec.actionSteps || rec.action_steps || rec.steps
+        priority: rec.priority || rec.importance || rec.difficulty || 'Medium',
+        actionSteps: rec.how_to_apply || rec.actionSteps || rec.action_steps || rec.steps || []
       }));
     } catch (error) {
       console.error('Error parsing recommendations:', error);
