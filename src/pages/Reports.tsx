@@ -145,7 +145,30 @@ export default function Reports() {
 
   useEffect(() => {
     fetchDailyRecommendations();
+    
+    // Set up periodic refresh to check for new recommendations
+    const intervalId = setInterval(() => {
+      fetchDailyRecommendations();
+    }, 60000); // Check every minute
+
+    return () => clearInterval(intervalId);
   }, [session]);
+
+  useEffect(() => {
+    // Listen for storage events to detect when a report was requested
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'reportRequested' && e.newValue === 'true') {
+        // Wait a bit then refresh
+        setTimeout(() => {
+          fetchDailyRecommendations();
+        }, 2000);
+        localStorage.removeItem('reportRequested');
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const renderValue = (value: any): string => {
     if (Array.isArray(value)) {

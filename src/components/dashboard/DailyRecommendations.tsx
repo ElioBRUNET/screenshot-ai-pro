@@ -57,15 +57,30 @@ export function DailyRecommendations() {
         body: JSON.stringify(payload),
       });
 
-      toast({
-        title: isScheduled ? "Schedule Set" : "Report Requested",
-        description: isScheduled 
-          ? `Daily report will be generated at ${scheduledTime}` 
-          : "Your report is being generated. Please wait a moment...",
-      });
-
       if (isScheduled) {
+        toast({
+          title: "Schedule Set",
+          description: `Daily report will be generated at ${scheduledTime}`,
+        });
         setIsScheduled(true);
+      } else {
+        toast({
+          title: "Report Requested",
+          description: "Your report is being generated. Check the Reports tab in 1-2 minutes to see your personalized recommendations.",
+          duration: 6000,
+        });
+        
+        // Signal that a report was requested for automatic refresh
+        localStorage.setItem('reportRequested', 'true');
+        
+        // Set up a delayed notification to remind user to check reports
+        setTimeout(() => {
+          toast({
+            title: "Report Ready",
+            description: "Your daily AI recommendations should be ready now. Check the Reports tab!",
+            duration: 8000,
+          });
+        }, 90000); // 1.5 minutes delay
       }
 
     } catch (error) {
