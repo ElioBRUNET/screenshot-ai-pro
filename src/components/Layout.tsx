@@ -24,68 +24,65 @@ export default function Layout() {
   };
 
   return (
-    <div className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
-      {/* Main Container */}
-      <div className="absolute inset-1 sm:inset-2 md:inset-3 lg:inset-4 glass-main rounded-2xl sm:rounded-3xl"></div>
-      
-      <div className="relative mx-auto max-w-6xl z-10">
-        {/* Header */}
-        <header className="mb-6 sm:mb-8">
-          <div className="glass rounded-xl sm:rounded-2xl p-4 sm:p-6 transition-smooth">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-4">
-                <Avatar className="h-10 w-10">
-                  <AvatarImage src={userData?.profilePicture} />
-                  <AvatarFallback className="bg-primary text-primary-foreground">
-                    {userData?.name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
-                  </AvatarFallback>
-                </Avatar>
-                <div>
-                  <h1 className="text-lg font-heading glass-text-high-contrast">{userData?.name || 'User'}</h1>
-                  <p className="text-sm glass-text-muted">{userData?.email || 'user@example.com'}</p>
+      <div className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8 bg-background">
+        <div className="relative mx-auto max-w-6xl">
+          {/* Header */}
+          <header className="mb-6 sm:mb-8">
+            <div className="bg-card border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <Avatar className="h-10 w-10">
+                    <AvatarImage src={userData?.profilePicture} />
+                    <AvatarFallback className="bg-primary text-primary-foreground">
+                      {userData?.name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h1 className="text-lg font-heading text-foreground font-medium">{userData?.name || 'User'}</h1>
+                    <p className="text-sm text-muted-foreground">{userData?.email || 'user@example.com'}</p>
+                  </div>
                 </div>
+                
+                {/* Navigation */}
+                <nav className="flex items-center space-x-2">
+                  {navigation.map((item) => {
+                    const isActive = location.pathname === item.href;
+                    return (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        className={cn(
+                          "flex items-center space-x-2 rounded-xl px-4 py-2 text-sm font-medium transition-colors",
+                          isActive
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        )}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.name}</span>
+                      </Link>
+                    );
+                  })}
+                  <ThemeToggle />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleLogout}
+                    className="h-9 w-9 p-0"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span className="sr-only">Logout</span>
+                  </Button>
+                </nav>
               </div>
-              
-              {/* Navigation */}
-              <nav className="flex items-center space-x-2">
-                {navigation.map((item) => {
-                  const isActive = location.pathname === item.href;
-                  return (
-                    <Link
-                      key={item.name}
-                      to={item.href}
-                      className={cn(
-                        "flex items-center space-x-2 rounded-xl px-4 py-2 text-sm font-medium transition-smooth",
-                        isActive
-                          ? "bg-white/20 backdrop-blur-sm glass-text-high-contrast"
-                          : "glass-text-muted hover:bg-white/10 hover:glass-text-high-contrast"
-                      )}
-                    >
-                      <item.icon className="h-4 w-4" />
-                      <span>{item.name}</span>
-                    </Link>
-                  );
-                })}
-                <ThemeToggle />
-                <Button
-                  variant="glass-subtle"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="h-9 w-9 p-0 transition-smooth"
-                >
-                  <LogOut className="h-4 w-4" />
-                  <span className="sr-only">Logout</span>
-                </Button>
-              </nav>
             </div>
-          </div>
-        </header>
+          </header>
 
-        {/* Main Content */}
-        <main>
-          <Outlet />
-        </main>
+          {/* Main Content */}
+          <main>
+            <Outlet />
+          </main>
+        </div>
       </div>
-    </div>
   );
 }
