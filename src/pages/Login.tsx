@@ -163,7 +163,7 @@ export default function Login() {
       <div className={`relative w-full max-w-md z-10 ${isSignUp ? 'px-4 sm:px-6 md:px-8 lg:px-12' : ''}`}>
         {/* Logo and Title */}
         <div className="mb-4 text-center">
-          <div className="mb-1 flex justify-center">
+          <div className="flex justify-center -m-4">
             <img src={owloLogo} alt="OWLO" className="h-72 w-72" />
           </div>
           <h1 className="text-3xl font-bold clean-text">
