@@ -1,6 +1,6 @@
 import { Outlet, useLocation, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Settings, BarChart3, Home, LogOut } from "lucide-react";
+import { Settings, Home, LogOut } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Reports", href: "/reports", icon: BarChart3 },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
@@ -28,7 +27,7 @@ export default function Layout() {
         <div className="relative mx-auto max-w-6xl">
           {/* Header */}
           <header className="mb-6 sm:mb-8">
-            <div className="clean-card rounded-xl p-4 sm:p-6">
+            <div className="clean-card rounded-2xl p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <Avatar className="h-10 w-10">

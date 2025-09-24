@@ -8,7 +8,7 @@ import { UserProvider } from "@/hooks/useUser";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
-import Reports from "./pages/Reports";
+
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
 
@@ -28,7 +28,6 @@ const App = () => (
               <Route path="/" element={<Layout />}>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="settings" element={<Settings />} />
-                <Route path="reports" element={<Reports />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>

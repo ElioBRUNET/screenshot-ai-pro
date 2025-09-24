@@ -9,7 +9,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="clean-card rounded-xl p-6 sm:p-8">
+      <div className="clean-card rounded-2xl p-6 sm:p-8">
         <div className="mb-6">
           <h1 className="text-2xl font-heading text-foreground font-medium mb-2">
             Dashboard
