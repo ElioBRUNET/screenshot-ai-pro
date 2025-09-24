@@ -167,7 +167,7 @@ export default function Login() {
         {/* Logo and Title */}
         <div className="mb-8 text-center">
           <div className="mb-6 flex justify-center">
-            <img src={owloLogo} alt="OWLO" className="h-24 w-24" />
+            <img src={owloLogo} alt="OWLO" className="h-72 w-72" />
           </div>
           <h1 className="text-3xl font-bold clean-text">
             {isSignUp ? "Get Started" : "Welcome Back"}
@@ -183,16 +183,16 @@ export default function Login() {
             <div className="space-y-2">
               <Label htmlFor="email" className="clean-text">Email</Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-primary" />
-                <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 clean-border" required />
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-primary z-10" />
+                <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 border border-border" required />
               </div>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="password" className="clean-text">Password</Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-primary" />
-                <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10 clean-border" required />
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-primary z-10" />
+                <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10 border border-border" required />
               </div>
             </div>
 
@@ -201,8 +201,8 @@ export default function Login() {
                 <div className="space-y-2">
                   <Label htmlFor="name" className="clean-text">Full Name</Label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-primary" />
-                    <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10 clean-border" required />
+                    <User className="absolute left-3 top-3 h-4 w-4 text-primary z-10" />
+                    <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10 border border-border" required />
                   </div>
                 </div>
 
