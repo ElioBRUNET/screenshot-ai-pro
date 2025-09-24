@@ -62,19 +62,19 @@ export default function Reports() {
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
-      case "High": return "bg-red-500";
-      case "Medium": return "bg-yellow-500";
-      case "Low": return "bg-green-500";
-      default: return "bg-gray-500";
+      case "High": return "bg-destructive text-destructive-foreground";
+      case "Medium": return "bg-secondary text-secondary-foreground";
+      case "Low": return "bg-primary text-primary-foreground";
+      default: return "bg-muted text-muted-foreground";
     }
   };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "New": return "bg-blue-500";
-      case "In Progress": return "bg-orange-500";
-      case "Completed": return "bg-green-500";
-      default: return "bg-gray-500";
+      case "New": return "bg-primary text-primary-foreground";
+      case "In Progress": return "bg-secondary text-secondary-foreground";
+      case "Completed": return "bg-accent text-accent-foreground";
+      default: return "bg-muted text-muted-foreground";
     }
   };
 
@@ -109,7 +109,7 @@ export default function Reports() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-sm glass-text-muted">{metric.label}</p>
-                <div className={`flex items-center text-xs ${metric.trend === 'up' ? 'text-green-400' : 'text-red-400'}`}>
+                <div className={`flex items-center text-xs ${metric.trend === 'up' ? 'text-primary' : 'text-destructive'}`}>
                   {metric.trend === 'up' ? (
                     <ArrowUp className="h-3 w-3 mr-1" />
                   ) : (
@@ -188,11 +188,11 @@ export default function Reports() {
               <div className="text-sm glass-text-muted">Total Recommendations</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-400 mb-1">8</div>
+              <div className="text-3xl font-bold text-primary mb-1">8</div>
               <div className="text-sm glass-text-muted">Implemented</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-orange-400 mb-1">23%</div>
+              <div className="text-3xl font-bold text-accent mb-1">23%</div>
               <div className="text-sm glass-text-muted">Avg. Productivity Gain</div>
             </div>
           </div>

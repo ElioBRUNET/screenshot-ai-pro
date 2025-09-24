@@ -104,10 +104,10 @@ export function WeeklySummary() {
 
   const getInsightColor = (type: string) => {
     switch (type) {
-      case 'achievement': return 'bg-green-500/20 text-green-300';
-      case 'improvement': return 'bg-blue-500/20 text-blue-300';
-      case 'trend': return 'bg-purple-500/20 text-purple-300';
-      default: return 'bg-white/20 glass-text';
+      case 'achievement': return 'bg-primary/20 text-primary';
+      case 'improvement': return 'bg-secondary text-secondary-foreground';
+      case 'trend': return 'bg-accent/20 text-accent-foreground';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -205,7 +205,7 @@ export function WeeklySummary() {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-1">
-                <TrendingUp className="h-4 w-4 text-green-400" />
+                <TrendingUp className="h-4 w-4 text-primary" />
                 <span className="text-lg font-heading glass-text-high-contrast capitalize">
                   {stats.productivityTrend}
                 </span>

@@ -64,7 +64,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, ToggleSwitchProps>(
               checked ? "opacity-100" : "opacity-0"
             )}
           >
-            <svg className="h-3 w-3 text-green-600" fill="currentColor" viewBox="0 0 12 12">
+            <svg className="h-3 w-3 text-primary" fill="currentColor" viewBox="0 0 12 12">
               <path d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2L5 9.414 9.707 4.707a1 1 0 00-1.414-1.414L5 6.586 2.293 3.879a1 1 0 00-1.414 1.414z" />
             </svg>
           </span>

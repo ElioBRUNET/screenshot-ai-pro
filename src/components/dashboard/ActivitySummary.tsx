@@ -210,8 +210,8 @@ export function ActivitySummary() {
             return (
               <div key={activity.id} className="space-y-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <Clock className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm text-gray-600">
+                  <Clock className="h-4 w-4 text-primary" />
+                  <span className="text-sm glass-text-muted">
                     Analysis from {formatTime(activity.created_at)}
                   </span>
                 </div>
