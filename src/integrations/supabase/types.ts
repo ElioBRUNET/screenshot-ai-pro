@@ -14,84 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      ai_analyses: {
+      activities: {
         Row: {
-          ai_analysis: string
-          created_at: string | null
-          id: number
-          user_id: string | null
-        }
-        Insert: {
-          ai_analysis: string
-          created_at?: string | null
-          id?: number
-          user_id?: string | null
-        }
-        Update: {
-          ai_analysis?: string
-          created_at?: string | null
-          id?: number
-          user_id?: string | null
-        }
-        Relationships: []
-      }
-      ai_knowledge_base: {
-        Row: {
-          category: string | null
-          content: string
-          created_at: string | null
-          embedding: string | null
-          id: number
-          published_date: string | null
-          relevance_tags: string[] | null
-          source_url: string | null
-          title: string
-        }
-        Insert: {
-          category?: string | null
-          content: string
-          created_at?: string | null
-          embedding?: string | null
-          id?: number
-          published_date?: string | null
-          relevance_tags?: string[] | null
-          source_url?: string | null
-          title: string
-        }
-        Update: {
-          category?: string | null
-          content?: string
-          created_at?: string | null
-          embedding?: string | null
-          id?: number
-          published_date?: string | null
-          relevance_tags?: string[] | null
-          source_url?: string | null
-          title?: string
-        }
-        Relationships: []
-      }
-      daily_recommendations: {
-        Row: {
+          app: string | null
+          captured_at: string | null
+          confidence: number | null
           created_at: string | null
           id: string
-          recommendations: Json
+          primary_activity: string | null
+          screenshot_path: string | null
+          sensitivity: string | null
+          tasks: string[] | null
           user_id: string
-          work_date: string
         }
         Insert: {
+          app?: string | null
+          captured_at?: string | null
+          confidence?: number | null
           created_at?: string | null
           id?: string
-          recommendations: Json
+          primary_activity?: string | null
+          screenshot_path?: string | null
+          sensitivity?: string | null
+          tasks?: string[] | null
           user_id: string
-          work_date: string
         }
         Update: {
+          app?: string | null
+          captured_at?: string | null
+          confidence?: number | null
           created_at?: string | null
           id?: string
-          recommendations?: Json
+          primary_activity?: string | null
+          screenshot_path?: string | null
+          sensitivity?: string | null
+          tasks?: string[] | null
           user_id?: string
-          work_date?: string
         }
         Relationships: []
       }
@@ -100,98 +58,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      binary_quantize: {
-        Args: { "": string } | { "": unknown }
-        Returns: unknown
-      }
-      halfvec_avg: {
-        Args: { "": number[] }
-        Returns: unknown
-      }
-      halfvec_out: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      halfvec_send: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      halfvec_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
-      hnsw_bit_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnsw_halfvec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnsw_sparsevec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      hnswhandler: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflat_bit_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflat_halfvec_support: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      ivfflathandler: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      l2_norm: {
-        Args: { "": unknown } | { "": unknown }
-        Returns: number
-      }
-      l2_normalize: {
-        Args: { "": string } | { "": unknown } | { "": unknown }
-        Returns: string
-      }
-      sparsevec_out: {
-        Args: { "": unknown }
-        Returns: unknown
-      }
-      sparsevec_send: {
-        Args: { "": unknown }
-        Returns: string
-      }
-      sparsevec_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
-      vector_avg: {
-        Args: { "": number[] }
-        Returns: string
-      }
-      vector_dims: {
-        Args: { "": string } | { "": unknown }
-        Returns: number
-      }
-      vector_norm: {
-        Args: { "": string }
-        Returns: number
-      }
-      vector_out: {
-        Args: { "": string }
-        Returns: unknown
-      }
-      vector_send: {
-        Args: { "": string }
-        Returns: string
-      }
-      vector_typmod_in: {
-        Args: { "": unknown[] }
-        Returns: number
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never

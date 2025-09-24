@@ -17,193 +17,14 @@ interface Recommendation {
   priority: 'high' | 'medium' | 'low';
 }
 
-interface DailyRecommendation {
-  id: string;
-  user_id: string;
-  work_date: string;
-  recommendations: any;
-  created_at: string;
-}
-
-interface ParsedRecommendation {
-  id: string;
-  title: string;
-  description: string;
-  impact: string;
-  timeToImplement: string;
-  category: string;
-  status: string;
-  priority?: string;
-  actionSteps?: string[];
-}
-
 export function DailyRecommendations() {
   const [loading, setLoading] = useState(false);
-  const [recommendationsLoading, setRecommendationsLoading] = useState(false);
   const [scheduledTime, setScheduledTime] = useState('09:00');
   const [isScheduled, setIsScheduled] = useState(false);
-  const [recommendations, setRecommendations] = useState<ParsedRecommendation[]>([]);
   const { session } = useUser();
   const { toast } = useToast();
 
   const WEBHOOK_URL = 'https://hook.eu2.make.com/chfv1ioms0x5r1jpk88fer19i25uu85v';
-
-  const fetchDailyRecommendations = async () => {
-    if (!session?.user?.id) {
-      console.log('No user session available');
-      return;
-    }
-
-    try {
-      setRecommendationsLoading(true);
-      console.log('Fetching daily recommendations for user:', session.user.id);
-      
-      const { data, error } = await supabase
-        .from('daily_recommendations' as any)
-        .select('id,user_id,work_date,recommendations,created_at')
-        .eq('user_id', session.user.id)
-        .order('work_date', { ascending: false })
-        .order('created_at', { ascending: false })
-        .limit(1);
-
-      console.log('Supabase query result:', { data, error });
-
-      if (error) {
-        console.error('Error fetching recommendations:', error);
-        return;
-      }
-
-      if (data && data.length > 0) {
-        console.log('Found recommendations data:', data[0]);
-        const dailyRec = data[0] as unknown as DailyRecommendation;
-        console.log('Raw recommendations field:', dailyRec.recommendations);
-        const parsedRecommendations = parseRecommendations(dailyRec.recommendations);
-        console.log('Parsed recommendations:', parsedRecommendations);
-        setRecommendations(parsedRecommendations);
-        if (parsedRecommendations.length > 0) {
-          toast({
-            title: "Success",
-            description: `Loaded ${parsedRecommendations.length} recommendations`,
-          });
-        }
-      } else {
-        console.log('No recommendations found for user');
-        setRecommendations([]);
-      }
-    } catch (error) {
-      console.error('Unexpected error:', error);
-    } finally {
-      setRecommendationsLoading(false);
-    }
-  };
-
-  const parseRecommendations = (recommendationsData: any): ParsedRecommendation[] => {
-    try {
-      let parsed: any = recommendationsData;
-
-      // Repeatedly try to parse if we receive double-encoded JSON strings
-      for (let i = 0; i < 3 && typeof parsed === 'string'; i++) {
-        let s = parsed.trim();
-        // Remove wrapping quotes (including triple quotes) if present
-        if ((s.startsWith('"""') && s.endsWith('"""')) || (s.startsWith('"') && s.endsWith('"'))) {
-          s = s.replace(/^"+|"+$/g, '');
-        }
-        try {
-          parsed = JSON.parse(s);
-        } catch (_) {
-          // Try unescaping escaped quotes and parse again
-          try {
-            parsed = JSON.parse(s.replace(/\\\"/g, '"'));
-          } catch (__) {
-            break;
-          }
-        }
-      }
-
-      let arr: any[] = [];
-      if (Array.isArray(parsed)) {
-        arr = parsed;
-      } else if (parsed?.suggestions && Array.isArray(parsed.suggestions)) {
-        arr = parsed.suggestions;
-      } else if (parsed?.recommendations && Array.isArray(parsed.recommendations)) {
-        arr = parsed.recommendations;
-      } else if (parsed?.daily_tips && Array.isArray(parsed.daily_tips)) {
-        arr = parsed.daily_tips;
-      } else if (parsed && typeof parsed === 'object') {
-        arr = [parsed];
-      }
-
-      return arr.map((rec: any, index: number) => ({
-        id: rec.id || `rec-${index}`,
-        title: rec.task || rec.title || rec.tip || rec.recommendation || 'Productivity Tip',
-        description: rec.recommendation || rec.description || rec.details || rec.content || 'No description available',
-        impact: rec.impact || rec.priority || rec.difficulty || 'Medium',
-        timeToImplement: rec.timeToImplement || rec.time_required || rec.duration || rec.setup_time || '15 minutes',
-        category: rec.category || rec.topic || rec.area || rec.tool || 'General',
-        status: rec.status || rec.implementation_status || 'New',
-        priority: rec.priority || rec.importance || rec.difficulty || 'Medium',
-        actionSteps: rec.how_to_apply || rec.actionSteps || rec.action_steps || rec.steps || []
-      }));
-    } catch (error) {
-      console.error('Error parsing recommendations:', error, recommendationsData);
-      return [];
-    }
-  };
-
-  const renderValue = (value: any): string => {
-    if (Array.isArray(value)) {
-      return value.join(', ');
-    }
-    if (typeof value === 'object' && value !== null) {
-      return JSON.stringify(value, null, 2);
-    }
-    return String(value || '');
-  };
-
-  const getImpactColor = (impact: string) => {
-    switch (impact) {
-      case "High": return "bg-red-500";
-      case "Medium": return "bg-yellow-500";
-      case "Low": return "bg-green-500";
-      default: return "bg-gray-500";
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "New": return "bg-blue-500";
-      case "In Progress": return "bg-orange-500";
-      case "Completed": return "bg-green-500";
-      default: return "bg-gray-500";
-    }
-  };
-
-  useEffect(() => {
-    fetchDailyRecommendations();
-    
-    // Set up periodic refresh to check for new recommendations
-    const intervalId = setInterval(() => {
-      fetchDailyRecommendations();
-    }, 60000); // Check every minute
-
-    return () => clearInterval(intervalId);
-  }, [session]);
-
-  useEffect(() => {
-    // Listen for storage events to detect when a report was requested
-    const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'reportRequested' && e.newValue === 'true') {
-        // Wait a bit then refresh
-        setTimeout(() => {
-          fetchDailyRecommendations();
-        }, 2000);
-        localStorage.removeItem('reportRequested');
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
 
   const triggerWebhook = async (isScheduled = false) => {
     if (!session?.user?.id) {
@@ -236,30 +57,15 @@ export function DailyRecommendations() {
         body: JSON.stringify(payload),
       });
 
+      toast({
+        title: isScheduled ? "Schedule Set" : "Report Requested",
+        description: isScheduled 
+          ? `Daily report will be generated at ${scheduledTime}` 
+          : "Your report is being generated. Please wait a moment...",
+      });
+
       if (isScheduled) {
-        toast({
-          title: "Schedule Set",
-          description: `Daily report will be generated at ${scheduledTime}`,
-        });
         setIsScheduled(true);
-      } else {
-        toast({
-          title: "Report Requested",
-          description: "Your report is being generated. Check the 'Your Latest Report' section below in 1-2 minutes.",
-          duration: 6000,
-        });
-        
-        // Signal that a report was requested for automatic refresh
-        localStorage.setItem('reportRequested', 'true');
-        
-        // Set up a delayed notification to remind user to check reports
-        setTimeout(() => {
-          toast({
-            title: "Report Ready",
-            description: "Your daily AI recommendations should be ready now in the section below!",
-            duration: 8000,
-          });
-        }, 90000); // 1.5 minutes delay
       }
 
     } catch (error) {
@@ -377,97 +183,23 @@ export function DailyRecommendations() {
         </Card>
       )}
 
-      {/* Your Latest Report */}
+      {/* Future Report Display Space */}
       <Card className="glass-subtle border-0">
         <CardHeader>
-          <CardTitle className="flex items-center justify-between text-base font-heading glass-text-high-contrast">
-            <span>Your Latest Report</span>
-            <Button
-              onClick={fetchDailyRecommendations}
-              disabled={recommendationsLoading}
-              size="sm"
-              variant="ghost"
-              className="glass-subtle border-0"
-            >
-              <RefreshCw className={`h-4 w-4 ${recommendationsLoading ? 'animate-spin' : ''}`} />
-            </Button>
+          <CardTitle className="text-base font-heading glass-text-high-contrast">
+            Your Latest Report
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {recommendationsLoading ? (
-            <div className="text-center py-8">
-              <RefreshCw className="mx-auto h-8 w-8 text-primary mb-2 animate-spin" />
-              <p className="text-sm glass-text-muted">Loading your recommendations...</p>
-            </div>
-          ) : recommendations.length === 0 ? (
-            <div className="text-center py-8">
-              <Lightbulb className="mx-auto h-12 w-12 text-primary/50 mb-3" />
-              <p className="text-sm glass-text-muted">
-                Your personalized AI report will appear here once generated.
-              </p>
-              <p className="text-xs glass-text-muted mt-2">
-                Click "Generate Report Now" to create your daily recommendations.
-              </p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {recommendations.map((rec) => (
-                <Card key={rec.id} className="glass-subtle border-0">
-                  <CardContent className="p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="font-semibold glass-text-high-contrast mb-2">{rec.title}</h3>
-                        <p className="text-sm glass-text-muted mb-3 leading-relaxed">{rec.description}</p>
-                        
-                        {rec.actionSteps && rec.actionSteps.length > 0 && (
-                          <div className="mb-3">
-                            <h4 className="text-xs font-medium glass-text mb-1">Action Steps:</h4>
-                            <ul className="text-xs glass-text-muted space-y-1">
-                              {rec.actionSteps.map((step, index) => (
-                                <li key={index} className="flex items-start">
-                                  <span className="mr-2">•</span>
-                                  <span>{renderValue(step)}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                        
-                        <div className="flex items-center space-x-2 text-xs flex-wrap gap-2">
-                          <Badge className={`${getImpactColor(rec.impact)} text-white`}>
-                            {rec.impact} Impact
-                          </Badge>
-                          <Badge className={`${getStatusColor(rec.status)} text-white`}>
-                            {rec.status}
-                          </Badge>
-                          <span className="glass-text-muted flex items-center">
-                            <Clock className="h-3 w-3 mr-1" />
-                            {rec.timeToImplement}
-                          </span>
-                          <span className="glass-text-muted flex items-center">
-                            <Target className="h-3 w-3 mr-1" />
-                            {rec.category}
-                          </span>
-                          {rec.priority && (
-                            <Badge variant="outline" className="glass-text-muted border-current">
-                              Priority: {rec.priority}
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <Button 
-                        size="sm" 
-                        className="ml-4 glass-text-container glass-text-high-contrast border-0 shrink-0"
-                      >
-                        Implement
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+          <div className="text-center py-8">
+            <Lightbulb className="mx-auto h-12 w-12 text-primary/50 mb-3" />
+            <p className="text-sm glass-text-muted">
+              Your personalized AI report will appear here once generated.
+            </p>
+            <p className="text-xs glass-text-muted mt-2">
+              Reports include activity analysis, productivity insights, and actionable recommendations.
+            </p>
+          </div>
         </CardContent>
       </Card>
     </div>
