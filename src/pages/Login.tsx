@@ -160,13 +160,10 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
-      {/* Main Container - only show background for sign in */}
-      {!isSignUp && <div className="absolute inset-1 sm:inset-2 md:inset-3 lg:inset-4 clean-card rounded-2xl sm:rounded-3xl"></div>}
-      
       <div className={`relative w-full max-w-md z-10 ${isSignUp ? 'px-4 sm:px-6 md:px-8 lg:px-12' : ''}`}>
         {/* Logo and Title */}
         <div className="mb-8 text-center">
-          <div className="mb-6 flex justify-center">
+          <div className="mb-4 flex justify-center">
             <img src={owloLogo} alt="OWLO" className="h-72 w-72" />
           </div>
           <h1 className="text-3xl font-bold clean-text">
@@ -178,13 +175,13 @@ export default function Login() {
         </div>
 
         {/* Login Form */}
-        <div className={`clean-card rounded-xl sm:rounded-2xl transition-smooth ${isSignUp ? 'px-8 py-4 sm:px-10 sm:py-5 md:px-12 md:py-5' : 'px-6 py-4 sm:px-8 sm:py-5'}`}>
+        <div className={`clean-card rounded-3xl transition-smooth ${isSignUp ? 'px-8 py-4 sm:px-10 sm:py-5 md:px-12 md:py-5' : 'px-6 py-4 sm:px-8 sm:py-5'}`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="clean-text">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-primary z-10" />
-                <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 border border-border" required />
+                <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10 border border-border rounded-2xl" required />
               </div>
             </div>
 
@@ -192,7 +189,7 @@ export default function Login() {
               <Label htmlFor="password" className="clean-text">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-4 w-4 text-primary z-10" />
-                <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10 border border-border" required />
+                <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10 border border-border rounded-2xl" required />
               </div>
             </div>
 
@@ -202,7 +199,7 @@ export default function Login() {
                   <Label htmlFor="name" className="clean-text">Full Name</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-3 h-4 w-4 text-primary z-10" />
-                    <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10 border border-border" required />
+                    <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10 border border-border rounded-2xl" required />
                   </div>
                 </div>
 
@@ -222,7 +219,7 @@ export default function Login() {
               </>
             )}
 
-            <Button type="submit" disabled={isLoading} className="w-full transition-smooth">
+            <Button type="submit" disabled={isLoading} className="w-full transition-smooth rounded-2xl">
               {isLoading ? (isSignUp ? "Creating account..." : "Signing in...") : (isSignUp ? "Create Account" : "Sign In")}
             </Button>
           </form>
@@ -234,7 +231,7 @@ export default function Login() {
             <Button 
               type="button"
               variant="ghost"
-              className="mt-2"
+              className="mt-2 rounded-2xl"
               onClick={() => {
                 setIsSignUp(!isSignUp);
                 setName("");
