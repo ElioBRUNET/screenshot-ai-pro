@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Brain, Mail, Lock, User } from "lucide-react";
+import { Mail, Lock, User } from "lucide-react";
+import owloLogo from "@/assets/owlo-logo.svg";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/hooks/useUser";
 import { supabase } from "@/integrations/supabase/client";
@@ -165,6 +166,9 @@ export default function Login() {
       <div className={`relative w-full max-w-md z-10 ${isSignUp ? 'px-4 sm:px-6 md:px-8 lg:px-12' : ''}`}>
         {/* Logo and Title */}
         <div className="mb-8 text-center">
+          <div className="mb-6 flex justify-center">
+            <img src={owloLogo} alt="OWLO" className="h-16 w-16" />
+          </div>
           <h1 className="text-3xl font-bold clean-text">
             {isSignUp ? "Get Started" : "Welcome Back"}
           </h1>
@@ -177,29 +181,29 @@ export default function Login() {
         <div className={`clean-card rounded-xl sm:rounded-2xl transition-smooth ${isSignUp ? 'px-8 py-4 sm:px-10 sm:py-5 md:px-12 md:py-5' : 'px-6 py-4 sm:px-8 sm:py-5'}`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="clean-text">Email</Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10" required />
-              </div>
+              <Label htmlFor="email" className="clean-text flex items-center gap-2">
+                <Mail className="h-4 w-4 text-primary" />
+                Email
+              </Label>
+              <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} required />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="clean-text">Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10" required />
-              </div>
+              <Label htmlFor="password" className="clean-text flex items-center gap-2">
+                <Lock className="h-4 w-4 text-primary" />
+                Password
+              </Label>
+              <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} required />
             </div>
 
             {isSignUp && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="clean-text">Full Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10" required />
-                  </div>
+                  <Label htmlFor="name" className="clean-text flex items-center gap-2">
+                    <User className="h-4 w-4 text-primary" />
+                    Full Name
+                  </Label>
+                  <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} required />
                 </div>
 
                 <div className="space-y-2">
