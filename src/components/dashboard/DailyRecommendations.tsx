@@ -4,27 +4,101 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Lightbulb, Zap, Target, RefreshCw, Clock, Download } from "lucide-react";
+import { Lightbulb, Zap, Target, RefreshCw, Clock, Download, CheckCircle, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useUser } from "@/hooks/useUser";
 import { useToast } from "@/hooks/use-toast";
 
-interface Recommendation {
+interface DailyTip {
+  task: string;
+  recommendation: string;
+  how_to_apply: string[];
+}
+
+interface DailyRecommendation {
   id: string;
-  title: string;
-  description: string;
-  category: string;
-  priority: 'high' | 'medium' | 'low';
+  user_id: string;
+  work_date: string;
+  recommendations: {
+    suggestions: DailyTip[];
+  };
+  created_at: string;
 }
 
 export function DailyRecommendations() {
   const [loading, setLoading] = useState(false);
   const [scheduledTime, setScheduledTime] = useState('09:00');
   const [isScheduled, setIsScheduled] = useState(false);
+  const [dailyTips, setDailyTips] = useState<DailyTip[]>([]);
+  const [lastReportDate, setLastReportDate] = useState<string>("");
+  const [fetchingRecommendations, setFetchingRecommendations] = useState(false);
   const { session } = useUser();
   const { toast } = useToast();
 
   const WEBHOOK_URL = 'https://hook.eu2.make.com/chfv1ioms0x5r1jpk88fer19i25uu85v';
+
+  // Fetch daily recommendations from Supabase
+  const fetchDailyRecommendations = async () => {
+    if (!session?.user?.id) return;
+
+    setFetchingRecommendations(true);
+    try {
+      // Use raw query since daily_recommendations table may not be in types yet
+      const { data, error } = await supabase
+        .from('daily_recommendations' as any)
+        .select('*')
+        .eq('user_id', session.user.id)
+        .order('work_date', { ascending: false })
+        .limit(1);
+
+      if (error) {
+        console.error('Error fetching recommendations:', error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        const latestRecommendation = data[0] as any;
+        console.log('Raw recommendations data:', latestRecommendation.recommendations);
+        
+        // Parse the JSON recommendations
+        let parsedRecommendations;
+        if (typeof latestRecommendation.recommendations === 'string') {
+          // Handle multiple levels of JSON encoding
+          let jsonString = latestRecommendation.recommendations;
+          try {
+            // Keep parsing until we get an object
+            while (typeof jsonString === 'string') {
+              jsonString = JSON.parse(jsonString);
+            }
+            parsedRecommendations = jsonString;
+          } catch (e) {
+            console.error('Failed to parse recommendations JSON:', e);
+            return;
+          }
+        } else {
+          parsedRecommendations = latestRecommendation.recommendations;
+        }
+
+        console.log('Parsed recommendations:', parsedRecommendations);
+
+        if (parsedRecommendations?.suggestions && Array.isArray(parsedRecommendations.suggestions)) {
+          setDailyTips(parsedRecommendations.suggestions);
+          setLastReportDate(latestRecommendation.work_date);
+        }
+      }
+    } catch (error) {
+      console.error('Error in fetchDailyRecommendations:', error);
+    } finally {
+      setFetchingRecommendations(false);
+    }
+  };
+
+  // Fetch recommendations on component mount and when session changes
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchDailyRecommendations();
+    }
+  }, [session?.user?.id]);
 
   const triggerWebhook = async (isScheduled = false) => {
     if (!session?.user?.id) {
@@ -61,11 +135,18 @@ export function DailyRecommendations() {
         title: isScheduled ? "Schedule Set" : "Report Requested",
         description: isScheduled 
           ? `Daily report will be generated at ${scheduledTime}` 
-          : "Your report is being generated. Please wait a moment...",
+          : "Your report is being generated. Check back in a few moments...",
       });
 
       if (isScheduled) {
         setIsScheduled(true);
+      }
+
+      // Auto-refresh recommendations after a short delay for new reports
+      if (!isScheduled) {
+        setTimeout(() => {
+          fetchDailyRecommendations();
+        }, 5000);
       }
 
     } catch (error) {
@@ -183,23 +264,91 @@ export function DailyRecommendations() {
         </Card>
       )}
 
-      {/* Future Report Display Space */}
+      {/* Daily Tips Display */}
       <Card className="glass-subtle border-0">
         <CardHeader>
-          <CardTitle className="text-base font-heading glass-text-high-contrast">
-            Your Latest Report
-          </CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base font-heading glass-text-high-contrast">
+              Your Latest Report
+            </CardTitle>
+            <div className="flex items-center gap-2">
+              {lastReportDate && (
+                <span className="text-xs glass-text-muted">
+                  {new Date(lastReportDate).toLocaleDateString()}
+                </span>
+              )}
+              <Button
+                onClick={fetchDailyRecommendations}
+                disabled={fetchingRecommendations}
+                size="sm"
+                variant="ghost"
+                className="h-8 w-8 p-0"
+              >
+                <RefreshCw className={`h-4 w-4 ${fetchingRecommendations ? 'animate-spin' : ''}`} />
+              </Button>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-8">
-            <Lightbulb className="mx-auto h-12 w-12 text-primary/50 mb-3" />
-            <p className="text-sm glass-text-muted">
-              Your personalized AI report will appear here once generated.
-            </p>
-            <p className="text-xs glass-text-muted mt-2">
-              Reports include activity analysis, productivity insights, and actionable recommendations.
-            </p>
-          </div>
+          {fetchingRecommendations ? (
+            <div className="text-center py-8">
+              <RefreshCw className="mx-auto h-8 w-8 text-primary mb-2 animate-spin" />
+              <p className="text-sm glass-text-muted">Loading your latest recommendations...</p>
+            </div>
+          ) : dailyTips.length > 0 ? (
+            <div className="space-y-4">
+              {dailyTips.map((tip, index) => (
+                <Card key={index} className="glass-subtle border-0 p-4">
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="flex-shrink-0 mt-1">
+                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                          <Lightbulb className="h-4 w-4 text-primary" />
+                        </div>
+                      </div>
+                      <div className="flex-1 space-y-2">
+                        <h3 className="font-semibold glass-text-high-contrast text-sm">
+                          {tip.task}
+                        </h3>
+                        <p className="text-sm glass-text-muted leading-relaxed">
+                          {tip.recommendation}
+                        </p>
+                        
+                        {tip.how_to_apply && tip.how_to_apply.length > 0 && (
+                          <div className="space-y-2 mt-3">
+                            <div className="flex items-center gap-2">
+                              <Target className="h-4 w-4 text-primary" />
+                              <span className="text-sm font-medium glass-text">How to Apply:</span>
+                            </div>
+                            <div className="space-y-2 ml-6">
+                              {tip.how_to_apply.map((step, stepIndex) => (
+                                <div key={stepIndex} className="flex items-start gap-2">
+                                  <ArrowRight className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
+                                  <p className="text-xs glass-text-muted leading-relaxed">
+                                    {step}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <Lightbulb className="mx-auto h-12 w-12 text-primary/50 mb-3" />
+              <p className="text-sm glass-text-muted">
+                Your personalized AI report will appear here once generated.
+              </p>
+              <p className="text-xs glass-text-muted mt-2">
+                Reports include activity analysis, productivity insights, and actionable recommendations.
+              </p>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
