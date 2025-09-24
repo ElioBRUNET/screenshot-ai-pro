@@ -157,96 +157,94 @@ export function WeeklySummary() {
 
       {/* Weekly Stats */}
       {stats && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="clean-card">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm clean-text-muted">
+        <div className="border border-border/40 rounded-xl p-4 bg-muted/10">
+          <h3 className="text-sm font-medium text-foreground mb-4 flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-primary"></div>
+            Weekly Metrics
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="border border-border/30 rounded-lg p-4 bg-background/60">
+              <div className="text-sm clean-text-muted mb-2 flex items-center gap-2">
+                <BarChart3 className="h-4 w-4 text-primary" />
                 Total Screenshots
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
               <div className="text-2xl font-heading clean-text">
                 {stats.totalScreenshots}
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          <Card className="clean-card">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm clean-text-muted">
+            <div className="border border-border/30 rounded-lg p-4 bg-background/60">
+              <div className="text-sm clean-text-muted mb-2 flex items-center gap-2">
+                <Award className="h-4 w-4 text-primary" />
                 Apps Used
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
               <div className="text-2xl font-heading clean-text">
                 {stats.uniqueApps}
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          <Card className="clean-card">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm clean-text-muted">
+            <div className="border border-border/30 rounded-lg p-4 bg-background/60">
+              <div className="text-sm clean-text-muted mb-2 flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-primary" />
                 Most Used App
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
               <div className="text-lg font-heading clean-text truncate">
                 {stats.mostUsedApp}
               </div>
-            </CardContent>
-          </Card>
+            </div>
 
-          <Card className="clean-card">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm clean-text-muted">
+            <div className="border border-border/30 rounded-lg p-4 bg-background/60">
+              <div className="text-sm clean-text-muted mb-2 flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-primary" />
                 Trend
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+              </div>
               <div className="flex items-center gap-1">
                 <TrendingUp className="h-4 w-4 text-primary" />
                 <span className="text-lg font-heading clean-text capitalize">
                   {stats.productivityTrend}
                 </span>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
       )}
 
       {/* Weekly Insights */}
-      <div className="space-y-4">
-        <h3 className="text-base font-heading clean-text">
-          AI Insights & Recommendations
-        </h3>
-        
-        {insights.map((insight) => {
-          const IconComponent = getInsightIcon(insight.type);
-          return (
-            <Card key={insight.id} className="clean-card">
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
+      <div className="border border-border/40 rounded-xl bg-muted/10">
+        <div className="border-b border-border/30 p-4">
+          <h3 className="text-base font-heading clean-text flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-primary"></div>
+            AI Insights & Recommendations
+          </h3>
+        </div>
+        <div className="p-4 space-y-4">
+          {insights.map((insight) => {
+            const IconComponent = getInsightIcon(insight.type);
+            return (
+              <div key={insight.id} className="border border-border/30 rounded-lg p-4 bg-background/40">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-border/20">
                   <div className="flex items-center gap-2">
-                    <IconComponent className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-base font-heading clean-text">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center">
+                      <IconComponent className="h-4 w-4 text-primary" />
+                    </div>
+                    <h4 className="text-base font-heading clean-text">
                       {insight.title}
-                    </CardTitle>
+                    </h4>
                   </div>
                   <Badge 
                     variant="outline" 
-                    className={`text-xs ${getInsightColor(insight.type)}`}
+                    className={`text-xs border-border/40 ${getInsightColor(insight.type)}`}
                   >
                     {insight.type}
                   </Badge>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="clean-text">{insight.description}</p>
-              </CardContent>
-            </Card>
-          );
-        })}
+                <div className="border border-border/20 rounded-md p-3 bg-muted/20">
+                  <p className="clean-text text-sm leading-relaxed">{insight.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {!stats?.totalScreenshots && (

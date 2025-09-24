@@ -298,32 +298,45 @@ export function DailyRecommendations() {
           ) : dailyTips.length > 0 ? (
             <div className="space-y-4">
               {dailyTips.map((tip, index) => (
-                <Card key={index} className="clean-card p-4">
-                  <div className="space-y-3">
+                <div key={index} className="border border-border/40 rounded-xl p-5 bg-muted/10">
+                  <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <div className="flex-shrink-0 mt-1">
-                        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
                           <Lightbulb className="h-4 w-4 text-primary" />
                         </div>
                       </div>
-                      <div className="flex-1 space-y-2">
-                        <h3 className="font-semibold clean-text text-sm">
-                          {tip.task}
-                        </h3>
-                        <p className="text-sm clean-text-muted leading-relaxed">
-                          {tip.recommendation}
-                        </p>
+                      <div className="flex-1 space-y-3">
+                        <div className="border border-border/30 rounded-lg p-3 bg-background/60">
+                          <h3 className="font-semibold clean-text text-sm mb-1 text-primary">
+                            Task Focus
+                          </h3>
+                          <p className="text-sm clean-text">
+                            {tip.task}
+                          </p>
+                        </div>
+                        
+                        <div className="border border-border/30 rounded-lg p-3 bg-background/60">
+                          <h4 className="font-medium clean-text text-xs mb-2 text-muted-foreground uppercase tracking-wide">
+                            AI Recommendation
+                          </h4>
+                          <p className="text-sm clean-text-muted leading-relaxed">
+                            {tip.recommendation}
+                          </p>
+                        </div>
                         
                         {tip.how_to_apply && tip.how_to_apply.length > 0 && (
-                          <div className="space-y-2 mt-3">
-                            <div className="flex items-center gap-2">
+                          <div className="border border-border/30 rounded-lg p-3 bg-primary/5">
+                            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border/20">
                               <Target className="h-4 w-4 text-primary" />
-                              <span className="text-sm font-medium clean-text">How to Apply:</span>
+                              <span className="text-sm font-medium clean-text">Action Steps</span>
                             </div>
-                            <div className="space-y-2 ml-6">
+                            <div className="space-y-2">
                               {tip.how_to_apply.map((step, stepIndex) => (
-                                <div key={stepIndex} className="flex items-start gap-2">
-                                  <ArrowRight className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
+                                <div key={stepIndex} className="flex items-start gap-3 p-2 border border-border/20 rounded-md bg-background/40">
+                                  <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span className="text-xs text-primary font-medium">{stepIndex + 1}</span>
+                                  </div>
                                   <p className="text-xs clean-text-muted leading-relaxed">
                                     {step}
                                   </p>
@@ -335,7 +348,7 @@ export function DailyRecommendations() {
                       </div>
                     </div>
                   </div>
-                </Card>
+                </div>
               ))}
             </div>
           ) : (
