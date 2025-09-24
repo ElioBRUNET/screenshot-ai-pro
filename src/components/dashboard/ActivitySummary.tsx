@@ -111,7 +111,7 @@ export function ActivitySummary() {
           if (!sectionData) return null;
 
           return (
-            <Card key={key} className="bg-background border border-border">
+            <Card key={key} className="clean-card">
               <CardHeader className="pb-3">
                 <CardTitle className="text-lg font-heading text-foreground">
                   {title}
@@ -147,7 +147,7 @@ export function ActivitySummary() {
 
   if (!activities.length) {
     return (
-      <Card className="bg-background border border-border">
+      <Card className="clean-card">
         <CardContent className="pt-6">
           <div className="text-center py-8">
             <Activity className="mx-auto h-12 w-12 text-muted-foreground mb-4" />
@@ -167,7 +167,7 @@ export function ActivitySummary() {
     <div className="space-y-6">
       {/* Quick Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="bg-background border border-border">
+        <Card className="clean-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
               <Activity className="h-4 w-4 text-accent" />
@@ -181,7 +181,7 @@ export function ActivitySummary() {
           </CardContent>
         </Card>
 
-        <Card className="bg-background border border-border">
+        <Card className="clean-card">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground flex items-center gap-2">
               <Clock className="h-4 w-4 text-accent" />
@@ -197,7 +197,7 @@ export function ActivitySummary() {
       </div>
 
       {/* Recent Activities */}
-      <Card className="bg-background border border-border">
+      <Card className="clean-card">
         <CardHeader>
           <CardTitle className="font-heading text-foreground">
             Recent Activity
@@ -211,7 +211,7 @@ export function ActivitySummary() {
               <div key={activity.id} className="space-y-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Clock className="h-4 w-4 text-primary" />
-                  <span className="text-sm glass-text-muted">
+                  <span className="text-sm clean-text-muted">
                     Analysis from {formatTime(activity.created_at)}
                   </span>
                 </div>
@@ -219,15 +219,15 @@ export function ActivitySummary() {
                 {parsedData ? (
                   renderAnalysisSection(parsedData)
                 ) : (
-                  <div className="p-3 rounded-lg bg-gray-50 border border-gray-200">
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                  <div className="p-3 rounded-lg clean-card">
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {activity.ai_analysis}
                     </p>
                   </div>
                 )}
                 
                 {activities.indexOf(activity) < activities.length - 1 && (
-                  <div className="border-b border-gray-200 my-4"></div>
+                  <div className="border-b border-border my-4"></div>
                 )}
               </div>
             );

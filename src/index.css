@@ -147,31 +147,23 @@
     min-height: 100vh;
   }
   
-  /* Clean card styles - responsive to theme */
-  .glass, .glass-subtle, .glass-main {
+  /* Clean card styles - minimal borders only */
+  .clean-card {
     background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
-  .dark .glass,
-  .dark .glass-subtle,
-  .dark .glass-main {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  .clean-border {
+    border: 1px solid hsl(var(--border));
   }
   
   /* Simple text utilities */
-  .glass-text, .glass-text-high-contrast {
+  .clean-text {
     color: hsl(var(--foreground));
   }
   
-  .glass-text-muted {
+  .clean-text-muted {
     color: hsl(var(--muted-foreground));
-  }
-  
-  .glass-text-container {
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
   }
   
   /* Typography utilities */

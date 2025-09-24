@@ -81,20 +81,20 @@ export default function Reports() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="glass rounded-2xl p-6">
+      <div className="clean-card rounded-2xl p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold glass-text-high-contrast mb-2">AI Insights & Reports</h1>
-            <p className="glass-text-muted">
+            <h1 className="text-2xl font-bold clean-text mb-2">AI Insights & Reports</h1>
+            <p className="clean-text-muted">
               Personalized recommendations based on your workflow analysis
             </p>
           </div>
           <div className="flex space-x-2">
-            <Button variant="outline" className="glass-text-container glass-text border-0">
+            <Button variant="outline">
               <Calendar className="h-4 w-4 mr-2" />
               This Week
             </Button>
-            <Button variant="outline" className="glass-text-container glass-text border-0">
+            <Button variant="outline">
               <Download className="h-4 w-4 mr-2" />
               Export
             </Button>
@@ -105,10 +105,10 @@ export default function Reports() {
       {/* Weekly Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {weeklyMetrics.map((metric) => (
-          <Card key={metric.label} className="glass-subtle border-0">
+          <Card key={metric.label} className="clean-card">
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm glass-text-muted">{metric.label}</p>
+                <p className="text-sm clean-text-muted">{metric.label}</p>
                 <div className={`flex items-center text-xs ${metric.trend === 'up' ? 'text-primary' : 'text-destructive'}`}>
                   {metric.trend === 'up' ? (
                     <ArrowUp className="h-3 w-3 mr-1" />
@@ -119,7 +119,7 @@ export default function Reports() {
                 </div>
               </div>
               <div className="space-y-2">
-                <div className="text-2xl font-bold glass-text-high-contrast">{metric.value}%</div>
+                <div className="text-2xl font-bold clean-text">{metric.value}%</div>
                 <Progress value={metric.value} className="h-2" />
               </div>
             </CardContent>
@@ -128,20 +128,20 @@ export default function Reports() {
       </div>
 
       {/* AI Recommendations */}
-      <Card className="glass-subtle border-0">
+      <Card className="clean-card">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
+          <CardTitle className="flex items-center space-x-2 clean-text">
             <Lightbulb className="h-5 w-5 text-primary" />
             <span>AI Recommendations</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {recommendations.map((rec) => (
-            <div key={rec.id} className="glass-subtle rounded-lg p-4 space-y-3">
+            <div key={rec.id} className="clean-card rounded-lg p-4 space-y-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold glass-text-high-contrast mb-1">{rec.title}</h3>
-                  <p className="text-sm glass-text-muted mb-2">{rec.description}</p>
+                  <h3 className="font-semibold clean-text mb-1">{rec.title}</h3>
+                  <p className="text-sm clean-text-muted mb-2">{rec.description}</p>
                   
                   <div className="flex items-center space-x-2 text-xs">
                     <Badge className={`${getImpactColor(rec.impact)} text-white`}>
@@ -150,11 +150,11 @@ export default function Reports() {
                     <Badge className={`${getStatusColor(rec.status)} text-white`}>
                       {rec.status}
                     </Badge>
-                    <span className="glass-text-muted flex items-center">
+                    <span className="clean-text-muted flex items-center">
                       <Clock className="h-3 w-3 mr-1" />
                       {rec.timeToImplement}
                     </span>
-                    <span className="glass-text-muted flex items-center">
+                    <span className="clean-text-muted flex items-center">
                       <Target className="h-3 w-3 mr-1" />
                       {rec.category}
                     </span>
@@ -163,7 +163,7 @@ export default function Reports() {
                 
                 <Button 
                   size="sm" 
-                  className="ml-4 glass-text-container glass-text-high-contrast border-0"
+                  className="ml-4"
                 >
                   Implement
                 </Button>
@@ -174,9 +174,9 @@ export default function Reports() {
       </Card>
 
       {/* Implementation Progress */}
-      <Card className="glass-subtle border-0">
+      <Card className="clean-card">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
+          <CardTitle className="flex items-center space-x-2 clean-text">
             <TrendingUp className="h-5 w-5 text-primary" />
             <span>Implementation Progress</span>
           </CardTitle>
@@ -184,16 +184,16 @@ export default function Reports() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold glass-text-high-contrast mb-1">12</div>
-              <div className="text-sm glass-text-muted">Total Recommendations</div>
+              <div className="text-3xl font-bold clean-text mb-1">12</div>
+              <div className="text-sm clean-text-muted">Total Recommendations</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-1">8</div>
-              <div className="text-sm glass-text-muted">Implemented</div>
+              <div className="text-sm clean-text-muted">Implemented</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-accent mb-1">23%</div>
-              <div className="text-sm glass-text-muted">Avg. Productivity Gain</div>
+              <div className="text-sm clean-text-muted">Avg. Productivity Gain</div>
             </div>
           </div>
         </CardContent>

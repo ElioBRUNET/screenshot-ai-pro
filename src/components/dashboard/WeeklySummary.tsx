@@ -135,11 +135,11 @@ export function WeeklySummary() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-heading glass-text-high-contrast flex items-center gap-2">
+          <h2 className="text-lg font-heading clean-text flex items-center gap-2">
             <Calendar className="h-5 w-5" />
             Weekly Summary
           </h2>
-          <p className="text-sm glass-text-muted">
+          <p className="text-sm clean-text-muted">
             Your productivity insights for this week
           </p>
         </div>
@@ -148,7 +148,7 @@ export function WeeklySummary() {
           size="sm" 
           onClick={generateWeeklySummary}
           disabled={loading}
-          className="glass-subtle border-0"
+          className="clean-card"
         >
           <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -158,55 +158,55 @@ export function WeeklySummary() {
       {/* Weekly Stats */}
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="glass-subtle border-0">
+          <Card className="clean-card">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm glass-text-muted">
+              <CardTitle className="text-sm clean-text-muted">
                 Total Screenshots
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-heading glass-text-high-contrast">
+              <div className="text-2xl font-heading clean-text">
                 {stats.totalScreenshots}
               </div>
             </CardContent>
           </Card>
 
-          <Card className="glass-subtle border-0">
+          <Card className="clean-card">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm glass-text-muted">
+              <CardTitle className="text-sm clean-text-muted">
                 Apps Used
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-heading glass-text-high-contrast">
+              <div className="text-2xl font-heading clean-text">
                 {stats.uniqueApps}
               </div>
             </CardContent>
           </Card>
 
-          <Card className="glass-subtle border-0">
+          <Card className="clean-card">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm glass-text-muted">
+              <CardTitle className="text-sm clean-text-muted">
                 Most Used App
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-lg font-heading glass-text-high-contrast truncate">
+              <div className="text-lg font-heading clean-text truncate">
                 {stats.mostUsedApp}
               </div>
             </CardContent>
           </Card>
 
-          <Card className="glass-subtle border-0">
+          <Card className="clean-card">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm glass-text-muted">
+              <CardTitle className="text-sm clean-text-muted">
                 Trend
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-1">
                 <TrendingUp className="h-4 w-4 text-primary" />
-                <span className="text-lg font-heading glass-text-high-contrast capitalize">
+                <span className="text-lg font-heading clean-text capitalize">
                   {stats.productivityTrend}
                 </span>
               </div>
@@ -217,32 +217,32 @@ export function WeeklySummary() {
 
       {/* Weekly Insights */}
       <div className="space-y-4">
-        <h3 className="text-base font-heading glass-text-high-contrast">
+        <h3 className="text-base font-heading clean-text">
           AI Insights & Recommendations
         </h3>
         
         {insights.map((insight) => {
           const IconComponent = getInsightIcon(insight.type);
           return (
-            <Card key={insight.id} className="glass-subtle border-0">
+            <Card key={insight.id} className="clean-card">
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <IconComponent className="h-5 w-5 text-primary" />
-                    <CardTitle className="text-base font-heading glass-text-high-contrast">
+                    <CardTitle className="text-base font-heading clean-text">
                       {insight.title}
                     </CardTitle>
                   </div>
                   <Badge 
                     variant="outline" 
-                    className={`text-xs border-0 ${getInsightColor(insight.type)}`}
+                    className={`text-xs ${getInsightColor(insight.type)}`}
                   >
                     {insight.type}
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="glass-text">{insight.description}</p>
+                <p className="clean-text">{insight.description}</p>
               </CardContent>
             </Card>
           );
@@ -250,14 +250,14 @@ export function WeeklySummary() {
       </div>
 
       {!stats?.totalScreenshots && (
-        <Card className="glass-subtle border-0">
+        <Card className="clean-card">
           <CardContent className="pt-6">
             <div className="text-center py-8">
-              <BarChart3 className="mx-auto h-12 w-12 glass-text-muted mb-4" />
-              <h3 className="text-lg font-heading glass-text-high-contrast mb-2">
+              <BarChart3 className="mx-auto h-12 w-12 clean-text-muted mb-4" />
+              <h3 className="text-lg font-heading clean-text mb-2">
                 Not Enough Data Yet
               </h3>
-              <p className="glass-text-muted">
+              <p className="clean-text-muted">
                 Use the app throughout the week to generate meaningful insights and trends.
               </p>
             </div>

@@ -8,6 +8,7 @@ import { Brain, Mail, Lock, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useUser } from "@/hooks/useUser";
 import { supabase } from "@/integrations/supabase/client";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +25,7 @@ export default function Login() {
       navigate("/dashboard");
     }
   }, [user, navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -154,27 +156,28 @@ export default function Login() {
       setIsLoading(false);
     }
   };
-  return <div className="flex min-h-screen items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
+
+  return (
+    <div className="flex min-h-screen items-center justify-center p-3 sm:p-4 md:p-6 lg:p-8">
       {/* Main Container */}
-      <div className="absolute inset-1 sm:inset-2 md:inset-3 lg:inset-4 glass-main rounded-2xl sm:rounded-3xl"></div>
+      <div className="absolute inset-1 sm:inset-2 md:inset-3 lg:inset-4 clean-card rounded-2xl sm:rounded-3xl"></div>
       
       <div className={`relative w-full max-w-md z-10 ${isSignUp ? 'px-4 sm:px-6 md:px-8 lg:px-12' : ''}`}>
         {/* Logo and Title */}
         <div className="mb-8 text-center">
-          
-          <h1 className="text-3xl font-bold glass-text-high-contrast">
+          <h1 className="text-3xl font-bold clean-text">
             {isSignUp ? "Get Started" : "Welcome Back"}
           </h1>
-          <p className="mt-2 glass-text-muted">
+          <p className="mt-2 clean-text-muted">
             {isSignUp ? "Set up your AI Implementation Coach profile" : "Sign in to your account"}
           </p>
         </div>
 
         {/* Login Form */}
-        <div className={`glass rounded-xl sm:rounded-2xl transition-smooth ${isSignUp ? 'px-8 py-4 sm:px-10 sm:py-5 md:px-12 md:py-5' : 'px-6 py-4 sm:px-8 sm:py-5'}`}>
+        <div className={`clean-card rounded-xl sm:rounded-2xl transition-smooth ${isSignUp ? 'px-8 py-4 sm:px-10 sm:py-5 md:px-12 md:py-5' : 'px-6 py-4 sm:px-8 sm:py-5'}`}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="glass-text-high-contrast">Email</Label>
+              <Label htmlFor="email" className="clean-text">Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input id="email" type="email" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} className="pl-10" required />
@@ -182,7 +185,7 @@ export default function Login() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="glass-text-high-contrast">Password</Label>
+              <Label htmlFor="password" className="clean-text">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input id="password" type="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} className="pl-10" required />
@@ -192,7 +195,7 @@ export default function Login() {
             {isSignUp && (
               <>
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="glass-text-high-contrast">Full Name</Label>
+                  <Label htmlFor="name" className="clean-text">Full Name</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                     <Input id="name" type="text" placeholder="Enter your full name" value={name} onChange={e => setName(e.target.value)} className="pl-10" required />
@@ -200,34 +203,34 @@ export default function Login() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label className="glass-text-high-contrast">Profile Avatar</Label>
+                  <Label className="clean-text">Profile Avatar</Label>
                   <div className="flex items-center justify-center">
-                    <Avatar className="h-16 w-16 border-2 border-border glass-subtle">
-                      <AvatarFallback className="glass-text-container glass-text-high-contrast text-xl">
+                    <Avatar className="h-16 w-16 clean-border">
+                      <AvatarFallback className="clean-text text-xl">
                         {name.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
                       </AvatarFallback>
                     </Avatar>
                   </div>
-                  <p className="text-center text-xs glass-text-muted">
+                  <p className="text-center text-xs clean-text-muted">
                     Your avatar will show your initials
                   </p>
                 </div>
               </>
             )}
 
-            <Button type="submit" disabled={isLoading} className="w-full glass-text-container glass-text-high-contrast border-0 transition-smooth">
+            <Button type="submit" disabled={isLoading} className="w-full transition-smooth">
               {isLoading ? (isSignUp ? "Creating account..." : "Signing in...") : (isSignUp ? "Create Account" : "Sign In")}
             </Button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm glass-text-muted">
+            <p className="text-sm clean-text-muted">
               {isSignUp ? "Already have an account?" : "Don't have an account?"}
             </p>
             <Button 
               type="button"
               variant="ghost"
-              className="mt-2 glass-text-high-contrast hover:glass-text-container"
+              className="mt-2"
               onClick={() => {
                 setIsSignUp(!isSignUp);
                 setName("");
@@ -238,5 +241,6 @@ export default function Login() {
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 }

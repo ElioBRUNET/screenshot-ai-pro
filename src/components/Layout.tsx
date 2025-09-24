@@ -28,7 +28,7 @@ export default function Layout() {
         <div className="relative mx-auto max-w-6xl">
           {/* Header */}
           <header className="mb-6 sm:mb-8">
-            <div className="bg-card border border-border rounded-xl p-4 sm:p-6 shadow-sm">
+            <div className="clean-card rounded-xl p-4 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <Avatar className="h-10 w-10">

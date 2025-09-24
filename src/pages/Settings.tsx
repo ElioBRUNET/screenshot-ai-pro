@@ -40,25 +40,25 @@ export default function Settings() {
 
   return (
     <div className="space-y-6">
-      <div className="glass rounded-2xl p-6">
-        <h1 className="text-2xl font-bold glass-text-high-contrast mb-2">Settings</h1>
-        <p className="glass-text-muted">
+      <div className="clean-card rounded-2xl p-6">
+        <h1 className="text-2xl font-bold clean-text mb-2">Settings</h1>
+        <p className="clean-text-muted">
           Configure your AI Implementation Coach preferences and privacy settings
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Screenshot Settings */}
-        <Card className="glass-subtle border-0">
+        <Card className="clean-card">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
+            <CardTitle className="flex items-center space-x-2 clean-text">
               <Camera className="h-5 w-5 text-primary" />
               <span>Screenshot Settings</span>
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-3">
-              <Label className="glass-text-high-contrast">Screenshot Interval</Label>
+              <Label className="clean-text">Screenshot Interval</Label>
               <div className="px-3">
                 <Slider
                   value={screenshotInterval}
@@ -69,7 +69,7 @@ export default function Settings() {
                   className="w-full"
                 />
               </div>
-              <div className="flex justify-between text-sm glass-text-muted">
+              <div className="flex justify-between text-sm clean-text-muted">
                 <span>5 seconds</span>
                 <span className="font-medium text-primary">
                   {screenshotInterval[0]} seconds
@@ -80,8 +80,8 @@ export default function Settings() {
 
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="glass-text-high-contrast">Auto-start tracking</Label>
-                <p className="text-sm glass-text-muted">
+                <Label className="clean-text">Auto-start tracking</Label>
+                <p className="text-sm clean-text-muted">
                   Start screenshot analysis when app launches
                 </p>
               </div>
@@ -94,9 +94,9 @@ export default function Settings() {
         </Card>
 
         {/* Privacy Settings */}
-        <Card className="glass-subtle border-0">
+        <Card className="clean-card">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
+            <CardTitle className="flex items-center space-x-2 clean-text">
               <Shield className="h-5 w-5 text-primary" />
               <span>Privacy & Security</span>
             </CardTitle>
@@ -104,8 +104,8 @@ export default function Settings() {
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="glass-text-high-contrast">Privacy mode</Label>
-                <p className="text-sm glass-text-muted">
+                <Label className="clean-text">Privacy mode</Label>
+                <p className="text-sm clean-text-muted">
                   Blur sensitive information in screenshots
                 </p>
               </div>
@@ -116,12 +116,12 @@ export default function Settings() {
             </div>
 
             <div className="space-y-3">
-              <Label className="glass-text-high-contrast">Data retention period</Label>
+              <Label className="clean-text">Data retention period</Label>
               <Select value={dataRetention} onValueChange={setDataRetention}>
-                <SelectTrigger className="glass-text-container glass-text border-0">
+                <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="glass border-0">
+                <SelectContent>
                   <SelectItem value="7">7 days</SelectItem>
                   <SelectItem value="30">30 days</SelectItem>
                   <SelectItem value="90">90 days</SelectItem>
@@ -133,9 +133,9 @@ export default function Settings() {
         </Card>
 
         {/* Notifications */}
-        <Card className="glass-subtle border-0">
+        <Card className="clean-card">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
+            <CardTitle className="flex items-center space-x-2 clean-text">
               <Bell className="h-5 w-5 text-primary" />
               <span>Notifications</span>
             </CardTitle>
@@ -143,8 +143,8 @@ export default function Settings() {
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="space-y-1">
-                <Label className="glass-text-high-contrast">AI insights notifications</Label>
-                <p className="text-sm glass-text-muted">
+                <Label className="clean-text">AI insights notifications</Label>
+                <p className="text-sm clean-text-muted">
                   Get notified about productivity insights
                 </p>
               </div>
@@ -157,9 +157,9 @@ export default function Settings() {
         </Card>
 
         {/* Data Management */}
-        <Card className="glass-subtle border-0">
+        <Card className="clean-card">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 glass-text-high-contrast">
+            <CardTitle className="flex items-center space-x-2 clean-text">
               <Clock className="h-5 w-5 text-primary" />
               <span>Data Management</span>
             </CardTitle>
@@ -168,7 +168,7 @@ export default function Settings() {
             <Button
               onClick={handleExportData}
               variant="outline"
-              className="w-full glass-text-container glass-text border-0 hover:bg-secondary"
+              className="w-full"
             >
               <Download className="h-4 w-4 mr-2" />
               Export Data
@@ -177,7 +177,7 @@ export default function Settings() {
             <Button
               onClick={handleClearData}
               variant="outline"
-              className="w-full glass-text-container text-destructive border-0 hover:bg-destructive/10"
+              className="w-full text-destructive hover:bg-destructive/10"
             >
               <Trash2 className="h-4 w-4 mr-2" />
               Clear All Data
@@ -190,7 +190,7 @@ export default function Settings() {
       <div className="flex justify-end">
         <Button
           onClick={handleSaveSettings}
-          className="glass-text-container glass-text-high-contrast border-0 px-8"
+          className="px-8"
         >
           Save Settings
         </Button>

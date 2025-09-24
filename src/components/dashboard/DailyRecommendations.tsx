@@ -173,19 +173,19 @@ export function DailyRecommendations() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-heading glass-text-high-contrast">
+          <h2 className="text-lg font-heading clean-text">
             Daily AI Report
           </h2>
-          <p className="text-sm glass-text-muted">
+          <p className="text-sm clean-text-muted">
             Schedule your daily productivity report or get it instantly
           </p>
         </div>
       </div>
 
       {/* Report Control Panel */}
-      <Card className="glass-subtle border-0">
+      <Card className="clean-card">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-base font-heading glass-text-high-contrast">
+          <CardTitle className="flex items-center gap-2 text-base font-heading clean-text">
             <Clock className="h-5 w-5 text-primary" />
             Report Settings
           </CardTitle>
@@ -194,7 +194,7 @@ export function DailyRecommendations() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Schedule Section */}
             <div className="space-y-3">
-              <Label htmlFor="schedule-time" className="text-sm font-medium glass-text">
+              <Label htmlFor="schedule-time" className="text-sm font-medium clean-text">
                 Schedule Daily Report
               </Label>
               <div className="flex items-center gap-2">
@@ -210,13 +210,13 @@ export function DailyRecommendations() {
                   disabled={loading}
                   size="sm"
                   variant="outline"
-                  className="glass-subtle border-0"
+                  className="clean-card"
                 >
                   {isScheduled ? 'Update' : 'Schedule'}
                 </Button>
               </div>
               {isScheduled && (
-                <p className="text-xs glass-text-muted">
+                <p className="text-xs clean-text-muted">
                   ✓ Report scheduled for {scheduledTime} daily
                 </p>
               )}
@@ -224,13 +224,13 @@ export function DailyRecommendations() {
 
             {/* Instant Report Section */}
             <div className="space-y-3">
-              <Label className="text-sm font-medium glass-text">
+              <Label className="text-sm font-medium clean-text">
                 Get Report Now
               </Label>
               <Button
                 onClick={handleGetReportNow}
                 disabled={loading}
-                className="w-full glass-subtle border-0"
+                className="w-full clean-card"
                 variant="outline"
               >
                 {loading ? (
@@ -252,11 +252,11 @@ export function DailyRecommendations() {
 
       {/* Loading State */}
       {loading && (
-        <Card className="glass-subtle border-0">
+        <Card className="clean-card">
           <CardContent className="pt-6">
             <div className="text-center">
               <RefreshCw className="mx-auto h-8 w-8 text-primary mb-2 animate-spin" />
-              <p className="text-sm glass-text-muted">
+              <p className="text-sm clean-text-muted">
                 Processing your activity data and generating insights...
               </p>
             </div>
@@ -265,15 +265,15 @@ export function DailyRecommendations() {
       )}
 
       {/* Daily Tips Display */}
-      <Card className="glass-subtle border-0">
+      <Card className="clean-card">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-base font-heading glass-text-high-contrast">
+            <CardTitle className="text-base font-heading clean-text">
               Your Latest Report
             </CardTitle>
             <div className="flex items-center gap-2">
               {lastReportDate && (
-                <span className="text-xs glass-text-muted">
+                <span className="text-xs clean-text-muted">
                   {new Date(lastReportDate).toLocaleDateString()}
                 </span>
               )}
@@ -293,12 +293,12 @@ export function DailyRecommendations() {
           {fetchingRecommendations ? (
             <div className="text-center py-8">
               <RefreshCw className="mx-auto h-8 w-8 text-primary mb-2 animate-spin" />
-              <p className="text-sm glass-text-muted">Loading your latest recommendations...</p>
+              <p className="text-sm clean-text-muted">Loading your latest recommendations...</p>
             </div>
           ) : dailyTips.length > 0 ? (
             <div className="space-y-4">
               {dailyTips.map((tip, index) => (
-                <Card key={index} className="glass-subtle border-0 p-4">
+                <Card key={index} className="clean-card p-4">
                   <div className="space-y-3">
                     <div className="flex items-start gap-3">
                       <div className="flex-shrink-0 mt-1">
@@ -307,10 +307,10 @@ export function DailyRecommendations() {
                         </div>
                       </div>
                       <div className="flex-1 space-y-2">
-                        <h3 className="font-semibold glass-text-high-contrast text-sm">
+                        <h3 className="font-semibold clean-text text-sm">
                           {tip.task}
                         </h3>
-                        <p className="text-sm glass-text-muted leading-relaxed">
+                        <p className="text-sm clean-text-muted leading-relaxed">
                           {tip.recommendation}
                         </p>
                         
@@ -318,13 +318,13 @@ export function DailyRecommendations() {
                           <div className="space-y-2 mt-3">
                             <div className="flex items-center gap-2">
                               <Target className="h-4 w-4 text-primary" />
-                              <span className="text-sm font-medium glass-text">How to Apply:</span>
+                              <span className="text-sm font-medium clean-text">How to Apply:</span>
                             </div>
                             <div className="space-y-2 ml-6">
                               {tip.how_to_apply.map((step, stepIndex) => (
                                 <div key={stepIndex} className="flex items-start gap-2">
                                   <ArrowRight className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
-                                  <p className="text-xs glass-text-muted leading-relaxed">
+                                  <p className="text-xs clean-text-muted leading-relaxed">
                                     {step}
                                   </p>
                                 </div>
@@ -341,10 +341,10 @@ export function DailyRecommendations() {
           ) : (
             <div className="text-center py-8">
               <Lightbulb className="mx-auto h-12 w-12 text-primary/50 mb-3" />
-              <p className="text-sm glass-text-muted">
+              <p className="text-sm clean-text-muted">
                 Your personalized AI report will appear here once generated.
               </p>
-              <p className="text-xs glass-text-muted mt-2">
+              <p className="text-xs clean-text-muted mt-2">
                 Reports include activity analysis, productivity insights, and actionable recommendations.
               </p>
             </div>
