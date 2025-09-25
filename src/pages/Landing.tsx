@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import DisplayCards from "@/components/ui/display-cards";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -186,96 +187,64 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* AI Framework Section with Display Cards */}
       <section id="how-it-works" className="py-24 px-6 bg-muted/30">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div className="animate-fade-up">
-              <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 px-6 py-2">
-                <Brain className="w-4 h-4 mr-2" />
-                AI Framework
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8 leading-tight">
-                A Custom AI Framework That
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Understands You</span>
-              </h2>
-              <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
-                Owlo's proprietary AI analyzes your daily app usage, identifies productivity 
-                patterns, and delivers actionable recommendations tailored specifically to your work style.
-              </p>
-              <div className="space-y-6">
-                {[
-                  {
-                    title: "Pattern Recognition",
-                    description: "Identifies your most productive hours and apps"
-                  },
-                  {
-                    title: "Personalized Actions",
-                    description: "Suggests tools and workflows specific to your needs"
-                  },
-                  {
-                    title: "Continuous Optimization",
-                    description: "Learns and adapts to improve recommendations over time"
-                  }
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start gap-4 animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mt-1 shadow-lg">
-                      <div className="w-3 h-3 bg-white rounded-full"></div>
-                    </div>
-                    <div>
-                      <h4 className="font-heading font-bold text-lg mb-2">{item.title}</h4>
-                      <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div className="relative animate-fade-up [animation-delay:0.3s]">
-              <div className="premium-card-3d rounded-3xl p-8 shadow-2xl">
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary-light rounded-xl flex items-center justify-center shadow-lg">
-                      <BarChart3 className="h-7 w-7 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="h-3 bg-muted rounded-full overflow-hidden mb-2">
-                        <div className="h-full bg-gradient-to-r from-primary to-primary-light rounded-full w-4/5 shadow-sm"></div>
-                      </div>
-                      <p className="text-sm text-muted-foreground font-medium">Productivity Score: 85%</p>
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="premium-card rounded-xl p-4">
-                      <div className="text-2xl font-heading font-bold text-primary mb-1">2.5hrs</div>
-                      <div className="text-sm text-muted-foreground">Time Saved</div>
-                    </div>
-                    <div className="premium-card rounded-xl p-4">
-                      <div className="text-2xl font-heading font-bold text-secondary mb-1">12</div>
-                      <div className="text-sm text-muted-foreground">Actions Today</div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    {[
-                      { label: "Focus Sessions", value: "4/5", color: "primary" },
-                      { label: "Tasks Completed", value: "8/10", color: "secondary" },
-                      { label: "Recommendations Used", value: "5/7", color: "accent" }
-                    ].map((item, index) => (
-                      <div key={index} className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">{item.label}</span>
-                        <span className={`text-${item.color} font-semibold`}>{item.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              
-              {/* Floating elements */}
-              <div className="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-full blur-sm animate-float opacity-60"></div>
-              <div className="absolute -bottom-6 -left-6 w-8 h-8 bg-gradient-to-br from-secondary/30 to-accent/30 rounded-full blur-sm animate-float-slow opacity-50"></div>
-            </div>
+          <div className="text-center mb-20 animate-fade-up">
+            <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 px-6 py-2">
+              <Brain className="w-4 h-4 mr-2" />
+              AI That Understands
+            </Badge>
+            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
+              AI That Understands
+              <br />
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Your Workflow</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Owlo's advanced AI analyzes your work patterns and provides personalized recommendations 
+              to optimize every aspect of your productivity workflow.
+            </p>
+          </div>
+
+          <div className="flex justify-center animate-fade-up [animation-delay:0.3s]">
+            <DisplayCards cards={[
+              {
+                icon: <Target className="size-4 text-primary" />,
+                title: "Smart Recommendations",
+                description: "Personalized daily tips",
+                date: "Real-time",
+                iconClassName: "text-primary",
+                titleClassName: "text-primary",
+                className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+              },
+              {
+                icon: <BarChart3 className="size-4 text-secondary" />,
+                title: "Activity Analytics",
+                description: "Track productivity patterns",
+                date: "Daily",
+                iconClassName: "text-secondary",
+                titleClassName: "text-secondary",
+                className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+              },
+              {
+                icon: <Zap className="size-4 text-accent" />,
+                title: "Instant Actions",
+                description: "One-click productivity boosts",
+                date: "Instant",
+                iconClassName: "text-accent",
+                titleClassName: "text-accent",
+                className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+              },
+              {
+                icon: <Shield className="size-4 text-primary" />,
+                title: "Privacy First",
+                description: "Your data stays secure",
+                date: "Always",
+                iconClassName: "text-primary",
+                titleClassName: "text-primary",
+                className: "[grid-area:stack] translate-x-36 translate-y-32 hover:translate-y-20",
+              },
+            ]} />
           </div>
         </div>
       </section>
