@@ -13,7 +13,7 @@ const Landing = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <img src="/owlo-logo.svg" alt="Owlo" className="h-9 w-9" />
-              <span className="text-xl font-heading font-bold">Owlo</span>
+              
             </div>
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
@@ -239,7 +239,7 @@ const Landing = () => {
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
                 <img src="/owlo-logo.svg" alt="Owlo" className="h-8 w-8" />
-                <span className="text-2xl font-heading font-bold">Owlo</span>
+                
               </div>
               <p className="text-muted-foreground leading-relaxed mb-6 max-w-md">
                 Transform your productivity with AI-powered insights and personalized recommendations 
