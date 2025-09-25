@@ -60,20 +60,22 @@ export function DailyRecommendations() {
     try {
       let v: any = input;
       let attempts = 0;
-      while (typeof v === 'string' && attempts < 6) {
+      while (typeof v === 'string' && attempts < 8) {
         const trimmed = v.trim();
         try {
           v = JSON.parse(trimmed);
         } catch {
-          // Try stripping wrapping quotes and unescaping
+          // Try stripping wrapping quotes and unescaping progressively
           const stripped = trimmed.replace(/^"+|"+$/g, '').replace(/\\"/g, '"');
-          try {
-            v = JSON.parse(stripped);
-          } catch {
-            break;
-          }
+          // If nothing changed, stop trying
+          if (stripped === v) break;
+          v = stripped;
         }
         attempts++;
+      }
+      // Final attempt if it still looks like JSON
+      if (typeof v === 'string' && v.startsWith('{') && v.endsWith('}')) {
+        try { v = JSON.parse(v); } catch {}
       }
       return v;
     } catch {
