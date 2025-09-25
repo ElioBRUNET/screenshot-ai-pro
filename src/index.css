@@ -289,7 +289,18 @@
   
   @keyframes float3 {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-25px) rotate(2deg); }
+    50% { transform: translateY(-25px) rotate(-2deg); }
+  }
+  
+  @keyframes rise-up {
+    0% { 
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    100% { 
+      transform: translateY(0px);
+      opacity: 1;
+    }
   }
   
   /* Glow effects */
