@@ -40,7 +40,7 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
 
   return (
     <nav className={cn(
-      "fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50",
+      "fixed top-0 w-full z-50",
       className,
     )}>
       <div className="container mx-auto px-6 py-4">
@@ -54,7 +54,7 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
           
           {/* Navigation Items - Desktop */}
           <div className="hidden md:flex items-center">
-            <div className="flex items-center gap-2 bg-background/20 border border-border/30 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
+            <div className="flex items-center gap-2 py-1 px-1 rounded-full">
               {items.map((item) => {
                 const Icon = item.icon
                 const isActive = activeTab === item.name
