@@ -55,6 +55,32 @@ export function DailyRecommendations() {
 
   const WEBHOOK_URL = 'https://hook.eu2.make.com/chfv1ioms0x5r1jpk88fer19i25uu85v';
 
+  // Robust deep JSON parser to handle multiple encodings
+  const safeDeepParse = (input: any) => {
+    try {
+      let v: any = input;
+      let attempts = 0;
+      while (typeof v === 'string' && attempts < 6) {
+        const trimmed = v.trim();
+        try {
+          v = JSON.parse(trimmed);
+        } catch {
+          // Try stripping wrapping quotes and unescaping
+          const stripped = trimmed.replace(/^"+|"+$/g, '').replace(/\\"/g, '"');
+          try {
+            v = JSON.parse(stripped);
+          } catch {
+            break;
+          }
+        }
+        attempts++;
+      }
+      return v;
+    } catch {
+      return null;
+    }
+  };
+
   // Fetch daily recommendations from Supabase
   const fetchDailyRecommendations = async () => {
     if (!session?.user?.id) return;
@@ -79,21 +105,9 @@ export function DailyRecommendations() {
         console.log('Raw recommendations data:', latestRecommendation.recommendations);
         
         // Parse the JSON recommendations
-        let parsedRecommendations;
-        if (typeof latestRecommendation.recommendations === 'string') {
-          // Handle multiple levels of JSON encoding
-          let jsonString = latestRecommendation.recommendations;
-          try {
-            // Keep parsing until we get an object
-            while (typeof jsonString === 'string') {
-              jsonString = JSON.parse(jsonString);
-            }
-            parsedRecommendations = jsonString;
-          } catch (e) {
-            console.error('Failed to parse recommendations JSON:', e);
-            return;
-          }
-        } else {
+        let parsedRecommendations: any = safeDeepParse(latestRecommendation.recommendations);
+        if (!parsedRecommendations && typeof latestRecommendation.recommendations !== 'object') {
+          console.warn('Falling back to raw recommendations string');
           parsedRecommendations = latestRecommendation.recommendations;
         }
 
