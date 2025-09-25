@@ -3,34 +3,41 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import DisplayCards from "@/components/ui/display-cards";
-import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award } from "lucide-react";
+import { NavBar } from "@/components/ui/tubelight-navbar";
+import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 const Landing = () => {
+  const navItems = [
+    { name: 'Features', url: '#features', external: true },
+    { name: 'How it Works', url: '#how-it-works', external: true },
+    { name: 'Download', url: '#download', external: true, icon: DownloadIcon }
+  ];
+
+  const logo = (
+    <>
+      <img src="/owlo-logo.svg" alt="Owlo" className="h-9 w-9" />
+      <span className="text-xl font-heading font-bold">Owlo</span>
+    </>
+  );
+
+  const rightContent = (
+    <>
+      <Button variant="ghost" asChild className="hidden sm:inline-flex">
+        <Link to="/login">Sign In</Link>
+      </Button>
+      <Button asChild className="btn-premium">
+        <Link to="/login">Get Started</Link>
+      </Button>
+    </>
+  );
+
   return <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <img src="/owlo-logo.svg" alt="Owlo" className="h-9 w-9" />
-              
-            </div>
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
-              <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How it Works</a>
-              <a href="#download" className="text-muted-foreground hover:text-foreground transition-colors">Download</a>
-            </div>
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" asChild className="hidden sm:inline-flex">
-                <Link to="/login">Sign In</Link>
-              </Button>
-              <Button asChild className="btn-premium">
-                <Link to="/login">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <NavBar 
+        items={navItems}
+        logo={logo}
+        rightContent={rightContent}
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
