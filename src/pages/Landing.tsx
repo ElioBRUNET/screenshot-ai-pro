@@ -1,25 +1,31 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-sm border-b border-border z-50">
+      <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <img src="/owlo-logo.svg" alt="Owlo" className="h-8 w-8" />
-              <span className="text-xl font-bold">Owlo</span>
+            <div className="flex items-center gap-3">
+              <img src="/owlo-logo.svg" alt="Owlo" className="h-9 w-9" />
+              <span className="text-xl font-heading font-bold">Owlo</span>
+            </div>
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
+              <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">How it Works</a>
+              <a href="#download" className="text-muted-foreground hover:text-foreground transition-colors">Download</a>
             </div>
             <div className="flex items-center gap-4">
-              <Button variant="ghost" asChild>
+              <Button variant="ghost" asChild className="hidden sm:inline-flex">
                 <Link to="/login">Sign In</Link>
               </Button>
-              <Button asChild>
+              <Button asChild className="btn-premium">
                 <Link to="/login">Get Started</Link>
               </Button>
             </div>
@@ -28,288 +34,354 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto text-center">
-          <div className="relative">
-            <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
-              ✨ Stress-free AI Productivity
-            </Badge>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-              Discover{" "}
-              <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                AI-Powered
-              </span>
-              <br />
-              Productivity Coach
-            </h1>
-            
-            <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
-              Transform your daily workflow with personalized AI recommendations. 
-              Get actionable insights tailored to your work patterns and boost your productivity effortlessly.
-            </p>
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 gradient-hero"></div>
+        
+        {/* Floating Elements */}
+        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30"></div>
+        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40"></div>
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35"></div>
+        
+        <div className="container mx-auto text-center relative z-10">
+          <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
+            <Sparkles className="w-4 h-4 mr-2" />
+            AI-Powered Productivity Revolution
+          </Badge>
+          
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up">
+            Unlock Your{" "}
+            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              Peak Productivity
+            </span>
+            <br />
+            with AI Insights
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
+            Transform your daily workflow with personalized AI recommendations that understand your work patterns and boost productivity by up to 85%.
+          </p>
 
-            {/* Floating Elements */}
-            <div className="absolute -top-10 left-10 opacity-20 animate-pulse">
-              <div className="w-16 h-16 bg-primary/20 rounded-full blur-xl"></div>
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20 animate-fade-up [animation-delay:0.4s]">
+            <Button size="lg" className="btn-premium text-lg px-10 py-6 rounded-2xl shadow-xl hover:shadow-2xl group">
+              <Download className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
+              Download Now
+              <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <Button variant="outline" size="lg" className="btn-premium-outline text-lg px-10 py-6 rounded-2xl group">
+              <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
+              Watch Demo
+            </Button>
+          </div>
+
+          {/* Trust Indicators */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-muted-foreground animate-fade-up [animation-delay:0.6s]">
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500 fill-current" />
+              <span className="font-semibold">4.9/5</span>
+              <span>from 10,000+ users</span>
             </div>
-            <div className="absolute top-20 right-16 opacity-30 animate-pulse delay-1000">
-              <div className="w-12 h-12 bg-secondary/30 rounded-full blur-lg"></div>
+            <div className="hidden sm:block w-px h-4 bg-border"></div>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="w-5 h-5 text-accent" />
+              <span>Free to start</span>
             </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-              <Button size="lg" className="text-lg px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
-                <Download className="mr-2 h-5 w-5" />
-                Download App
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="lg" className="text-lg px-8 py-6 rounded-full">
-                <Monitor className="mr-2 h-5 w-5" />
-                Try Web Version
-              </Button>
+            <div className="hidden sm:block w-px h-4 bg-border"></div>
+            <div className="flex items-center gap-2">
+              <Shield className="w-5 h-5 text-primary" />
+              <span>Privacy-first design</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 px-6 bg-muted/30">
+      <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="p-6">
-              <div className="text-4xl font-bold text-primary mb-2">85%</div>
-              <div className="text-muted-foreground">Productivity Increase</div>
-            </div>
-            <div className="p-6">
-              <div className="text-4xl font-bold text-primary mb-2">2.5hrs</div>
-              <div className="text-muted-foreground">Time Saved Daily</div>
-            </div>
-            <div className="p-6">
-              <div className="text-4xl font-bold text-primary mb-2">50k+</div>
-              <div className="text-muted-foreground">Active Users</div>
-            </div>
-            <div className="p-6">
-              <div className="text-4xl font-bold text-primary mb-2">4.9★</div>
-              <div className="text-muted-foreground">User Rating</div>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: "85%", label: "Productivity Boost", icon: TrendingUp },
+              { value: "2.5hrs", label: "Time Saved Daily", icon: Clock },
+              { value: "50k+", label: "Active Users", icon: Users },
+              { value: "4.9★", label: "User Rating", icon: Award }
+            ].map((stat, index) => (
+              <div key={index} className="premium-card p-8 text-center rounded-2xl animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <stat.icon className="w-8 h-8 mx-auto mb-4 text-primary" />
+                <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">{stat.value}</div>
+                <div className="text-muted-foreground font-medium">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Features Grid */}
-      <section className="py-20 px-6">
+      {/* Features Section */}
+      <section id="features" className="py-24 px-6">
         <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Intelligent Features</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Owlo analyzes your work patterns and provides personalized recommendations 
-              to optimize your productivity workflow.
+          <div className="text-center mb-20 animate-fade-up">
+            <Badge className="mb-6 bg-gradient-to-r from-secondary/10 to-accent/10 text-secondary border-secondary/20 px-6 py-2">
+              <Brain className="w-4 h-4 mr-2" />
+              Intelligent Features
+            </Badge>
+            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
+              AI That Understands
+              <br />
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Your Workflow</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Owlo's advanced AI analyzes your work patterns and provides personalized recommendations 
+              to optimize every aspect of your productivity workflow.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="p-8 bg-card border-border hover:shadow-lg transition-all duration-300 group">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Target className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Smart Recommendations</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Get personalized daily recommendations based on your app usage and work patterns.
-              </p>
-            </Card>
-
-            <Card className="p-8 bg-card border-border hover:shadow-lg transition-all duration-300 group">
-              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <BarChart3 className="h-8 w-8 text-secondary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Activity Analytics</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Track your productivity patterns with detailed analytics and weekly summaries.
-              </p>
-            </Card>
-
-            <Card className="p-8 bg-card border-border hover:shadow-lg transition-all duration-300 group">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Zap className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Instant Actions</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Execute productivity tips with one-click actions and copy-paste prompts.
-              </p>
-            </Card>
-
-            <Card className="p-8 bg-card border-border hover:shadow-lg transition-all duration-300 group">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Shield className="h-8 w-8 text-primary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Privacy First</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Your data stays secure with end-to-end encryption and privacy-focused design.
-              </p>
-            </Card>
-
-            <Card className="p-8 bg-card border-border hover:shadow-lg transition-all duration-300 group">
-              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Users className="h-8 w-8 text-secondary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Team Insights</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Share productivity insights with your team and collaborate more effectively.
-              </p>
-            </Card>
-
-            <Card className="p-8 bg-card border-border hover:shadow-lg transition-all duration-300 group">
-              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <TrendingUp className="h-8 w-8 text-accent" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-4">Continuous Learning</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                AI that learns from your preferences and gets better at helping you over time.
-              </p>
-            </Card>
+            {[
+              {
+                icon: Target,
+                title: "Smart Recommendations",
+                description: "Get personalized daily recommendations based on your app usage and work patterns.",
+                gradient: "from-primary to-primary-light"
+              },
+              {
+                icon: BarChart3,
+                title: "Activity Analytics",
+                description: "Track your productivity patterns with detailed analytics and weekly summaries.",
+                gradient: "from-secondary to-secondary-light"
+              },
+              {
+                icon: Zap,
+                title: "Instant Actions",
+                description: "Execute productivity tips with one-click actions and copy-paste prompts.",
+                gradient: "from-accent to-accent-light"
+              },
+              {
+                icon: Shield,
+                title: "Privacy First",
+                description: "Your data stays secure with end-to-end encryption and privacy-focused design.",
+                gradient: "from-primary to-secondary"
+              },
+              {
+                icon: Users,
+                title: "Team Insights",
+                description: "Share productivity insights with your team and collaborate more effectively.",
+                gradient: "from-secondary to-accent"
+              },
+              {
+                icon: TrendingUp,
+                title: "Continuous Learning",
+                description: "AI that learns from your preferences and gets better at helping you over time.",
+                gradient: "from-accent to-primary"
+              }
+            ].map((feature, index) => (
+              <Card key={index} className="premium-card-3d p-8 rounded-3xl group animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500 shadow-lg`}>
+                  <feature.icon className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-heading font-bold mb-4">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed text-lg">
+                  {feature.description}
+                </p>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Custom Framework Section */}
-      <section className="py-20 px-6 bg-muted/30">
+      {/* How It Works Section */}
+      <section id="how-it-works" className="py-24 px-6 bg-muted/30">
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <Badge className="mb-6 bg-primary/10 text-primary border-primary/20">
-                🧠 AI Framework
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div className="animate-fade-up">
+              <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 px-6 py-2">
+                <Brain className="w-4 h-4 mr-2" />
+                AI Framework
               </Badge>
-              <h2 className="text-4xl font-bold mb-6">
-                A Custom AI Framework That Understands
-                <span className="text-primary"> Your Workflow</span>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8 leading-tight">
+                A Custom AI Framework That
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"> Understands You</span>
               </h2>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              <p className="text-xl text-muted-foreground mb-10 leading-relaxed">
                 Owlo's proprietary AI analyzes your daily app usage, identifies productivity 
                 patterns, and delivers actionable recommendations tailored specifically to your work style.
               </p>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center mt-1">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
+              <div className="space-y-6">
+                {[
+                  {
+                    title: "Pattern Recognition",
+                    description: "Identifies your most productive hours and apps"
+                  },
+                  {
+                    title: "Personalized Actions",
+                    description: "Suggests tools and workflows specific to your needs"
+                  },
+                  {
+                    title: "Continuous Optimization",
+                    description: "Learns and adapts to improve recommendations over time"
+                  }
+                ].map((item, index) => (
+                  <div key={index} className="flex items-start gap-4 animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mt-1 shadow-lg">
+                      <div className="w-3 h-3 bg-white rounded-full"></div>
+                    </div>
+                    <div>
+                      <h4 className="font-heading font-bold text-lg mb-2">{item.title}</h4>
+                      <p className="text-muted-foreground leading-relaxed">{item.description}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Pattern Recognition</h4>
-                    <p className="text-muted-foreground">Identifies your most productive hours and apps</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center mt-1">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Personalized Actions</h4>
-                    <p className="text-muted-foreground">Suggests tools and workflows specific to your needs</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center mt-1">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-1">Continuous Optimization</h4>
-                    <p className="text-muted-foreground">Learns and adapts to improve recommendations over time</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             
-            <div className="relative">
-              <div className="bg-card border border-border rounded-3xl p-8 shadow-2xl">
+            <div className="relative animate-fade-up [animation-delay:0.3s]">
+              <div className="premium-card-3d rounded-3xl p-8 shadow-2xl">
                 <div className="space-y-6">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
-                      <BarChart3 className="h-6 w-6 text-primary" />
+                    <div className="w-14 h-14 bg-gradient-to-br from-primary to-primary-light rounded-xl flex items-center justify-center shadow-lg">
+                      <BarChart3 className="h-7 w-7 text-white" />
                     </div>
                     <div className="flex-1">
-                      <div className="h-2 bg-muted rounded-full overflow-hidden">
-                        <div className="h-full bg-primary rounded-full w-3/4"></div>
+                      <div className="h-3 bg-muted rounded-full overflow-hidden mb-2">
+                        <div className="h-full bg-gradient-to-r from-primary to-primary-light rounded-full w-4/5 shadow-sm"></div>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">Productivity Score: 85%</p>
+                      <p className="text-sm text-muted-foreground font-medium">Productivity Score: 85%</p>
                     </div>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-muted/50 rounded-xl p-4">
-                      <div className="text-2xl font-bold text-primary">2.5hrs</div>
+                    <div className="premium-card rounded-xl p-4">
+                      <div className="text-2xl font-heading font-bold text-primary mb-1">2.5hrs</div>
                       <div className="text-sm text-muted-foreground">Time Saved</div>
                     </div>
-                    <div className="bg-muted/50 rounded-xl p-4">
-                      <div className="text-2xl font-bold text-secondary">12</div>
+                    <div className="premium-card rounded-xl p-4">
+                      <div className="text-2xl font-heading font-bold text-secondary mb-1">12</div>
                       <div className="text-sm text-muted-foreground">Actions Today</div>
                     </div>
                   </div>
                   
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Focus Sessions</span>
-                      <span className="text-primary">4/5</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Tasks Completed</span>
-                      <span className="text-secondary">8/10</span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span>Recommendations Used</span>
-                      <span className="text-accent">5/7</span>
-                    </div>
+                  <div className="space-y-3">
+                    {[
+                      { label: "Focus Sessions", value: "4/5", color: "primary" },
+                      { label: "Tasks Completed", value: "8/10", color: "secondary" },
+                      { label: "Recommendations Used", value: "5/7", color: "accent" }
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">{item.label}</span>
+                        <span className={`text-${item.color} font-semibold`}>{item.value}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
               
               {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary/20 rounded-full blur-sm animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-secondary/20 rounded-full blur-sm animate-pulse delay-1000"></div>
+              <div className="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-full blur-sm animate-float opacity-60"></div>
+              <div className="absolute -bottom-6 -left-6 w-8 h-8 bg-gradient-to-br from-secondary/30 to-accent/30 rounded-full blur-sm animate-float-slow opacity-50"></div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6">
+      <section id="download" className="py-24 px-6">
         <div className="container mx-auto text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready to Boost Your Productivity?
+          <div className="max-w-4xl mx-auto animate-fade-up">
+            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
+              Ready to Transform Your
+              <br />
+              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                Productivity?
+              </span>
             </h2>
-            <p className="text-xl text-muted-foreground mb-12 leading-relaxed">
+            <p className="text-xl md:text-2xl text-muted-foreground mb-12 leading-relaxed">
               Join thousands of professionals who are already using Owlo to optimize 
               their workflow and achieve more with less effort.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <Button size="lg" className="text-lg px-12 py-6 rounded-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 shadow-lg hover:shadow-xl transition-all duration-300">
-                <Smartphone className="mr-2 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
+              <Button size="lg" className="btn-premium text-lg px-12 py-6 rounded-2xl shadow-xl hover:shadow-2xl group">
+                <Smartphone className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
                 Download for Mobile
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="text-lg px-12 py-6 rounded-full border-2 hover:bg-primary hover:text-primary-foreground transition-all duration-300">
-                <Monitor className="mr-2 h-5 w-5" />
+              <Button variant="outline" size="lg" className="btn-premium-outline text-lg px-12 py-6 rounded-2xl group">
+                <Monitor className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
                 Try Web App
               </Button>
             </div>
             
-            <p className="text-sm text-muted-foreground mt-6">
+            <p className="text-sm text-muted-foreground mb-8">
               Free to start • No credit card required • Available on all platforms
             </p>
+
+            {/* Newsletter Signup */}
+            <div className="max-w-md mx-auto">
+              <div className="flex gap-3">
+                <Input 
+                  placeholder="Enter your email" 
+                  className="flex-1 px-4 py-3 rounded-xl border-2 border-border/50 focus:border-primary transition-colors"
+                />
+                <Button className="btn-premium px-8 py-3 rounded-xl">
+                  Subscribe
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">
+                Get early access to new features and productivity tips
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-border bg-muted/30">
+      <footer className="py-16 px-6 border-t border-border/50 bg-muted/30">
         <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <img src="/owlo-logo.svg" alt="Owlo" className="h-6 w-6" />
-              <span className="font-semibold">Owlo</span>
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-3 mb-6">
+                <img src="/owlo-logo.svg" alt="Owlo" className="h-8 w-8" />
+                <span className="text-2xl font-heading font-bold">Owlo</span>
+              </div>
+              <p className="text-muted-foreground leading-relaxed mb-6 max-w-md">
+                Transform your productivity with AI-powered insights and personalized recommendations 
+                that understand your unique work patterns.
+              </p>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <span>Crafted with</span>
+                <span className="text-red-500">♥</span>
+                <span>by the Owlo team</span>
+              </div>
             </div>
-            <div className="text-sm text-muted-foreground">
-              © 2024 Owlo. All rights reserved.
+            
+            <div>
+              <h4 className="font-heading font-bold mb-4">Product</h4>
+              <ul className="space-y-3 text-muted-foreground">
+                <li><a href="#features" className="hover:text-foreground transition-colors">Features</a></li>
+                <li><a href="#how-it-works" className="hover:text-foreground transition-colors">How it Works</a></li>
+                <li><a href="#download" className="hover:text-foreground transition-colors">Download</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">Pricing</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="font-heading font-bold mb-4">Company</h4>
+              <ul className="space-y-3 text-muted-foreground">
+                <li><a href="#" className="hover:text-foreground transition-colors">About</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-foreground transition-colors">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-border/50 pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-sm text-muted-foreground">
+                © 2024 Owlo. All rights reserved.
+              </div>
+              <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
+                <a href="#" className="hover:text-foreground transition-colors">Terms of Service</a>
+                <a href="#" className="hover:text-foreground transition-colors">Support</a>
+              </div>
             </div>
           </div>
         </div>
