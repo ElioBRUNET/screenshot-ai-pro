@@ -128,7 +128,7 @@ const Landing = () => {
       
 
       {/* AI Framework Section with Display Cards */}
-      <section id="how-it-works" className="py-24 px-6 bg-muted/30">
+      <section id="how-it-works" className="pt-24 pb-32 px-6 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-20 animate-fade-up">
             <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 px-6 py-2">
