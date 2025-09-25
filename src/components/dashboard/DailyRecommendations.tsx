@@ -9,10 +9,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { useUser } from "@/hooks/useUser";
 import { useToast } from "@/hooks/use-toast";
 
+interface RequiredTool {
+  name: string;
+  logo_url: string;
+  action_url: string;
+}
+
 interface DailyTip {
-  task: string;
-  recommendation: string;
-  how_to_apply: string[];
+  library_title: string;
+  tailored_title: string;
+  why_it_fits: string;
+  required_tool: RequiredTool;
+  do_this_now_steps: string[];
+  copy_paste_prompt: string;
+  expected_time_saved_minutes: number;
 }
 
 interface DailyRecommendation {
@@ -20,7 +30,10 @@ interface DailyRecommendation {
   user_id: string;
   work_date: string;
   recommendations: {
-    suggestions: DailyTip[];
+    date: string;
+    user_skill: "beginner" | "intermediate";
+    apps_today: string[];
+    recommendations: DailyTip[];
   };
   created_at: string;
 }
@@ -30,6 +43,11 @@ export function DailyRecommendations() {
   const [scheduledTime, setScheduledTime] = useState('09:00');
   const [isScheduled, setIsScheduled] = useState(false);
   const [dailyTips, setDailyTips] = useState<DailyTip[]>([]);
+  const [reportData, setReportData] = useState<{
+    date: string;
+    user_skill: "beginner" | "intermediate";
+    apps_today: string[];
+  } | null>(null);
   const [lastReportDate, setLastReportDate] = useState<string>("");
   const [fetchingRecommendations, setFetchingRecommendations] = useState(false);
   const { session } = useUser();
@@ -81,8 +99,13 @@ export function DailyRecommendations() {
 
         console.log('Parsed recommendations:', parsedRecommendations);
 
-        if (parsedRecommendations?.suggestions && Array.isArray(parsedRecommendations.suggestions)) {
-          setDailyTips(parsedRecommendations.suggestions);
+        if (parsedRecommendations?.recommendations && Array.isArray(parsedRecommendations.recommendations)) {
+          setDailyTips(parsedRecommendations.recommendations);
+          setReportData({
+            date: parsedRecommendations.date,
+            user_skill: parsedRecommendations.user_skill,
+            apps_today: parsedRecommendations.apps_today || []
+          });
           setLastReportDate(latestRecommendation.work_date);
         }
       }
@@ -296,57 +319,157 @@ export function DailyRecommendations() {
               <p className="text-sm clean-text-muted">Loading your latest recommendations...</p>
             </div>
           ) : dailyTips.length > 0 ? (
-            <div className="space-y-4">
-              {dailyTips.map((tip, index) => (
-                <div key={index} className="border border-border/40 rounded-xl p-5 bg-muted/10">
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 mt-1">
-                        <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-                          <Lightbulb className="h-4 w-4 text-primary" />
-                        </div>
-                      </div>
-                      <div className="flex-1 space-y-3">
-                        <div className="border border-border/30 rounded-lg p-3 bg-background/60">
-                          <h3 className="font-semibold clean-text text-sm mb-1 text-primary">
-                            Task Focus
-                          </h3>
-                          <p className="text-sm clean-text">
-                            {tip.task}
-                          </p>
-                        </div>
-                        
-                        <div className="border border-border/30 rounded-lg p-3 bg-background/60">
-                          <h4 className="font-medium clean-text text-xs mb-2 text-muted-foreground uppercase tracking-wide">
-                            AI Recommendation
-                          </h4>
-                          <p className="text-sm clean-text-muted leading-relaxed">
-                            {tip.recommendation}
-                          </p>
-                        </div>
-                        
-                        {tip.how_to_apply && tip.how_to_apply.length > 0 && (
-                          <div className="border border-border/30 rounded-lg p-3 bg-primary/5">
-                            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border/20">
-                              <Target className="h-4 w-4 text-primary" />
-                              <span className="text-sm font-medium clean-text">Action Steps</span>
-                            </div>
-                            <div className="space-y-2">
-                              {tip.how_to_apply.map((step, stepIndex) => (
-                                <div key={stepIndex} className="flex items-start gap-3 p-2 border border-border/20 rounded-md bg-background/40">
-                                  <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                    <span className="text-xs text-primary font-medium">{stepIndex + 1}</span>
-                                  </div>
-                                  <p className="text-xs clean-text-muted leading-relaxed">
-                                    {step}
-                                  </p>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+            <div className="space-y-6">
+              {/* Report Header */}
+              {reportData && (
+                <div className="border border-border/40 rounded-xl p-4 bg-muted/10">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Badge variant="secondary" className="text-xs">
+                        {reportData.user_skill} level
+                      </Badge>
+                      <Badge variant="outline" className="text-xs">
+                        {reportData.apps_today.length} apps used
+                      </Badge>
+                    </div>
+                    <span className="text-xs clean-text-muted">
+                      {new Date(reportData.date).toLocaleDateString()}
+                    </span>
+                  </div>
+                  {reportData.apps_today.length > 0 && (
+                    <div>
+                      <h4 className="text-sm font-medium clean-text mb-2">Apps used today:</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {reportData.apps_today.map((app, index) => (
+                          <Badge key={index} variant="outline" className="text-xs">
+                            {app}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
+                  )}
+                </div>
+              )}
+              
+              {/* Recommendations */}
+              {dailyTips.map((tip, index) => (
+                <div key={index} className="border border-border/40 rounded-xl p-6 bg-background/80">
+                  <div className="space-y-5">
+                    {/* Header with tool info */}
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="flex-shrink-0">
+                            <img 
+                              src={tip.required_tool.logo_url} 
+                              alt={tip.required_tool.name}
+                              className="w-8 h-8 rounded-md object-contain"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iI2Y1ZjVmNSIvPgo8cGF0aCBkPSJNMTIgOGMtMi4yMSAwLTQgMS43OS00IDRzMS43OSA0IDQgNCA0LTEuNzkgNC00LTEuNzktNC00LTR6bTAgNmMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6IiBmaWxsPSIjOTk5Ii8+Cjwvc3ZnPgo=';
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold clean-text text-base">
+                              {tip.tailored_title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              with {tip.required_tool.name}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            Save {tip.expected_time_saved_minutes} min
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Lightbulb className="h-3 w-3" />
+                            {tip.library_title}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Button
+                        asChild
+                        size="sm"
+                        className="shrink-0"
+                      >
+                        <a 
+                          href={tip.required_tool.action_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-2"
+                        >
+                          Open Tool
+                          <ArrowRight className="h-3 w-3" />
+                        </a>
+                      </Button>
+                    </div>
+
+                    {/* Why it fits */}
+                    <div className="border border-border/30 rounded-lg p-4 bg-primary/5">
+                      <h4 className="font-medium clean-text text-sm mb-2 text-primary">
+                        Why This Fits Today
+                      </h4>
+                      <p className="text-sm clean-text-muted leading-relaxed">
+                        {tip.why_it_fits}
+                      </p>
+                    </div>
+                    
+                    {/* Action Steps */}
+                    {tip.do_this_now_steps && tip.do_this_now_steps.length > 0 && (
+                      <div className="border border-border/30 rounded-lg p-4 bg-background/60">
+                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border/20">
+                          <Target className="h-4 w-4 text-primary" />
+                          <span className="text-sm font-medium clean-text">Do This Now</span>
+                        </div>
+                        <div className="space-y-2">
+                          {tip.do_this_now_steps.map((step, stepIndex) => (
+                            <div key={stepIndex} className="flex items-start gap-3 p-3 border border-border/20 rounded-md bg-background/40">
+                              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                <span className="text-xs text-primary font-medium">{stepIndex + 1}</span>
+                              </div>
+                              <p className="text-sm clean-text leading-relaxed">
+                                {step}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Copy-Paste Prompt */}
+                    {tip.copy_paste_prompt && (
+                      <div className="border border-border/30 rounded-lg p-4 bg-muted/20">
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <div className="flex items-center gap-2">
+                            <Zap className="h-4 w-4 text-primary" />
+                            <span className="text-sm font-medium clean-text">Ready-to-Use Prompt</span>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => {
+                              navigator.clipboard.writeText(tip.copy_paste_prompt);
+                              toast({
+                                title: "Copied!",
+                                description: "Prompt copied to clipboard",
+                              });
+                            }}
+                          >
+                            Copy
+                          </Button>
+                        </div>
+                        <div className="bg-background/80 rounded-md p-3 border border-border/20">
+                          <code className="text-xs clean-text-muted break-words">
+                            {tip.copy_paste_prompt}
+                          </code>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
