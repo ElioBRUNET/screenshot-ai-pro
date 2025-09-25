@@ -63,7 +63,7 @@ const Landing = () => {
             with AI Insights
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
+          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
             Transform your daily workflow with personalized AI recommendations that understand your work patterns and boost productivity by up to 85%.
           </p>
 
