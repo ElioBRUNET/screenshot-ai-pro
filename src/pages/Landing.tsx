@@ -22,7 +22,7 @@ const Landing = () => {
     icon: DownloadIcon
   }];
   const logo = <>
-      <img src="/owlo-logo.svg" alt="Owlo" className="h-27 w-27" />
+      <img src="/owlo-logo.svg" alt="Owlo" className="h-8 w-8" />
       
     </>;
   const rightContent = <>
