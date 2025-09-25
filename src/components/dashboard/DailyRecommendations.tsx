@@ -55,30 +55,76 @@ export function DailyRecommendations() {
 
   const WEBHOOK_URL = 'https://hook.eu2.make.com/chfv1ioms0x5r1jpk88fer19i25uu85v';
 
-  // Robust deep JSON parser to handle multiple encodings (keeps parsing strings)
+  // Robust deep JSON parser to handle multiple encodings and markdown fences
   const safeDeepParse = (input: any) => {
     try {
       let v: any = input;
+
+      const sanitize = (s: string) => {
+        let out = s.trim();
+        // Strip surrounding triple quotes
+        if (out.startsWith('"""') && out.endsWith('"""')) {
+          out = out.slice(3, -3).trim();
+        }
+        // Strip markdown code fences
+        if (out.startsWith('```')) {
+          const nl = out.indexOf('\n');
+          if (nl !== -1) {
+            // remove ``` or ```json first line
+            out = out.slice(nl + 1);
+          } else {
+            out = out.replace(/^```(json)?/, '');
+          }
+        }
+        if (out.endsWith('```')) {
+          // remove trailing fence (optionally preceded by newline)
+          out = out.replace(/\n?```\s*$/, '');
+        }
+        // Strip one layer of wrapping quotes
+        if ((out.startsWith('"') && out.endsWith('"')) || (out.startsWith("'") && out.endsWith("'"))) {
+          out = out.slice(1, -1);
+        }
+        // Unescape common sequences
+        out = out.replace(/\\\"/g, '"').replace(/\\n/g, '\n');
+        return out.trim();
+      };
+
       let guard = 0;
       while (typeof v === 'string' && guard < 10) {
+        const attempt = sanitize(v);
         try {
-          v = JSON.parse(v);
-        } catch (e) {
-          const trimmed = v.trim();
-          if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
-            v = trimmed.slice(1, -1).replace(/\\"/g, '"').replace(/\\n/g, '\n');
-          } else {
-            break;
+          v = JSON.parse(attempt);
+        } catch {
+          // If it looks like JSON after sanitizing, try one more naive slice between braces
+          if (/^[\[{]/.test(attempt)) {
+            try {
+              const start = Math.min(
+                ...['{', '[']
+                  .map((ch) => attempt.indexOf(ch))
+                  .filter((i) => i >= 0)
+              );
+              const endCurl = attempt.lastIndexOf('}');
+              const endSq = attempt.lastIndexOf(']');
+              const end = Math.max(endCurl, endSq);
+              if (start >= 0 && end > start) {
+                v = JSON.parse(attempt.slice(start, end + 1));
+                break;
+              }
+            } catch {
+              // fallthrough
+            }
           }
+          // Could not parse further
+          break;
         }
         guard++;
       }
       return v;
-    } catch {
+    } catch (e) {
+      console.error('safeDeepParse failed:', e);
       return null;
     }
   };
-
   // Fetch daily recommendations from Supabase
   const fetchDailyRecommendations = async () => {
     if (!session?.user?.id) return;
@@ -88,9 +134,9 @@ export function DailyRecommendations() {
       // Use raw query since daily_recommendations table may not be in types yet
       const { data, error } = await supabase
         .from('daily_recommendations' as any)
-        .select('*')
+        .select('id, user_id, work_date, created_at, recommendations')
         .eq('user_id', session.user.id)
-        .order('work_date', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(1);
 
       if (error) {
