@@ -55,27 +55,23 @@ export function DailyRecommendations() {
 
   const WEBHOOK_URL = 'https://hook.eu2.make.com/chfv1ioms0x5r1jpk88fer19i25uu85v';
 
-  // Robust deep JSON parser to handle multiple encodings
+  // Robust deep JSON parser to handle multiple encodings (keeps parsing strings)
   const safeDeepParse = (input: any) => {
     try {
       let v: any = input;
-      let attempts = 0;
-      while (typeof v === 'string' && attempts < 8) {
-        const trimmed = v.trim();
+      let guard = 0;
+      while (typeof v === 'string' && guard < 10) {
         try {
-          v = JSON.parse(trimmed);
-        } catch {
-          // Try stripping wrapping quotes and unescaping progressively
-          const stripped = trimmed.replace(/^"+|"+$/g, '').replace(/\\"/g, '"');
-          // If nothing changed, stop trying
-          if (stripped === v) break;
-          v = stripped;
+          v = JSON.parse(v);
+        } catch (e) {
+          const trimmed = v.trim();
+          if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+            v = trimmed.slice(1, -1).replace(/\\"/g, '"').replace(/\\n/g, '\n');
+          } else {
+            break;
+          }
         }
-        attempts++;
-      }
-      // Final attempt if it still looks like JSON
-      if (typeof v === 'string' && v.startsWith('{') && v.endsWith('}')) {
-        try { v = JSON.parse(v); } catch {}
+        guard++;
       }
       return v;
     } catch {
