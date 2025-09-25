@@ -34,9 +34,8 @@ const Landing = () => {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
-        <div className="absolute inset-0 gradient-hero"></div>
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20 animate-rise-up"
+          className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-30 animate-rise-up"
           style={{ backgroundImage: 'url(/hero-bg.webp)' }}
         ></div>
         
