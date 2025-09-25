@@ -7,39 +7,41 @@ import { NavBar } from "@/components/ui/tubelight-navbar";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 const Landing = () => {
-  const navItems = [
-    { name: 'Features', url: '#features', external: true },
-    { name: 'How it Works', url: '#how-it-works', external: true },
-    { name: 'Download', url: '#download', external: true, icon: DownloadIcon }
-  ];
-
-  const logo = (
-    <>
+  const navItems = [{
+    name: 'Features',
+    url: '#features',
+    external: true
+  }, {
+    name: 'How it Works',
+    url: '#how-it-works',
+    external: true
+  }, {
+    name: 'Download',
+    url: '#download',
+    external: true,
+    icon: DownloadIcon
+  }];
+  const logo = <>
       <img src="/owlo-logo.svg" alt="Owlo" className="h-9 w-9" />
-      <span className="text-xl font-heading font-bold">Owlo</span>
-    </>
-  );
-
-  const rightContent = (
-    <Button variant="glass" asChild className="font-manrope font-semibold px-6 py-2 rounded-full">
-      <Link to="/login">Sign In</Link>
-    </Button>
-  );
-
+      
+    </>;
+  const rightContent = <>
+      <Button variant="ghost" asChild className="hidden sm:inline-flex">
+        <Link to="/login">Sign In</Link>
+      </Button>
+      <Button asChild className="btn-premium">
+        <Link to="/login">Get Started</Link>
+      </Button>
+    </>;
   return <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <NavBar 
-        items={navItems}
-        logo={logo}
-        rightContent={rightContent}
-      />
+      <NavBar items={navItems} logo={logo} rightContent={rightContent} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-30 animate-rise-up"
-          style={{ backgroundImage: 'url(/hero-bg.webp)' }}
-        ></div>
+        <div className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-30 animate-rise-up" style={{
+        backgroundImage: 'url(/hero-bg.webp)'
+      }}></div>
         
         {/* Floating Elements */}
         <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30"></div>
