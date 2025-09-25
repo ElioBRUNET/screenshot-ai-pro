@@ -4,13 +4,29 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@/hooks/useTheme";
-import { UserProvider } from "@/hooks/useUser";
+import { UserProvider, useUser } from "@/hooks/useUser";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
+import Landing from "./pages/Landing";
 
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
+
+// Protected Route Component
+const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
+  const { session, isLoading } = useUser();
+  
+  if (isLoading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+  
+  if (!session) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  return <>{children}</>;
+};
 
 const queryClient = new QueryClient();
 
@@ -23,9 +39,13 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Navigate to="/login" replace />} />
+              <Route path="/" element={<Landing />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/" element={<Layout />}>
+              <Route path="/" element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }>
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="settings" element={<Settings />} />
               </Route>
