@@ -5,10 +5,8 @@ import { Input } from "@/components/ui/input";
 import DisplayCards from "@/components/ui/display-cards";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award } from "lucide-react";
 import { Link } from "react-router-dom";
-
 const Landing = () => {
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Navigation */}
       <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50">
         <div className="container mx-auto px-6 py-4">
@@ -99,93 +97,35 @@ const Landing = () => {
       <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { value: "85%", label: "Productivity Boost", icon: TrendingUp },
-              { value: "2.5hrs", label: "Time Saved Daily", icon: Clock },
-              { value: "50k+", label: "Active Users", icon: Users },
-              { value: "4.9★", label: "User Rating", icon: Award }
-            ].map((stat, index) => (
-              <div key={index} className="premium-card p-8 text-center rounded-2xl animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
+            {[{
+            value: "85%",
+            label: "Productivity Boost",
+            icon: TrendingUp
+          }, {
+            value: "2.5hrs",
+            label: "Time Saved Daily",
+            icon: Clock
+          }, {
+            value: "50k+",
+            label: "Active Users",
+            icon: Users
+          }, {
+            value: "4.9★",
+            label: "User Rating",
+            icon: Award
+          }].map((stat, index) => <div key={index} className="premium-card p-8 text-center rounded-2xl animate-fade-up" style={{
+            animationDelay: `${index * 0.1}s`
+          }}>
                 <stat.icon className="w-8 h-8 mx-auto mb-4 text-primary" />
                 <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">{stat.value}</div>
                 <div className="text-muted-foreground font-medium">{stat.label}</div>
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-24 px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-20 animate-fade-up">
-            <Badge className="mb-6 bg-gradient-to-r from-secondary/10 to-accent/10 text-secondary border-secondary/20 px-6 py-2">
-              <Brain className="w-4 h-4 mr-2" />
-              Intelligent Features
-            </Badge>
-            <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
-              AI That Understands
-              <br />
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Your Workflow</span>
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Owlo's advanced AI analyzes your work patterns and provides personalized recommendations 
-              to optimize every aspect of your productivity workflow.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Target,
-                title: "Smart Recommendations",
-                description: "Get personalized daily recommendations based on your app usage and work patterns.",
-                gradient: "from-primary to-primary-light"
-              },
-              {
-                icon: BarChart3,
-                title: "Activity Analytics",
-                description: "Track your productivity patterns with detailed analytics and weekly summaries.",
-                gradient: "from-secondary to-secondary-light"
-              },
-              {
-                icon: Zap,
-                title: "Instant Actions",
-                description: "Execute productivity tips with one-click actions and copy-paste prompts.",
-                gradient: "from-accent to-accent-light"
-              },
-              {
-                icon: Shield,
-                title: "Privacy First",
-                description: "Your data stays secure with end-to-end encryption and privacy-focused design.",
-                gradient: "from-primary to-secondary"
-              },
-              {
-                icon: Users,
-                title: "Team Insights",
-                description: "Share productivity insights with your team and collaborate more effectively.",
-                gradient: "from-secondary to-accent"
-              },
-              {
-                icon: TrendingUp,
-                title: "Continuous Learning",
-                description: "AI that learns from your preferences and gets better at helping you over time.",
-                gradient: "from-accent to-primary"
-              }
-            ].map((feature, index) => (
-              <Card key={index} className="premium-card-3d p-8 rounded-3xl group animate-fade-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-all duration-500 shadow-lg`}>
-                  <feature.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-heading font-bold mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  {feature.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* AI Framework Section with Display Cards */}
       <section id="how-it-works" className="py-24 px-6 bg-muted/30">
@@ -207,44 +147,39 @@ const Landing = () => {
           </div>
 
           <div className="flex justify-center animate-fade-up [animation-delay:0.3s]">
-            <DisplayCards cards={[
-              {
-                icon: <Target className="size-4 text-primary" />,
-                title: "Smart Recommendations",
-                description: "Personalized daily tips",
-                date: "Real-time",
-                iconClassName: "text-primary",
-                titleClassName: "text-primary",
-                className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-              },
-              {
-                icon: <BarChart3 className="size-4 text-secondary" />,
-                title: "Activity Analytics",
-                description: "Track productivity patterns",
-                date: "Daily",
-                iconClassName: "text-secondary",
-                titleClassName: "text-secondary",
-                className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-              },
-              {
-                icon: <Zap className="size-4 text-accent" />,
-                title: "Instant Actions",
-                description: "One-click productivity boosts",
-                date: "Instant",
-                iconClassName: "text-accent",
-                titleClassName: "text-accent",
-                className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-              },
-              {
-                icon: <Shield className="size-4 text-primary" />,
-                title: "Privacy First",
-                description: "Your data stays secure",
-                date: "Always",
-                iconClassName: "text-primary",
-                titleClassName: "text-primary",
-                className: "[grid-area:stack] translate-x-36 translate-y-32 hover:translate-y-20",
-              },
-            ]} />
+            <DisplayCards cards={[{
+            icon: <Target className="size-4 text-primary" />,
+            title: "Smart Recommendations",
+            description: "Personalized daily tips",
+            date: "Real-time",
+            iconClassName: "text-primary",
+            titleClassName: "text-primary",
+            className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0"
+          }, {
+            icon: <BarChart3 className="size-4 text-secondary" />,
+            title: "Activity Analytics",
+            description: "Track productivity patterns",
+            date: "Daily",
+            iconClassName: "text-secondary",
+            titleClassName: "text-secondary",
+            className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0"
+          }, {
+            icon: <Zap className="size-4 text-accent" />,
+            title: "Instant Actions",
+            description: "One-click productivity boosts",
+            date: "Instant",
+            iconClassName: "text-accent",
+            titleClassName: "text-accent",
+            className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0"
+          }, {
+            icon: <Shield className="size-4 text-primary" />,
+            title: "Privacy First",
+            description: "Your data stays secure",
+            date: "Always",
+            iconClassName: "text-primary",
+            titleClassName: "text-primary",
+            className: "[grid-area:stack] translate-x-36 translate-y-32 hover:translate-y-20"
+          }]} />
           </div>
         </div>
       </section>
@@ -284,10 +219,7 @@ const Landing = () => {
             {/* Newsletter Signup */}
             <div className="max-w-md mx-auto">
               <div className="flex gap-3">
-                <Input 
-                  placeholder="Enter your email" 
-                  className="flex-1 px-4 py-3 rounded-xl border-2 border-border/50 focus:border-primary transition-colors"
-                />
+                <Input placeholder="Enter your email" className="flex-1 px-4 py-3 rounded-xl border-2 border-border/50 focus:border-primary transition-colors" />
                 <Button className="btn-premium px-8 py-3 rounded-xl">
                   Subscribe
                 </Button>
@@ -355,8 +287,6 @@ const Landing = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Landing;
