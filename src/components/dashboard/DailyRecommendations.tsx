@@ -99,13 +99,43 @@ export function DailyRecommendations() {
 
         console.log('Parsed recommendations:', parsedRecommendations);
 
+        // Handle both old and new formats
+        let recommendations = [];
+        let reportData = null;
+        
         if (parsedRecommendations?.recommendations && Array.isArray(parsedRecommendations.recommendations)) {
-          setDailyTips(parsedRecommendations.recommendations);
-          setReportData({
+          // New format
+          recommendations = parsedRecommendations.recommendations;
+          reportData = {
             date: parsedRecommendations.date,
             user_skill: parsedRecommendations.user_skill,
             apps_today: parsedRecommendations.apps_today || []
-          });
+          };
+        } else if (parsedRecommendations?.suggestions && Array.isArray(parsedRecommendations.suggestions)) {
+          // Old format - convert to new format for display
+          recommendations = parsedRecommendations.suggestions.map((suggestion: any) => ({
+            library_title: "Legacy Recommendation",
+            tailored_title: suggestion.task || "Task Recommendation", 
+            why_it_fits: suggestion.recommendation || "",
+            required_tool: {
+              name: "Manual Action",
+              logo_url: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iI2Y1ZjVmNSIvPgo8cGF0aCBkPSJNMTIgOGMtMi4yMSAwLTQgMS43OS00IDRzMS43OSA0IDQgNCA0LTEuNzkgNC00LTEuNzktNC00LTR6bTAgNmMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6IiBmaWxsPSIjOTk5Ii8+Cjwvc3ZnPgo=",
+              action_url: "#"
+            },
+            do_this_now_steps: suggestion.how_to_apply || [],
+            copy_paste_prompt: "",
+            expected_time_saved_minutes: 15
+          }));
+          reportData = {
+            date: latestRecommendation.work_date,
+            user_skill: "intermediate",
+            apps_today: []
+          };
+        }
+
+        if (recommendations.length > 0) {
+          setDailyTips(recommendations);
+          setReportData(reportData);
           setLastReportDate(latestRecommendation.work_date);
         }
       }
