@@ -21,14 +21,9 @@ const Landing = () => {
   );
 
   const rightContent = (
-    <>
-      <Button variant="ghost" asChild className="hidden sm:inline-flex">
-        <Link to="/login">Sign In</Link>
-      </Button>
-      <Button asChild className="btn-premium">
-        <Link to="/login">Get Started</Link>
-      </Button>
-    </>
+    <Button variant="glass" asChild className="font-manrope font-semibold px-6 py-2 rounded-full">
+      <Link to="/login">Sign In</Link>
+    </Button>
   );
 
   return <div className="min-h-screen bg-background">
