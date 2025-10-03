@@ -235,7 +235,7 @@ const Landing = () => {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <img src="/owlo-logo.svg" alt="Owlo" className="h-8 w-8" />
+                <img src="/owlo-logo.svg" alt="Owlo" className="h-24 w-24" />
                 
               </div>
               <p className="text-muted-foreground leading-relaxed mb-6 max-w-md">
