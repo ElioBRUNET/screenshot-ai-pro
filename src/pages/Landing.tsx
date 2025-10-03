@@ -86,39 +86,8 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Bento Grid Section */}
-      <section className="py-20 px-6 bg-muted/30">
-        <div className="container mx-auto">
-          <div className="text-center mb-16 animate-fade-up">
-            <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2">
-              <Sparkles className="w-4 h-4 mr-2" />
-              Why Choose Owlo
-            </Badge>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
-              Trusted by Thousands of
-              <br />
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Productivity Enthusiasts
-              </span>
-            </h2>
-          </div>
-          
-          <BentoGrid className="lg:grid-rows-3 max-w-6xl mx-auto">
-            <BentoCard name="85% Productivity Boost" className="lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={TrendingUp} description="See measurable improvements in your daily workflow and task completion rates." href="#features" cta="Learn more" />
-            <BentoCard name="2.5hrs Time Saved Daily" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent" />} Icon={Clock} description="Reclaim valuable hours every day with AI-powered workflow optimization." href="#features" cta="Learn more" />
-            <BentoCard name="50k+ Active Users" className="lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={Users} description="Join a growing community of professionals optimizing their productivity." href="#features" cta="Learn more" />
-            <BentoCard name="4.9★ User Rating" className="lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-transparent" />} Icon={Star} description="Highly rated by over 10,000+ users for its effectiveness and ease of use." href="#features" cta="Learn more" />
-            <BentoCard name="Privacy-First Design" className="lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={Shield} description="Your data stays secure with end-to-end encryption and local processing." href="#features" cta="Learn more" />
-            <BentoCard name="Free to Start" className="lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={CheckCircle} description="Get started today with no credit card required. Upgrade when you're ready." href="#download" cta="Get Started" />
-          </BentoGrid>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <PricingSection />
-
       {/* AI Framework Section with Display Cards */}
-      <section id="how-it-works" className="pt-24 pb-32 px-6 bg-muted/30">
+      <section id="how-it-works" className="pt-24 pb-32 px-6 bg-background">
         <div className="container mx-auto">
           <div className="text-center mb-20 animate-fade-up">
             <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 px-6 py-2">
@@ -171,6 +140,37 @@ const Landing = () => {
             className: "[grid-area:stack] translate-x-36 translate-y-32 hover:translate-y-20"
           }]} />
           </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <PricingSection />
+
+      {/* Bento Grid Section */}
+      <section className="py-20 px-6 bg-muted/30">
+        <div className="container mx-auto">
+          <div className="text-center mb-16 animate-fade-up">
+            <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Why Choose Owlo
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
+              Trusted by Thousands of
+              <br />
+              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                Productivity Enthusiasts
+              </span>
+            </h2>
+          </div>
+          
+          <BentoGrid className="lg:grid-rows-3 max-w-6xl mx-auto">
+            <BentoCard name="85% Productivity Boost" className="lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={TrendingUp} description="See measurable improvements in your daily workflow and task completion rates." href="#features" cta="Learn more" />
+            <BentoCard name="2.5hrs Time Saved Daily" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent" />} Icon={Clock} description="Reclaim valuable hours every day with AI-powered workflow optimization." href="#features" cta="Learn more" />
+            <BentoCard name="50k+ Active Users" className="lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={Users} description="Join a growing community of professionals optimizing their productivity." href="#features" cta="Learn more" />
+            <BentoCard name="4.9★ User Rating" className="lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-transparent" />} Icon={Star} description="Highly rated by over 10,000+ users for its effectiveness and ease of use." href="#features" cta="Learn more" />
+            <BentoCard name="Privacy-First Design" className="lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={Shield} description="Your data stays secure with end-to-end encryption and local processing." href="#features" cta="Learn more" />
+            <BentoCard name="Free to Start" className="lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={CheckCircle} description="Get started today with no credit card required. Upgrade when you're ready." href="#download" cta="Get Started" />
+          </BentoGrid>
         </div>
       </section>
 
