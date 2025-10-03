@@ -45,16 +45,16 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
       className,
     )}>
       <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center relative">
           {/* Logo */}
           {logo && (
-            <div className="flex items-center gap-3">
+            <div className="absolute left-0 flex items-center">
               {logo}
             </div>
           )}
           
           {/* Navigation Items - Desktop */}
-          <div className="hidden md:flex items-center">
+          <div className="flex items-center">
             <div className="flex items-center gap-2 bg-background/20 border border-border/30 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg">
               {items.map((item) => {
                 const Icon = item.icon
@@ -144,13 +144,6 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
               })}
             </div>
           </div>
-
-          {/* Right Content */}
-          {rightContent && (
-            <div className="flex items-center gap-4">
-              {rightContent}
-            </div>
-          )}
         </div>
       </div>
     </nav>
