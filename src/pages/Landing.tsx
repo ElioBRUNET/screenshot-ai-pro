@@ -63,7 +63,7 @@ const Landing = () => {
         {/* 3D Spline Animation Background */}
         <div className="absolute inset-0 z-0 scale-150">
           <iframe 
-            src='https://my.spline.design/meeet-dVXRAjcVCG7jHEzd0EMMw37i/' 
+            src='https://my.spline.design/celestialflowabstractdigitalform-uWbPCWegovhjYb6E3H9IUBL9/' 
             frameBorder='0' 
             width='100%' 
             height='100%'
