@@ -61,9 +61,9 @@ const Landing = () => {
           </nav>
         </div>
         {/* 3D Spline Animation Background */}
-        <div className="absolute inset-0 z-0 scale-150">
+        <div className="absolute inset-0 z-0 scale-125">
           <iframe 
-            src='https://my.spline.design/celestialflowabstractdigitalform-uWbPCWegovhjYb6E3H9IUBL9/?transparent=true' 
+            src='https://my.spline.design/unchained-ipGQcQs3SeK7JWZl3NWVDpb6/?transparent=true' 
             frameBorder='0' 
             width='100%' 
             height='100%'
