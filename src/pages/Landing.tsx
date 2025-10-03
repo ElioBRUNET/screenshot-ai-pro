@@ -29,10 +29,10 @@ const Landing = () => {
       
     </>;
   const rightContent = <>
-      <Button variant="ghost" asChild className="hidden sm:inline-flex">
+      <Button variant="ghost" size="lg" asChild className="text-base px-6 py-3">
         <Link to="/login">Sign In</Link>
       </Button>
-      <Button asChild className="btn-premium">
+      <Button asChild size="lg" className="btn-premium text-base px-6 py-3">
         <Link to="/login">Get Started</Link>
       </Button>
     </>;
