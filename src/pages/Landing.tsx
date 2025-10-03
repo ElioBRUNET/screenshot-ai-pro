@@ -40,7 +40,7 @@ const Landing = () => {
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         {/* 3D Spline Animation Background */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 scale-150">
           <iframe 
             src='https://my.spline.design/meeet-dVXRAjcVCG7jHEzd0EMMw37i/' 
             frameBorder='0' 
@@ -49,11 +49,8 @@ const Landing = () => {
             className="w-full h-full"
           />
           {/* Watermark cover */}
-          <div className="absolute bottom-0 right-0 w-48 h-12 bg-background"></div>
+          <div className="absolute bottom-0 right-0 w-48 h-20 bg-background"></div>
         </div>
-
-        {/* White gradient overlay for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/80 to-background/95 z-[1]"></div>
         
         {/* Floating Elements */}
         <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30 z-[2]"></div>
