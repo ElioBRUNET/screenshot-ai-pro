@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import DisplayCards from "@/components/ui/display-cards";
-import { NavBar } from "@/components/ui/tubelight-navbar";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 const Landing = () => {
@@ -22,7 +21,7 @@ const Landing = () => {
     icon: DownloadIcon
   }];
   const logo = <>
-      <img src="/owlo-logo.svg" alt="Owlo" className="h-8 w-8" />
+      <img src="/owlo-logo.svg" alt="Owlo" className="h-12 w-12" />
       
     </>;
   const rightContent = <>
@@ -34,11 +33,33 @@ const Landing = () => {
       </Button>
     </>;
   return <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <NavBar items={navItems} logo={logo} rightContent={rightContent} />
-
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+      <section className="relative pt-8 pb-24 px-6 overflow-hidden">
+        {/* Navigation integrated in hero */}
+        <div className="container mx-auto relative z-20">
+          <nav className="flex items-center justify-between py-4">
+            <div className="flex items-center gap-3">
+              {logo}
+            </div>
+            
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map((item, index) => (
+                <a 
+                  key={index} 
+                  href={item.url} 
+                  className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-2"
+                >
+                  {item.icon && <item.icon className="w-4 h-4" />}
+                  {item.name}
+                </a>
+              ))}
+            </div>
+            
+            <div className="flex items-center gap-4">
+              {rightContent}
+            </div>
+          </nav>
+        </div>
         {/* 3D Spline Animation Background */}
         <div className="absolute inset-0 z-0 scale-150">
           <iframe 
@@ -58,21 +79,21 @@ const Landing = () => {
         <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35 z-[2]"></div>
         
         <div className="container mx-auto text-center relative z-10">
-          <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
+          <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in backdrop-blur-sm">
             <Sparkles className="w-4 h-4 mr-2" />
             AI-Powered Productivity Revolution
           </Badge>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.3), 0 0 40px rgba(255,255,255,0.5)' }}>
             Unlock Your{" "}
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.2)' }}>
               Peak Productivity
             </span>
             <br />
             with AI Insights
           </h1>
           
-          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
+          <p className="text-lg md:text-xl text-foreground/90 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s] backdrop-blur-sm bg-background/30 py-4 px-6 rounded-2xl" style={{ textShadow: '0 1px 10px rgba(255,255,255,0.8)' }}>
             Transform your daily workflow with personalized AI recommendations that understand your work patterns and boost productivity by up to 85%.
           </p>
 
