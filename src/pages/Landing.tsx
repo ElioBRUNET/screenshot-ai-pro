@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { GlassBadge } from "@/components/ui/glass-badge";
 import { Input } from "@/components/ui/input";
 import DisplayCards from "@/components/ui/display-cards";
 import { NavBar } from "@/components/ui/tubelight-navbar";
@@ -56,10 +56,9 @@ const Landing = () => {
         </div>
         
         <div className="container mx-auto text-center relative z-10">
-          <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
-            <Sparkles className="w-4 h-4 mr-2" />
+          <GlassBadge icon={<Sparkles className="w-4 h-4" />} className="mb-8 animate-fade-in">
             AI-Powered Productivity Revolution
-          </Badge>
+          </GlassBadge>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up">
             Unlock Your{" "}
@@ -95,10 +94,9 @@ const Landing = () => {
       <section id="how-it-works" className="pt-24 pb-32 px-6 bg-background">
         <div className="container mx-auto">
           <div className="text-center mb-20 animate-fade-up">
-            <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-accent/10 text-primary border-primary/20 px-6 py-2">
-              <Brain className="w-4 h-4 mr-2" />
+            <GlassBadge icon={<Brain className="w-4 h-4" />} className="mb-6">
               AI That Understands
-            </Badge>
+            </GlassBadge>
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
               AI That Understands
               <br />
@@ -155,10 +153,9 @@ const Landing = () => {
       <section className="py-20 px-6 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-16 animate-fade-up">
-            <Badge className="mb-6 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2">
-              <Sparkles className="w-4 h-4 mr-2" />
+            <GlassBadge icon={<Sparkles className="w-4 h-4" />} className="mb-6">
               Why Choose Owlo
-            </Badge>
+            </GlassBadge>
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
               Trusted by Thousands of
               <br />
