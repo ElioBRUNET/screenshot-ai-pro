@@ -63,11 +63,12 @@ const Landing = () => {
         {/* 3D Spline Animation Background */}
         <div className="absolute inset-0 z-0 scale-150">
           <iframe 
-            src='https://my.spline.design/celestialflowabstractdigitalform-uWbPCWegovhjYb6E3H9IUBL9/' 
+            src='https://my.spline.design/celestialflowabstractdigitalform-uWbPCWegovhjYb6E3H9IUBL9/?transparent=true' 
             frameBorder='0' 
             width='100%' 
             height='100%'
             className="w-full h-full"
+            style={{ background: 'transparent' }}
           />
           {/* Watermark cover */}
           <div className="absolute bottom-0 right-0 w-48 h-20 bg-background"></div>
