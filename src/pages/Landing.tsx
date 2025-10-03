@@ -61,13 +61,12 @@ const Landing = () => {
           </nav>
         </div>
         {/* 3D Spline Animation Background */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center">
-          <div className="scale-110 rotate-[-8deg]">
-            <iframe 
-              src='https://my.spline.design/unchained-ipGQcQs3SeK7JWZl3NWVDpb6/?transparent=true' 
-              frameBorder='0' 
-              width='1200px' 
-              height='800px'
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-8deg] md:rotate-[-10deg]">
+            <iframe
+              src='https://my.spline.design/unchained-ipGQcQs3SeK7JWZl3NWVDpb6/?transparent=true'
+              frameBorder='0'
+              className="block w-[140vw] sm:w-[110vw] md:w-[90vw] lg:w-[75vw] h-[110vh] sm:h-[90vh] md:h-[85vh] lg:h-[80vh]"
               style={{ background: 'transparent' }}
             />
           </div>
