@@ -30,13 +30,14 @@ const Landing = () => {
     name: 'Get Started',
     url: '/login'
   }];
-  const logo = <>
-      <img src="/owlo-logo.svg" alt="Owlo" className="h-28 w-28 md:h-32 md:w-32 lg:h-36 lg:w-36" />
-      
-    </>;
   return <div className="min-h-screen bg-background">
+      {/* Logo - Static */}
+      <div className="absolute top-6 left-6 z-40">
+        <img src="/owlo-logo.svg" alt="Owlo" className="h-28 w-28 md:h-32 md:w-32 lg:h-36 lg:w-36" />
+      </div>
+      
       {/* Navigation */}
-      <NavBar items={navItems} logo={logo} className="bg-transparent backdrop-blur-none border-none" />
+      <NavBar items={navItems} className="bg-transparent backdrop-blur-none border-none" />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
