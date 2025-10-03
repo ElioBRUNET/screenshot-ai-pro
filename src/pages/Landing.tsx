@@ -38,7 +38,7 @@ const Landing = () => {
       <NavBar items={navItems} logo={logo} rightContent={rightContent} />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-background">
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
         {/* 3D Spline Animation Background */}
         <div className="absolute inset-0 z-0">
           <iframe 
@@ -52,13 +52,10 @@ const Landing = () => {
           <div className="absolute bottom-0 right-0 w-48 h-12 bg-background"></div>
         </div>
         
-        {/* White Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/80 z-[1]"></div>
-        
         {/* Floating Elements */}
-        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30 z-[2]"></div>
-        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40 z-[2]"></div>
-        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35 z-[2]"></div>
+        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30 z-0"></div>
+        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40 z-0"></div>
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35 z-0"></div>
         
         <div className="container mx-auto text-center relative z-10">
           <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
