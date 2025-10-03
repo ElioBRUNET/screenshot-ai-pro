@@ -93,7 +93,7 @@ const Landing = () => {
       </section>
 
       {/* AI Framework Section with Display Cards */}
-      <section id="how-it-works" className="pt-24 pb-64 px-6 bg-background">
+      <section id="how-it-works" className="pt-24 pb-64 px-6 bg-muted/20">
         <div className="container mx-auto">
           <div className="text-center mb-12 animate-fade-up">
             <GlassBadge icon={<Brain className="w-4 h-4" />} className="mb-6">
