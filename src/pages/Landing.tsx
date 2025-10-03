@@ -35,7 +35,7 @@ const Landing = () => {
     </>;
   return <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <NavBar items={navItems} logo={logo} rightContent={rightContent} />
+      <NavBar items={navItems} logo={logo} rightContent={rightContent} className="bg-transparent backdrop-blur-none border-none" />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden">
