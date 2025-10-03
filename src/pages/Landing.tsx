@@ -31,7 +31,7 @@ const Landing = () => {
     url: '/login'
   }];
   const logo = <>
-      <img src="/owlo-logo.svg" alt="Owlo" className="h-12 w-12" />
+      <img src="/owlo-logo.svg" alt="Owlo" className="h-24 w-24" />
       
     </>;
   return <div className="min-h-screen bg-background">
