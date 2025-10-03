@@ -7,7 +7,7 @@ import { NavBar } from "@/components/ui/tubelight-navbar";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import PricingSection from "@/components/ui/pricing-section";
 import { DitheringShader } from "@/components/ui/dithering-shader";
-import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon } from "lucide-react";
+import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon, Apple } from "lucide-react";
 import { Link } from "react-router-dom";
 const Landing = () => {
   const navItems = [{
@@ -73,14 +73,15 @@ const Landing = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20 animate-fade-up [animation-delay:0.4s]">
-            <Button size="lg" className="btn-premium text-lg px-10 py-6 rounded-2xl shadow-xl hover:shadow-2xl group">
-              <Download className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
-              Download Now
-              <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+            <Button size="lg" className="bg-white hover:bg-gray-50 text-blue-600 text-lg px-10 py-6 rounded-2xl shadow-xl hover:shadow-2xl group border-2 border-gray-200">
+              <Apple className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
+              Download for Mac
             </Button>
-            <Button variant="outline" size="lg" className="btn-premium-outline text-lg px-10 py-6 rounded-2xl group">
-              <Play className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
-              Watch Demo
+            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-10 py-6 rounded-2xl shadow-xl hover:shadow-2xl group">
+              <svg className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+              </svg>
+              Download for Windows
             </Button>
           </div>
 
