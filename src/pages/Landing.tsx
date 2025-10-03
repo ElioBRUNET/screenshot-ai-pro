@@ -23,22 +23,20 @@ const Landing = () => {
     url: '#download',
     external: true,
     icon: DownloadIcon
+  }, {
+    name: 'Sign In',
+    url: '/login'
+  }, {
+    name: 'Get Started',
+    url: '/login'
   }];
   const logo = <>
       <img src="/owlo-logo.svg" alt="Owlo" className="h-12 w-12" />
       
     </>;
-  const rightContent = <>
-      <Button variant="ghost" asChild className="hidden sm:inline-flex">
-        <Link to="/login">Sign In</Link>
-      </Button>
-      <Button asChild className="btn-premium">
-        <Link to="/login">Get Started</Link>
-      </Button>
-    </>;
   return <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <NavBar items={navItems} logo={logo} rightContent={rightContent} className="bg-transparent backdrop-blur-none border-none" />
+      <NavBar items={navItems} logo={logo} className="bg-transparent backdrop-blur-none border-none" />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
