@@ -81,23 +81,7 @@ const Landing = () => {
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-muted-foreground animate-fade-up [animation-delay:0.6s]">
-            <div className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-yellow-500 fill-current" />
-              <span className="font-semibold">4.9/5</span>
-              <span>from 10,000+ users</span>
-            </div>
-            <div className="hidden sm:block w-px h-4 bg-border"></div>
-            <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-accent" />
-              <span>Free to start</span>
-            </div>
-            <div className="hidden sm:block w-px h-4 bg-border"></div>
-            <div className="flex items-center gap-2">
-              <Shield className="w-5 h-5 text-primary" />
-              <span>Privacy-first design</span>
-            </div>
-          </div>
+          
         </div>
       </section>
 
@@ -119,106 +103,18 @@ const Landing = () => {
           </div>
           
           <BentoGrid className="lg:grid-rows-3 max-w-6xl mx-auto">
-            <BentoCard
-              name="85% Productivity Boost"
-              className="lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2"
-              background={
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
-              }
-              Icon={TrendingUp}
-              description="See measurable improvements in your daily workflow and task completion rates."
-              href="#features"
-              cta="Learn more"
-            />
-            <BentoCard
-              name="2.5hrs Time Saved Daily"
-              className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2"
-              background={
-                <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent" />
-              }
-              Icon={Clock}
-              description="Reclaim valuable hours every day with AI-powered workflow optimization."
-              href="#features"
-              cta="Learn more"
-            />
-            <BentoCard
-              name="50k+ Active Users"
-              className="lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-4"
-              background={
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />
-              }
-              Icon={Users}
-              description="Join a growing community of professionals optimizing their productivity."
-              href="#features"
-              cta="Learn more"
-            />
-            <BentoCard
-              name="4.9★ User Rating"
-              className="lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4"
-              background={
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-transparent" />
-              }
-              Icon={Star}
-              description="Highly rated by over 10,000+ users for its effectiveness and ease of use."
-              href="#features"
-              cta="Learn more"
-            />
-            <BentoCard
-              name="Privacy-First Design"
-              className="lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2"
-              background={
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
-              }
-              Icon={Shield}
-              description="Your data stays secure with end-to-end encryption and local processing."
-              href="#features"
-              cta="Learn more"
-            />
-            <BentoCard
-              name="Free to Start"
-              className="lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-4"
-              background={
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />
-              }
-              Icon={CheckCircle}
-              description="Get started today with no credit card required. Upgrade when you're ready."
-              href="#download"
-              cta="Get Started"
-            />
+            <BentoCard name="85% Productivity Boost" className="lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={TrendingUp} description="See measurable improvements in your daily workflow and task completion rates." href="#features" cta="Learn more" />
+            <BentoCard name="2.5hrs Time Saved Daily" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent" />} Icon={Clock} description="Reclaim valuable hours every day with AI-powered workflow optimization." href="#features" cta="Learn more" />
+            <BentoCard name="50k+ Active Users" className="lg:col-start-2 lg:col-end-3 lg:row-start-2 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={Users} description="Join a growing community of professionals optimizing their productivity." href="#features" cta="Learn more" />
+            <BentoCard name="4.9★ User Rating" className="lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-transparent" />} Icon={Star} description="Highly rated by over 10,000+ users for its effectiveness and ease of use." href="#features" cta="Learn more" />
+            <BentoCard name="Privacy-First Design" className="lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={Shield} description="Your data stays secure with end-to-end encryption and local processing." href="#features" cta="Learn more" />
+            <BentoCard name="Free to Start" className="lg:col-start-3 lg:col-end-4 lg:row-start-2 lg:row-end-4" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={CheckCircle} description="Get started today with no credit card required. Upgrade when you're ready." href="#download" cta="Get Started" />
           </BentoGrid>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 px-6 bg-background">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[{
-            value: "85%",
-            label: "Productivity Boost",
-            icon: TrendingUp
-          }, {
-            value: "2.5hrs",
-            label: "Time Saved Daily",
-            icon: Clock
-          }, {
-            value: "50k+",
-            label: "Active Users",
-            icon: Users
-          }, {
-            value: "4.9★",
-            label: "User Rating",
-            icon: Award
-          }].map((stat, index) => <div key={index} className="premium-card p-8 text-center rounded-2xl animate-fade-up" style={{
-            animationDelay: `${index * 0.1}s`
-          }}>
-                <stat.icon className="w-8 h-8 mx-auto mb-4 text-primary" />
-                <div className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2">{stat.value}</div>
-                <div className="text-muted-foreground font-medium">{stat.label}</div>
-              </div>)}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Features Section */}
       
