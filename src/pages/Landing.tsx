@@ -32,12 +32,12 @@ const Landing = () => {
   }];
   return <div className="min-h-screen bg-background">
       {/* Logo - Static */}
-      <div className="absolute top-2 left-6 z-40">
-        <img src="/owlo-logo.svg" alt="Owlo" className="h-28 w-28 md:h-32 md:w-32 lg:h-36 lg:w-36" />
+      <div className="absolute top-8 left-6 z-40 flex items-center">
+        <img src="/owlo-logo.svg" alt="Owlo" className="h-16 w-16 md:h-20 md:w-20" />
       </div>
       
       {/* Navigation */}
-      <NavBar items={navItems} className="bg-transparent backdrop-blur-none border-none" />
+      <NavBar items={navItems} className="bg-transparent backdrop-blur-none border-none mt-2" />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
