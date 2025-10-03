@@ -44,7 +44,7 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
       "fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border/50 z-50",
       className,
     )}>
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-6 py-6">
         <div className="flex items-center justify-center relative">
           {/* Logo */}
           {logo && (
