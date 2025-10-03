@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import DisplayCards from "@/components/ui/display-cards";
+import { NavBar } from "@/components/ui/tubelight-navbar";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 const Landing = () => {
@@ -21,7 +22,7 @@ const Landing = () => {
     icon: DownloadIcon
   }];
   const logo = <>
-      <img src="/owlo-logo.svg" alt="Owlo" className="h-12 w-12" />
+      <img src="/owlo-logo.svg" alt="Owlo" className="h-8 w-8" />
       
     </>;
   const rightContent = <>
@@ -33,68 +34,36 @@ const Landing = () => {
       </Button>
     </>;
   return <div className="min-h-screen bg-background">
+      {/* Navigation */}
+      <NavBar items={navItems} logo={logo} rightContent={rightContent} />
+
       {/* Hero Section */}
-      <section className="relative pt-8 pb-24 px-6 overflow-hidden">
-        {/* Navigation integrated in hero */}
-        <div className="container mx-auto relative z-20">
-          <nav className="flex items-center justify-between py-4">
-            <div className="flex items-center gap-3">
-              {logo}
-            </div>
-            
-            <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item, index) => (
-                <a 
-                  key={index} 
-                  href={item.url} 
-                  className="text-foreground hover:text-primary transition-colors font-medium flex items-center gap-2"
-                >
-                  {item.icon && <item.icon className="w-4 h-4" />}
-                  {item.name}
-                </a>
-              ))}
-            </div>
-            
-            <div className="flex items-center gap-4">
-              {rightContent}
-            </div>
-          </nav>
-        </div>
-        {/* 3D Spline Animation Background */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-8deg] md:rotate-[-10deg]">
-            <iframe
-              src='https://my.spline.design/unchained-ipGQcQs3SeK7JWZl3NWVDpb6/?transparent=true'
-              frameBorder='0'
-              className="block w-[140vw] sm:w-[110vw] md:w-[90vw] lg:w-[75vw] h-[110vh] sm:h-[90vh] md:h-[85vh] lg:h-[80vh]"
-              style={{ background: 'transparent' }}
-            />
-          </div>
-          {/* Watermark cover */}
-          <div className="absolute bottom-0 right-0 w-48 h-20 bg-background"></div>
-        </div>
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-30 animate-rise-up" style={{
+        backgroundImage: 'url(/hero-bg.webp)'
+      }}></div>
         
         {/* Floating Elements */}
-        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30 z-[2]"></div>
-        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40 z-[2]"></div>
-        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35 z-[2]"></div>
+        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30"></div>
+        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40"></div>
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35"></div>
         
         <div className="container mx-auto text-center relative z-10">
-          <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in backdrop-blur-sm">
+          <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
             <Sparkles className="w-4 h-4 mr-2" />
             AI-Powered Productivity Revolution
           </Badge>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.3), 0 0 40px rgba(255,255,255,0.5)' }}>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up">
             Unlock Your{" "}
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.2)' }}>
+            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
               Peak Productivity
             </span>
             <br />
             with AI Insights
           </h1>
           
-          <p className="text-lg md:text-xl text-foreground/90 mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s] backdrop-blur-sm bg-background/30 py-4 px-6 rounded-2xl" style={{ textShadow: '0 1px 10px rgba(255,255,255,0.8)' }}>
+          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
             Transform your daily workflow with personalized AI recommendations that understand your work patterns and boost productivity by up to 85%.
           </p>
 
