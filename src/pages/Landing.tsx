@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import DisplayCards from "@/components/ui/display-cards";
 import { NavBar } from "@/components/ui/tubelight-navbar";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
+import PricingSection from "@/components/ui/pricing-section";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 const Landing = () => {
@@ -113,11 +114,8 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      
-
-      {/* Features Section */}
-      
+      {/* Pricing Section */}
+      <PricingSection />
 
       {/* AI Framework Section with Display Cards */}
       <section id="how-it-works" className="pt-24 pb-32 px-6 bg-muted/30">
