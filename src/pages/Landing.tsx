@@ -6,6 +6,7 @@ import DisplayCards from "@/components/ui/display-cards";
 import { NavBar } from "@/components/ui/tubelight-navbar";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import PricingSection from "@/components/ui/pricing-section";
+import { DitheringShader } from "@/components/ui/dithering-shader";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 const Landing = () => {
@@ -40,15 +41,17 @@ const Landing = () => {
       <NavBar items={navItems} logo={logo} rightContent={rightContent} className="bg-transparent backdrop-blur-none border-none" />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-30 animate-rise-up" style={{
-        backgroundImage: 'url(/hero-bg.webp)'
-      }}></div>
-        
-        {/* Floating Elements */}
-        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30"></div>
-        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40"></div>
-        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35"></div>
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
+        <DitheringShader 
+          shape="wave"
+          type="8x8"
+          colorBack="#ffffff"
+          colorFront="#add8e6"
+          pxSize={3}
+          speed={0.4}
+          className="absolute inset-0 opacity-40"
+          style={{ width: '100%', height: '100%' }}
+        />
         
         <div className="container mx-auto text-center relative z-10">
           <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
