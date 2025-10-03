@@ -42,16 +42,18 @@ const Landing = () => {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
-        <DitheringShader 
-          shape="wave"
-          type="8x8"
-          colorBack="#ffffff"
-          colorFront="#add8e6"
-          pxSize={3}
-          speed={0.4}
-          className="absolute inset-0 opacity-40"
-          style={{ width: '100%', height: '100%' }}
-        />
+        <div className="absolute inset-0 z-0">
+          <DitheringShader 
+            shape="wave"
+            type="8x8"
+            colorBack="#ffffff"
+            colorFront="#add8e6"
+            pxSize={3}
+            speed={0.4}
+            className="w-full h-full opacity-40"
+            style={{ width: '100%', height: '100%' }}
+          />
+        </div>
         
         <div className="container mx-auto text-center relative z-10">
           <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
