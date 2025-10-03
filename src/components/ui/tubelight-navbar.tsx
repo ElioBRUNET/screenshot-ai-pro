@@ -87,8 +87,9 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                           initial={false}
                           transition={{
                             type: "spring",
-                            stiffness: 300,
-                            damping: 30,
+                            stiffness: 400,
+                            damping: 35,
+                            mass: 0.8,
                           }}
                         >
                           <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
@@ -126,8 +127,9 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                         initial={false}
                         transition={{
                           type: "spring",
-                          stiffness: 300,
-                          damping: 30,
+                          stiffness: 400,
+                          damping: 35,
+                          mass: 0.8,
                         }}
                       >
                         <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
