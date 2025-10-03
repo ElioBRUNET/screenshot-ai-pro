@@ -38,27 +38,15 @@ const Landing = () => {
       <NavBar items={navItems} logo={logo} rightContent={rightContent} />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
-        {/* 3D Spline Animation Background */}
-        <div className="absolute inset-0 z-0">
-          <iframe 
-            src='https://my.spline.design/meeet-dVXRAjcVCG7jHEzd0EMMw37i/' 
-            frameBorder='0' 
-            width='100%' 
-            height='100%'
-            className="w-full h-full"
-          />
-          {/* Watermark Cover */}
-          <div className="absolute bottom-0 right-0 w-48 h-12 bg-white"></div>
-        </div>
-        
-        {/* White gradient overlay for better text visibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/90 z-[1]"></div>
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-30 animate-rise-up" style={{
+        backgroundImage: 'url(/hero-bg.webp)'
+      }}></div>
         
         {/* Floating Elements */}
-        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30 z-0"></div>
-        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40 z-0"></div>
-        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35 z-0"></div>
+        <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30"></div>
+        <div className="absolute top-48 right-16 w-24 h-24 bg-secondary/10 rounded-full blur-2xl float animate-float-slow opacity-40"></div>
+        <div className="absolute bottom-32 left-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl float animate-float opacity-35"></div>
         
         <div className="container mx-auto text-center relative z-10">
           <Badge className="mb-8 bg-gradient-to-r from-primary/10 to-secondary/10 text-primary border-primary/20 px-6 py-2 text-sm font-medium animate-fade-in">
