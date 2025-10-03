@@ -66,8 +66,8 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                       href={item.url}
                       onClick={() => handleTabClick(item.name)}
                       className={cn(
-                        "relative cursor-pointer text-sm font-semibold font-manrope px-6 py-2 rounded-full transition-colors",
-                        "text-muted-foreground hover:text-foreground",
+                        "relative cursor-pointer text-sm font-manrope font-semibold px-6 py-2 rounded-full transition-colors",
+                        "text-muted-foreground hover:text-foreground tracking-tight",
                         isActive && "text-foreground",
                       )}
                     >
@@ -103,8 +103,8 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                     to={item.url}
                     onClick={() => handleTabClick(item.name)}
                     className={cn(
-                      "relative cursor-pointer text-sm font-semibold font-manrope px-6 py-2 rounded-full transition-colors",
-                      "text-muted-foreground hover:text-foreground",
+                      "relative cursor-pointer text-sm font-manrope font-semibold px-6 py-2 rounded-full transition-colors",
+                      "text-muted-foreground hover:text-foreground tracking-tight",
                       isActive && "text-foreground",
                     )}
                   >
