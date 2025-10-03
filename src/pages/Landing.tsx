@@ -38,7 +38,7 @@ const Landing = () => {
       <NavBar items={navItems} logo={logo} rightContent={rightContent} />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-6 overflow-hidden">
+      <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
         {/* 3D Spline Animation Background */}
         <div className="absolute inset-0 z-0">
           <iframe 
@@ -49,8 +49,11 @@ const Landing = () => {
             className="w-full h-full"
           />
           {/* Watermark Cover */}
-          <div className="absolute bottom-0 right-0 w-48 h-12 bg-background"></div>
+          <div className="absolute bottom-0 right-0 w-48 h-12 bg-white"></div>
         </div>
+        
+        {/* White gradient overlay for better text visibility */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/60 to-white/90 z-[1]"></div>
         
         {/* Floating Elements */}
         <div className="absolute top-32 left-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl float animate-float opacity-30 z-0"></div>
