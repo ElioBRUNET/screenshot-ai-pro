@@ -22,6 +22,7 @@ interface NavBarProps {
 
 export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
   const [activeTab, setActiveTab] = useState("")
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null)
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -58,6 +59,8 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
               {items.map((item) => {
                 const Icon = item.icon
                 const isActive = activeTab === item.name
+                const isHovered = hoveredTab === item.name
+                const showLamp = isActive || isHovered
 
                 if (item.external) {
                   return (
@@ -65,6 +68,8 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                       key={item.name}
                       href={item.url}
                       onClick={() => handleTabClick(item.name)}
+                      onMouseEnter={() => setHoveredTab(item.name)}
+                      onMouseLeave={() => setHoveredTab(null)}
                       className={cn(
                         "relative cursor-pointer text-sm font-manrope font-semibold px-6 py-2 rounded-full transition-colors",
                         "text-muted-foreground hover:text-foreground tracking-tight",
@@ -75,7 +80,7 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                         {Icon && <Icon size={16} strokeWidth={2.5} />}
                         {item.name}
                       </span>
-                      {isActive && (
+                      {showLamp && (
                         <motion.div
                           layoutId="lamp"
                           className="absolute inset-0 w-full bg-primary/10 rounded-full -z-10"
@@ -102,6 +107,8 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                     key={item.name}
                     to={item.url}
                     onClick={() => handleTabClick(item.name)}
+                    onMouseEnter={() => setHoveredTab(item.name)}
+                    onMouseLeave={() => setHoveredTab(null)}
                     className={cn(
                       "relative cursor-pointer text-sm font-manrope font-semibold px-6 py-2 rounded-full transition-colors",
                       "text-muted-foreground hover:text-foreground tracking-tight",
@@ -112,7 +119,7 @@ export function NavBar({ items, className, logo, rightContent }: NavBarProps) {
                       {Icon && <Icon size={16} strokeWidth={2.5} />}
                       {item.name}
                     </span>
-                    {isActive && (
+                    {showLamp && (
                       <motion.div
                         layoutId="lamp"
                         className="absolute inset-0 w-full bg-primary/10 rounded-full -z-10"
