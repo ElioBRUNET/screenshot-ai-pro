@@ -33,7 +33,7 @@ const Landing = () => {
   return <div className="min-h-screen bg-background">
       {/* Logo - Static */}
       <div className="absolute top-8 left-6 z-40 flex items-center">
-        <img src="/owlo-logo.svg" alt="Owlo" className="h-16 w-16 md:h-20 md:w-20" />
+        <img src="/owlo-logo.svg" alt="Owlo" className="h-20 w-20 md:h-24 md:w-24" />
       </div>
       
       {/* Navigation */}
