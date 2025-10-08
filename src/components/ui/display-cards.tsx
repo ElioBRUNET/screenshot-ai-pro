@@ -30,12 +30,12 @@ function DisplayCard({
       )}
     >
       <div className="flex flex-col gap-3 relative z-20">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <span className="relative inline-block rounded-full bg-primary/20 p-1">
             {icon}
           </span>
+          <p className={cn("text-2xl font-heading font-bold", titleClassName)}>{title}</p>
         </div>
-        <p className={cn("text-2xl font-heading font-bold", titleClassName)}>{title}</p>
         <p className="text-lg font-medium text-foreground/90">{description}</p>
       </div>
       {date && <p className="text-lg text-muted-foreground relative z-20">{date}</p>}
