@@ -112,37 +112,34 @@ const Landing = () => {
 
           <div className="flex justify-center animate-fade-up [animation-delay:0.3s]">
             <DisplayCards cards={[{
-            icon: <Target className="size-4 text-primary" />,
+            icon: <Target className="size-5 text-primary" />,
             title: "Smart Recommendations",
-            description: "Personalized daily tips",
-            date: "Real-time",
+            description: "Get personalized daily tips and insights",
+            date: "Real-time updates",
             iconClassName: "text-primary",
             titleClassName: "text-primary",
-            className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0"
+            className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0 before:z-10"
           }, {
-            icon: <BarChart3 className="size-4 text-secondary" />,
-            title: "Activity Analytics",
-            description: "Track productivity patterns",
-            date: "Daily",
+            icon: <BarChart3 className="size-5 text-secondary" />,
+            title: "Productivity Patterns",
+            description: "Track and analyze your daily work habits",
             iconClassName: "text-secondary",
             titleClassName: "text-secondary",
-            className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0"
+            className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0 before:z-10"
           }, {
-            icon: <Zap className="size-4 text-accent" />,
-            title: "Instant Actions",
-            description: "One-click productivity boosts",
-            date: "Instant",
+            icon: <Zap className="size-5 text-accent" />,
+            title: "Quick Actions",
+            description: "Boost productivity with one-click shortcuts",
             iconClassName: "text-accent",
             titleClassName: "text-accent",
-            className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0"
+            className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0 before:z-10"
           }, {
-            icon: <Shield className="size-4 text-primary" />,
-            title: "Privacy First",
-            description: "Your data stays secure",
-            date: "Always",
+            icon: <Shield className="size-5 text-primary" />,
+            title: "Privacy Protected",
+            description: "Your data stays secure and private",
             iconClassName: "text-primary",
             titleClassName: "text-primary",
-            className: "[grid-area:stack] translate-x-36 translate-y-32 hover:translate-y-20"
+            className: "[grid-area:stack] translate-x-36 translate-y-32 hover:translate-y-20 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/70 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0 before:z-10"
           }]} />
           </div>
         </div>
