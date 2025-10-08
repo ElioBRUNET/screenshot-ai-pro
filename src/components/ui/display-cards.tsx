@@ -31,13 +31,13 @@ function DisplayCard({
         className
       )}
     >
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 relative z-20">
         <span className="relative inline-block rounded-full bg-primary/20 p-1">
           {icon}
         </span>
         <p className={cn("text-2xl font-heading font-bold", titleClassName)}>{title}</p>
       </div>
-      <p className="text-lg font-medium leading-snug">{description}</p>
+      <p className="text-lg font-medium leading-snug relative z-20">{description}</p>
       {showBottom && (<p className="mt-auto text-sm text-muted-foreground">{date}</p>)}
     </div>
   );
