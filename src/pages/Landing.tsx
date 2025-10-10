@@ -41,7 +41,7 @@ const Landing = () => {
   return <div className="min-h-screen bg-background">
       {/* Logo - Static */}
       <div className="absolute top-8 left-6 z-40 flex items-center">
-        <img src="/owlo-logo.svg" alt="Owlo" className="h-20 w-20 md:h-24 md:w-24" />
+        <img src="/owlo-logo.png" alt="Owlo" className="h-20 w-20 md:h-24 md:w-24" />
       </div>
       
       {/* Navigation */}
@@ -244,7 +244,7 @@ const Landing = () => {
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center gap-3 mb-6">
-                <img src="/owlo-logo.svg" alt="Owlo" className="h-24 w-24" />
+                <img src="/owlo-logo.png" alt="Owlo" className="h-24 w-24" />
                 
               </div>
               <p className="text-muted-foreground leading-relaxed mb-6 max-w-md">
