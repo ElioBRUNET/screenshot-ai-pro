@@ -68,8 +68,8 @@ const Landing = () => {
           </GlassBadge>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[1.1] animate-fade-up text-foreground">
-            Work Smarter with{" "}
-            <span className="bg-primary/20 px-3 py-1 rounded-lg">AI Insights</span>
+            Your <span className="bg-primary/20 px-2 py-0.5 rounded">AI Work Coach</span>{" "}
+            for Peak Productivity
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
