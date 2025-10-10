@@ -67,12 +67,9 @@ const Landing = () => {
             AI-Powered Productivity Revolution
           </GlassBadge>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up">
-            <span className="text-primary">Supercharge</span> Your Workflow,{" "}
-            <br />
-            Achieve <span className="text-secondary">Peak Performance</span>
-            <br />
-            with <span className="text-accent">AI Power</span>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[1.1] animate-fade-up text-foreground">
+            Work Smarter with{" "}
+            <span className="bg-primary/20 px-3 py-1 rounded-lg">AI Insights</span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
