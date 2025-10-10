@@ -40,7 +40,7 @@ const Landing = () => {
   }];
   return <div className="min-h-screen bg-background">
       {/* Logo - Static */}
-      <div className="absolute top-4 left-8 z-40 flex items-center">
+      <div className="absolute top-4 left-12 z-40 flex items-center">
         <img src="/owlo-logo.png" alt="Owlo" className="h-20 w-20 md:h-24 md:w-24" />
       </div>
       
