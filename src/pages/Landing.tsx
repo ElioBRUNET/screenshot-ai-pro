@@ -68,12 +68,11 @@ const Landing = () => {
           </GlassBadge>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up">
-            Unlock Your{" "}
-            <span className="text-foreground">
-              Peak Productivity
-            </span>
+            <span className="text-primary">Supercharge</span> Your Workflow,{" "}
             <br />
-            with AI Insights
+            Achieve <span className="text-secondary">Peak Performance</span>
+            <br />
+            with <span className="text-accent">AI Power</span>
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up [animation-delay:0.2s]">
