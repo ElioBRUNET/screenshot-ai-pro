@@ -110,7 +110,7 @@ const Landing = () => {
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
               AI That Understands
               <br />
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Your Workflow</span>
+              <span className="text-primary">Your Workflow</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Owlo's advanced AI analyzes your work patterns and provides personalized recommendations 
