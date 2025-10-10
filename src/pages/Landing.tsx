@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { GlassBadge } from "@/components/ui/glass-badge";
@@ -9,7 +10,14 @@ import PricingSection from "@/components/ui/pricing-section";
 import { DitheringShader } from "@/components/ui/dithering-shader";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon, Apple } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTheme } from "@/hooks/useTheme";
+
 const Landing = () => {
+  const { setTheme } = useTheme();
+  
+  useEffect(() => {
+    setTheme("light");
+  }, [setTheme]);
   const navItems = [{
     name: 'Features',
     url: '#features',
@@ -61,7 +69,7 @@ const Landing = () => {
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[0.9] animate-fade-up">
             Unlock Your{" "}
-            <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            <span className="text-foreground">
               Peak Productivity
             </span>
             <br />
