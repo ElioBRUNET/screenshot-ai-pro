@@ -85,7 +85,7 @@ export default function PricingSection() {
           animationNum={0}
           timelineRef={pricingRef}
           customVariants={revealVariants}
-          className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight"
+          className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
         >
           Plans that work best for your{" "}
           <span className="text-blue-600">
