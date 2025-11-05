@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         'manrope': ['Manrope', 'system-ui', 'sans-serif'],
         'jakarta': ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        'story': ['Story Script', 'cursive'],
       },
       colors: {
         border: "hsl(var(--border))",
