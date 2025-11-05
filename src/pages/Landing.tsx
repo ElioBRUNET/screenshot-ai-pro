@@ -164,10 +164,10 @@ const Landing = () => {
               Why Choose Owlo
             </GlassBadge>
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
-              Trusted by Thousands of
+              Everything You Need to
               <br />
               <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                Productivity Enthusiasts
+                Boost Your Productivity
               </span>
             </h2>
           </div>
@@ -176,6 +176,8 @@ const Landing = () => {
             <BentoCard name="85% Productivity Boost" className="lg:row-start-1 lg:row-end-3 lg:col-start-1 lg:col-end-2" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={TrendingUp} description="See measurable improvements in your daily workflow and task completion rates." href="#features" cta="Learn more" />
             <BentoCard name="2.5hrs Time Saved Daily" className="lg:col-start-2 lg:col-end-3 lg:row-start-1 lg:row-end-3" background={<div className="absolute inset-0 bg-gradient-to-br from-secondary/20 to-transparent" />} Icon={Clock} description="Reclaim valuable hours every day with AI-powered workflow optimization." href="#features" cta="Learn more" />
             <BentoCard name="Privacy-First Design" className="lg:col-start-3 lg:col-end-4 lg:row-start-1 lg:row-end-3" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={Shield} description="Your data stays secure with end-to-end encryption and local processing." href="#features" cta="Learn more" />
+            <BentoCard name="Cross-Platform Support" className="lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-5" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={Monitor} description="Works seamlessly across Windows, Mac, and mobile devices for productivity anywhere." href="#download" cta="Download Now" />
+            <BentoCard name="Smart AI Insights" className="lg:col-start-2 lg:col-end-3 lg:row-start-3 lg:row-end-5" background={<div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />} Icon={Brain} description="AI-powered recommendations that adapt to your unique work patterns and habits." href="#features" cta="Learn more" />
             <BentoCard name="Free to Start" className="lg:col-start-3 lg:col-end-4 lg:row-start-3 lg:row-end-5" background={<div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />} Icon={CheckCircle} description="Get started today with no credit card required. Upgrade when you're ready." href="#download" cta="Get Started" />
           </BentoGrid>
         </div>
