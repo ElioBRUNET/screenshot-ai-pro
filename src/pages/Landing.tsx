@@ -110,7 +110,7 @@ const Landing = () => {
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
               AI That Understands
               <br />
-              <span className="text-primary">Your Workflow</span>
+              <span className="text-blue-600">Your Workflow</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Owlo's advanced AI analyzes your work patterns and provides personalized recommendations 
@@ -166,7 +166,7 @@ const Landing = () => {
             <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight">
               Everything You Need to
               <br />
-              <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              <span className="text-blue-600">
                 Boost Your Productivity
               </span>
             </h2>
@@ -190,7 +190,7 @@ const Landing = () => {
             <h2 className="text-4xl md:text-6xl font-heading font-bold mb-8 leading-tight">
               Ready to Transform Your
               <br />
-              <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              <span className="text-blue-600">
                 Productivity?
               </span>
             </h2>
