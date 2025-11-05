@@ -85,26 +85,20 @@ export default function PricingSection() {
           animationNum={0}
           timelineRef={pricingRef}
           customVariants={revealVariants}
-          className="md:text-6xl sm:text-4xl text-3xl font-medium text-foreground mb-4"
+          className="text-4xl md:text-5xl font-heading font-bold mb-6 leading-tight"
         >
           Plans that work best for your{" "}
-          <TimelineContent
-            as="span"
-            animationNum={1}
-            timelineRef={pricingRef}
-            customVariants={revealVariants}
-            className="border-2 border-dashed border-primary px-2 py-1 rounded-xl bg-primary/10 capitalize inline-block"
-          >
+          <span className="text-blue-600">
             productivity
-          </TimelineContent>
+          </span>
         </TimelineContent>
 
         <TimelineContent
           as="p"
-          animationNum={2}
+          animationNum={1}
           timelineRef={pricingRef}
           customVariants={revealVariants}
-          className="sm:text-base text-sm text-muted-foreground sm:w-[70%] w-[80%] mx-auto"
+          className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed"
         >
           Trusted by thousands, we help individuals and teams stay focused and productive. Explore which option is right for you.
         </TimelineContent>
@@ -115,7 +109,7 @@ export default function PricingSection() {
           <TimelineContent
             key={plan.name}
             as="div"
-            animationNum={3 + index}
+            animationNum={2 + index}
             timelineRef={pricingRef}
             customVariants={revealVariants}
           >
