@@ -11,10 +11,10 @@ import { DitheringShader } from "@/components/ui/dithering-shader";
 import { ArrowRight, BarChart3, Target, Zap, Shield, Users, TrendingUp, Download, Smartphone, Monitor, Play, Star, CheckCircle, Brain, Sparkles, Clock, Award, Home, Info, Download as DownloadIcon, Apple } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useTheme } from "@/hooks/useTheme";
-
 const Landing = () => {
-  const { setTheme } = useTheme();
-  
+  const {
+    setTheme
+  } = useTheme();
   useEffect(() => {
     setTheme("light");
   }, [setTheme]);
@@ -51,16 +51,10 @@ const Landing = () => {
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 overflow-hidden bg-white">
         <div className="absolute inset-0 z-0">
-          <DitheringShader 
-            shape="wave"
-            type="8x8"
-            colorBack="#ffffff"
-            colorFront="#add8e6"
-            pxSize={3}
-            speed={0.4}
-            className="w-full h-full opacity-40"
-            style={{ width: '100%', height: '100%' }}
-          />
+          <DitheringShader shape="wave" type="8x8" colorBack="#ffffff" colorFront="#add8e6" pxSize={3} speed={0.4} className="w-full h-full opacity-40" style={{
+          width: '100%',
+          height: '100%'
+        }} />
         </div>
         
         <div className="container mx-auto text-center relative z-10">
@@ -69,7 +63,9 @@ const Landing = () => {
           </GlassBadge>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[1.1] animate-fade-up text-foreground">
-            Your <span className="px-1.5 py-0.5 rounded-md inline-block -rotate-1" style={{ backgroundColor: 'rgba(255, 130, 56, 0.6)' }}>AI Work Coach</span>{" "}
+            Your <span className="px-1.5 py-0.5 rounded-md inline-block -rotate-1" style={{
+            backgroundColor: 'rgba(255, 130, 56, 0.6)'
+          }}>AI Work Coach</span>{" "}
             for Peak Productivity
           </h1>
           
@@ -81,7 +77,7 @@ const Landing = () => {
             <Button size="lg" className="bg-white hover:bg-gray-50 text-blue-600 text-lg px-10 py-6 rounded-2xl shadow-xl hover:shadow-2xl group border-2 border-gray-200" asChild>
               <a href="https://github.com/ElioBRUNET/screenshot-ai-pro/releases/download/v.1.0.2.exe/OWLO.Downloader-1.0.0-universal.dmg" download>
                 <svg className="mr-3 h-8 w-8 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                 </svg>
                 Download for Mac
               </a>
@@ -89,7 +85,7 @@ const Landing = () => {
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-10 py-6 rounded-2xl shadow-xl hover:shadow-2xl group" asChild>
               <a href="https://github.com/ElioBRUNET/screenshot-ai-pro/releases/download/v.1.0.2.exe/OWLO.Setup.1.0.0.exe" download>
                 <svg className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
                 </svg>
                 Download for Windows
               </a>
@@ -204,7 +200,7 @@ const Landing = () => {
               <Button size="lg" className="bg-white hover:bg-gray-50 text-blue-600 text-lg px-12 py-6 rounded-2xl shadow-xl hover:shadow-2xl group border-2 border-gray-200" asChild>
                 <a href="https://github.com/ElioBRUNET/screenshot-ai-pro/releases/download/v.1.0.2.exe/OWLO.Downloader-1.0.0-universal.dmg" download>
                   <svg className="mr-3 h-8 w-8 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z" />
                   </svg>
                   Download for Mac
                 </a>
@@ -212,7 +208,7 @@ const Landing = () => {
               <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-12 py-6 rounded-2xl shadow-xl hover:shadow-2xl group" asChild>
                 <a href="https://github.com/ElioBRUNET/screenshot-ai-pro/releases/download/v.1.0.2.exe/OWLO.Setup.1.0.0.exe" download>
                   <svg className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+                    <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801" />
                   </svg>
                   Download for Windows
                 </a>
@@ -224,17 +220,7 @@ const Landing = () => {
             </p>
 
             {/* Newsletter Signup */}
-            <div className="max-w-md mx-auto">
-              <div className="flex gap-3">
-                <Input placeholder="Enter your email" className="flex-1 px-4 py-3 rounded-xl border-2 border-border/50 focus:border-primary transition-colors" />
-                <Button className="btn-premium px-8 py-3 rounded-xl">
-                  Subscribe
-                </Button>
-              </div>
-              <p className="text-xs text-muted-foreground mt-3">
-                Get early access to new features and productivity tips
-              </p>
-            </div>
+            
           </div>
         </div>
       </section>
