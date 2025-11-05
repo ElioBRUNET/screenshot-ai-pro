@@ -1,135 +1,54 @@
 "use client";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { TimelineContent } from "@/components/ui/timeline-animation";
-import NumberFlow from "@number-flow/react";
 import { Briefcase, CheckCheck, Database, Server } from "lucide-react";
-import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 const plans = [
   {
     name: "Free Demo",
     description:
-      "Try Owlo for free for one day. No credit card required, get full access and feedback after 24 hours",
-    price: 0,
-    yearlyPrice: 0,
+      "Test Owlo for free for one day and discover how AI can transform your productivity",
     buttonText: "Start Free Demo",
     buttonVariant: "default" as const,
     buttonLink: "https://calendly.com/novaflowmedia/30min?month=2025-11",
-    features: [
-      { text: "Full access for 24 hours", icon: <Briefcase size={20} /> },
-      { text: "All Pro features included", icon: <Database size={20} /> },
-      { text: "Personalized feedback session", icon: <Server size={20} /> },
-    ],
-    includes: [
-      "Demo includes:",
-      "Complete feature access",
-      "One-on-one feedback call",
-      "Setup assistance",
-    ],
-    hidePrice: true,
-  },
-  {
-    name: "Pro",
-    description:
-      "Best for professionals who want unlimited focus power and advanced features",
-    price: 9,
-    yearlyPrice: 89,
-    buttonText: "Get started",
-    buttonVariant: "default" as const,
     popular: true,
     features: [
-      { text: "Unlimited focus sessions", icon: <Briefcase size={20} /> },
-      { text: "Advanced distraction blocking", icon: <Database size={20} /> },
-      { text: "Detailed analytics & insights", icon: <Server size={20} /> },
+      { text: "Personalized onboarding call", icon: <Briefcase size={20} /> },
+      { text: "Full app access for 24 hours", icon: <Database size={20} /> },
+      { text: "Feedback session on AI implementation", icon: <Server size={20} /> },
     ],
     includes: [
-      "Everything in Free, plus:",
-      "Priority AI suggestions",
-      "Advanced scheduling",
-      "Team collaboration",
+      "What you get:",
+      "One-on-one onboarding",
+      "Complete feature access",
+      "Data-driven AI recommendations",
+      "Implementation strategy",
     ],
   },
   {
     name: "Enterprise",
     description:
-      "Custom solutions for teams with enhanced security and dedicated support",
+      "Implement AI in your team's workflow with full support and continuous optimization",
     buttonText: "Contact Sales",
     buttonVariant: "outline" as const,
     buttonLink: "https://calendly.com/novaflowmedia/30min?month=2025-11",
     features: [
-      { text: "Unlimited team members", icon: <Briefcase size={20} /> },
-      { text: "Advanced team analytics", icon: <Database size={20} /> },
-      { text: "Custom integrations", icon: <Server size={20} /> },
+      { text: "Full access anytime", icon: <Briefcase size={20} /> },
+      { text: "Dedicated support team", icon: <Database size={20} /> },
+      { text: "Daily recommendations & weekly reports", icon: <Server size={20} /> },
     ],
     includes: [
-      "Everything in Pro, plus:",
-      "Dedicated account manager",
-      "Custom AI training",
-      "SLA & priority support",
+      "Enterprise includes:",
+      "AI tailored to your workflow",
+      "Unlimited team members",
+      "Priority support",
+      "Team-wide analytics",
     ],
-    customPrice: true,
   },
 ];
 
-const PricingSwitch = ({ onSwitch }: { onSwitch: (value: string) => void }) => {
-  const [selected, setSelected] = useState("0");
-
-  const handleSwitch = (value: string) => {
-    setSelected(value);
-    onSwitch(value);
-  };
-
-  return (
-    <div className="flex justify-center">
-      <div className="relative z-50 mx-auto flex w-fit rounded-full bg-background/50 backdrop-blur-sm border border-border p-1">
-        <button
-          onClick={() => handleSwitch("0")}
-          className={`relative z-10 w-fit sm:h-12 h-10 rounded-full sm:px-6 px-3 sm:py-2 py-1 font-medium transition-colors ${
-            selected === "0"
-              ? "text-primary-foreground"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          {selected === "0" && (
-            <motion.span
-              layoutId={"switch"}
-              className="absolute top-0 left-0 sm:h-12 h-10 w-full rounded-full border-2 border-primary bg-primary shadow-lg"
-              transition={{ type: "spring", stiffness: 500, damping: 30 }}
-            />
-          )}
-          <span className="relative">Monthly</span>
-        </button>
-
-        <button
-          onClick={() => handleSwitch("1")}
-          className={`relative z-10 w-fit sm:h-12 h-8 flex-shrink-0 rounded-full sm:px-6 px-3 sm:py-2 py-1 font-medium transition-colors ${
-            selected === "1"
-              ? "text-primary-foreground"
-              : "text-muted-foreground hover:text-foreground"
-          }`}
-        >
-          {selected === "1" && (
-            <motion.span
-              layoutId={"switch"}
-              className="absolute top-0 left-0 sm:h-12 h-10 w-full rounded-full border-2 border-primary bg-primary shadow-lg"
-              transition={{ type: "spring", stiffness: 500, damping: 30 }}
-            />
-          )}
-          <span className="relative flex items-center gap-2">
-            Yearly
-            <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-              Save 20%
-            </span>
-          </span>
-        </button>
-      </div>
-    </div>
-  );
-};
-
 export default function PricingSection() {
-  const [isYearly, setIsYearly] = useState(false);
   const pricingRef = useRef<HTMLDivElement>(null);
 
   const revealVariants = {
@@ -148,9 +67,6 @@ export default function PricingSection() {
       opacity: 0,
     },
   };
-
-  const togglePricingPeriod = (value: string) =>
-    setIsYearly(Number.parseInt(value) === 1);
 
   return (
     <div className="px-4 pt-20 pb-20 min-h-screen mx-auto relative bg-background" ref={pricingRef}>
@@ -194,21 +110,12 @@ export default function PricingSection() {
         </TimelineContent>
       </div>
 
-      <TimelineContent
-        as="div"
-        animationNum={3}
-        timelineRef={pricingRef}
-        customVariants={revealVariants}
-      >
-        <PricingSwitch onSwitch={togglePricingPeriod} />
-      </TimelineContent>
-
-      <div className="grid md:grid-cols-3 max-w-7xl gap-4 py-6 mx-auto relative z-10">
+      <div className="grid md:grid-cols-2 max-w-5xl gap-6 py-6 mx-auto relative z-10">
         {plans.map((plan, index) => (
           <TimelineContent
             key={plan.name}
             as="div"
-            animationNum={4 + index}
+            animationNum={3 + index}
             timelineRef={pricingRef}
             customVariants={revealVariants}
           >
@@ -230,34 +137,7 @@ export default function PricingSection() {
                     </div>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
-                {plan.customPrice ? (
-                  <div className="flex items-baseline mb-4">
-                    <span className="text-4xl font-semibold text-foreground">
-                      Custom Pricing
-                    </span>
-                  </div>
-                ) : plan.hidePrice ? (
-                  <div className="flex items-baseline mb-4">
-                    <span className="text-4xl font-semibold text-primary">
-                      FREE
-                    </span>
-                    <span className="text-muted-foreground ml-2">for 24 hours</span>
-                  </div>
-                ) : (
-                  <div className="flex items-baseline">
-                    <span className="text-4xl font-semibold text-foreground">
-                      $
-                      <NumberFlow
-                        value={isYearly ? plan.yearlyPrice : plan.price}
-                        className="text-4xl font-semibold"
-                      />
-                    </span>
-                    <span className="text-muted-foreground ml-1">
-                      /{isYearly ? "year" : "month"}
-                    </span>
-                  </div>
-                )}
+                <p className="text-sm text-muted-foreground mb-6">{plan.description}</p>
               </CardHeader>
 
               <CardContent className="pt-0">
