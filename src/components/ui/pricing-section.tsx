@@ -8,24 +8,26 @@ import { useRef, useState } from "react";
 
 const plans = [
   {
-    name: "Free",
+    name: "Free Demo",
     description:
-      "Perfect for individuals getting started with Owlo's AI-powered focus tools",
+      "Try Owlo for free for one day. No credit card required, get full access and feedback after 24 hours",
     price: 0,
     yearlyPrice: 0,
-    buttonText: "Get started",
-    buttonVariant: "outline" as const,
+    buttonText: "Start Free Demo",
+    buttonVariant: "default" as const,
+    buttonLink: "https://calendly.com/novaflowmedia/30min?month=2025-11",
     features: [
-      { text: "Up to 5 focus sessions daily", icon: <Briefcase size={20} /> },
-      { text: "Basic distraction blocking", icon: <Database size={20} /> },
-      { text: "Simple analytics", icon: <Server size={20} /> },
+      { text: "Full access for 24 hours", icon: <Briefcase size={20} /> },
+      { text: "All Pro features included", icon: <Database size={20} /> },
+      { text: "Personalized feedback session", icon: <Server size={20} /> },
     ],
     includes: [
-      "Free includes:",
-      "AI-powered recommendations",
-      "Custom focus modes",
-      "Cross-device sync",
+      "Demo includes:",
+      "Complete feature access",
+      "One-on-one feedback call",
+      "Setup assistance",
     ],
+    hidePrice: true,
   },
   {
     name: "Pro",
@@ -52,10 +54,9 @@ const plans = [
     name: "Enterprise",
     description:
       "Custom solutions for teams with enhanced security and dedicated support",
-    price: 29,
-    yearlyPrice: 289,
-    buttonText: "Contact sales",
+    buttonText: "Contact Sales",
     buttonVariant: "outline" as const,
+    buttonLink: "https://calendly.com/novaflowmedia/30min?month=2025-11",
     features: [
       { text: "Unlimited team members", icon: <Briefcase size={20} /> },
       { text: "Advanced team analytics", icon: <Database size={20} /> },
@@ -67,6 +68,7 @@ const plans = [
       "Custom AI training",
       "SLA & priority support",
     ],
+    customPrice: true,
   },
 ];
 
@@ -229,30 +231,60 @@ export default function PricingSection() {
                   )}
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">{plan.description}</p>
-                <div className="flex items-baseline">
-                  <span className="text-4xl font-semibold text-foreground">
-                    $
-                    <NumberFlow
-                      value={isYearly ? plan.yearlyPrice : plan.price}
-                      className="text-4xl font-semibold"
-                    />
-                  </span>
-                  <span className="text-muted-foreground ml-1">
-                    /{isYearly ? "year" : "month"}
-                  </span>
-                </div>
+                {plan.customPrice ? (
+                  <div className="flex items-baseline mb-4">
+                    <span className="text-4xl font-semibold text-foreground">
+                      Custom Pricing
+                    </span>
+                  </div>
+                ) : plan.hidePrice ? (
+                  <div className="flex items-baseline mb-4">
+                    <span className="text-4xl font-semibold text-primary">
+                      FREE
+                    </span>
+                    <span className="text-muted-foreground ml-2">for 24 hours</span>
+                  </div>
+                ) : (
+                  <div className="flex items-baseline">
+                    <span className="text-4xl font-semibold text-foreground">
+                      $
+                      <NumberFlow
+                        value={isYearly ? plan.yearlyPrice : plan.price}
+                        className="text-4xl font-semibold"
+                      />
+                    </span>
+                    <span className="text-muted-foreground ml-1">
+                      /{isYearly ? "year" : "month"}
+                    </span>
+                  </div>
+                )}
               </CardHeader>
 
               <CardContent className="pt-0">
-                <button
-                  className={`w-full mb-6 p-4 text-xl rounded-xl transition-all ${
-                    plan.popular
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-primary/50 border border-primary"
-                      : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
-                  }`}
-                >
-                  {plan.buttonText}
-                </button>
+                {plan.buttonLink ? (
+                  <a 
+                    href={plan.buttonLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full mb-6 p-4 text-xl rounded-xl transition-all block text-center ${
+                      plan.popular
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-primary/50 border border-primary"
+                        : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
+                    }`}
+                  >
+                    {plan.buttonText}
+                  </a>
+                ) : (
+                  <button
+                    className={`w-full mb-6 p-4 text-xl rounded-xl transition-all ${
+                      plan.popular
+                        ? "bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-primary/50 border border-primary"
+                        : "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
+                    }`}
+                  >
+                    {plan.buttonText}
+                  </button>
+                )}
                 <ul className="space-y-2 font-semibold py-5">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center">
