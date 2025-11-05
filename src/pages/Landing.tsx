@@ -63,9 +63,7 @@ const Landing = () => {
           </GlassBadge>
           
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 leading-[1.1] animate-fade-up text-foreground">
-            Your <span className="px-1.5 py-0.5 rounded-md inline-block -rotate-1" style={{
-            backgroundColor: 'rgba(255, 130, 56, 0.6)'
-          }}>AI Work Coach</span>{" "}
+            Your <span className="px-3 py-1 rounded-lg inline-block -rotate-1 bg-white/10 backdrop-blur-md border border-white/20">AI Work Coach</span>{" "}
             for Peak Productivity
           </h1>
           
