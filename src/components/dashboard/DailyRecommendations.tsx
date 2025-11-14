@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Lightbulb, Zap, Target, RefreshCw, Clock, Download, CheckCircle, ArrowRight } from "lucide-react";
+import { Lightbulb, Zap, Target, RefreshCw, CheckCircle, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useUser } from "@/hooks/useUser";
 import { useToast } from "@/hooks/use-toast";
@@ -40,8 +38,6 @@ interface DailyRecommendation {
 
 export function DailyRecommendations() {
   const [loading, setLoading] = useState(false);
-  const [scheduledTime, setScheduledTime] = useState('09:00');
-  const [isScheduled, setIsScheduled] = useState(false);
   const [dailyTips, setDailyTips] = useState<DailyTip[]>([]);
   const [reportData, setReportData] = useState<{
     date: string;
@@ -211,7 +207,7 @@ export function DailyRecommendations() {
     }
   }, [session?.user?.id]);
 
-  const triggerWebhook = async (isScheduled = false) => {
+  const triggerWebhook = async () => {
     if (!session?.user?.id) {
       toast({
         title: "Error",
@@ -226,8 +222,8 @@ export function DailyRecommendations() {
       const payload = {
         uid: session.user.id,
         date: new Date().toISOString().split('T')[0],
-        scheduled: isScheduled,
-        scheduled_time: isScheduled ? scheduledTime : null,
+        scheduled: false,
+        scheduled_time: null,
         timestamp: new Date().toISOString()
       };
 
@@ -243,22 +239,14 @@ export function DailyRecommendations() {
       });
 
       toast({
-        title: isScheduled ? "Schedule Set" : "Report Requested",
-        description: isScheduled 
-          ? `Daily report will be generated at ${scheduledTime}` 
-          : "Your report is being generated. Check back in a few moments...",
+        title: "Report Requested",
+        description: "Your AI report is being generated. Check back in a few moments...",
       });
 
-      if (isScheduled) {
-        setIsScheduled(true);
-      }
-
-      // Auto-refresh recommendations after a short delay for new reports
-      if (!isScheduled) {
-        setTimeout(() => {
-          fetchDailyRecommendations();
-        }, 5000);
-      }
+      // Auto-refresh recommendations after a short delay
+      setTimeout(() => {
+        fetchDailyRecommendations();
+      }, 5000);
 
     } catch (error) {
       console.error("Error triggering webhook:", error);
@@ -273,102 +261,45 @@ export function DailyRecommendations() {
   };
 
   const handleGetReportNow = () => {
-    triggerWebhook(false);
-  };
-
-  const handleScheduleReport = () => {
-    triggerWebhook(true);
+    triggerWebhook();
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-heading clean-text">
-            Daily AI Report
-          </h2>
-          <p className="text-sm clean-text-muted">
-            Schedule your daily productivity report or get it instantly
-          </p>
-        </div>
+      {/* Generate Report Button */}
+      <div className="flex justify-center">
+        <Button
+          onClick={handleGetReportNow}
+          disabled={loading}
+          size="lg"
+          className="relative overflow-hidden bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-300 px-8 py-6 text-lg font-semibold group"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+          {loading ? (
+            <>
+              <RefreshCw className="h-5 w-5 mr-3 animate-spin" />
+              Generating Your AI Report...
+            </>
+          ) : (
+            <>
+              <Zap className="h-5 w-5 mr-3" />
+              Generate AI Report Now
+            </>
+          )}
+        </Button>
       </div>
-
-      {/* Report Control Panel */}
-      <Card className="clean-card">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-base font-heading clean-text">
-            <Clock className="h-5 w-5 text-primary" />
-            Report Settings
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Schedule Section */}
-            <div className="space-y-3">
-              <Label htmlFor="schedule-time" className="text-sm font-medium clean-text">
-                Schedule Daily Report
-              </Label>
-              <div className="flex items-center gap-2">
-                <Input
-                  id="schedule-time"
-                  type="time"
-                  value={scheduledTime}
-                  onChange={(e) => setScheduledTime(e.target.value)}
-                  className="flex-1"
-                />
-                <Button
-                  onClick={handleScheduleReport}
-                  disabled={loading}
-                  size="sm"
-                  variant="outline"
-                  className="clean-card"
-                >
-                  {isScheduled ? 'Update' : 'Schedule'}
-                </Button>
-              </div>
-              {isScheduled && (
-                <p className="text-xs clean-text-muted">
-                  ✓ Report scheduled for {scheduledTime} daily
-                </p>
-              )}
-            </div>
-
-            {/* Instant Report Section */}
-            <div className="space-y-3">
-              <Label className="text-sm font-medium clean-text">
-                Get Report Now
-              </Label>
-              <Button
-                onClick={handleGetReportNow}
-                disabled={loading}
-                className="w-full clean-card"
-                variant="outline"
-              >
-                {loading ? (
-                  <>
-                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                    Generating Report...
-                  </>
-                ) : (
-                  <>
-                    <Download className="h-4 w-4 mr-2" />
-                    Generate Report Now
-                  </>
-                )}
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
 
       {/* Loading State */}
       {loading && (
-        <Card className="clean-card">
+        <Card className="clean-card border-2 border-primary/20">
           <CardContent className="pt-6">
-            <div className="text-center">
-              <RefreshCw className="mx-auto h-8 w-8 text-primary mb-2 animate-spin" />
+            <div className="text-center space-y-3">
+              <RefreshCw className="mx-auto h-10 w-10 text-primary mb-3 animate-spin" />
+              <p className="text-base font-medium clean-text">
+                Analyzing your productivity patterns...
+              </p>
               <p className="text-sm clean-text-muted">
-                Processing your activity data and generating insights...
+                This usually takes just a few seconds
               </p>
             </div>
           </CardContent>
@@ -474,7 +405,7 @@ export function DailyRecommendations() {
                           
                           <div className="flex items-center gap-6 mt-4">
                             <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg border border-primary/20">
-                              <Clock className="h-4 w-4 text-primary" />
+                              <Zap className="h-4 w-4 text-primary" />
                               <span className="text-sm font-semibold text-primary">
                                 Save {tip.expected_time_saved_minutes} min
                               </span>

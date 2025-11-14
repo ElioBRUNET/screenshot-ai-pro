@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/hooks/useTheme";
 import { UserProvider, useUser } from "@/hooks/useUser";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import Settings from "./pages/Settings";
 import Landing from "./pages/Landing";
 
 import Layout from "./components/Layout";
@@ -47,7 +46,6 @@ const App = () => (
                 </ProtectedRoute>
               }>
                 <Route path="dashboard" element={<Dashboard />} />
-                <Route path="settings" element={<Settings />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
