@@ -43,10 +43,6 @@ export default function Layout() {
                 
                 {/* Navigation */}
                 <nav className="flex items-center space-x-2">
-                  {navigation.map(item => {
-                const isActive = location.pathname === item.href;
-                return;
-              })}
                   <ThemeToggle />
                   <Button variant="ghost" size="sm" onClick={handleLogout} className="h-9 w-9 p-0">
                     <LogOut className="h-4 w-4" />
