@@ -436,60 +436,63 @@ export function DailyRecommendations() {
                         </Button>
                       </div>
 
-                      {/* Single Column Layout */}
-                      <div className="space-y-5">
-                        {/* Why it fits */}
-                        <div className="relative overflow-hidden rounded-xl p-5 bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30">
-                          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
-                          <div className="relative">
-                            <div className="flex items-center gap-2 mb-3">
-                              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                                <CheckCircle className="h-5 w-5 text-primary-foreground" />
-                              </div>
-                              <h4 className="font-semibold text-foreground text-sm">
-                                Why This Fits
-                              </h4>
-                            </div>
-                            <p className="text-sm text-foreground/90 leading-relaxed">
-                              {tip.why_it_fits}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Copy-Paste Prompt */}
-                        {tip.copy_paste_prompt && (
-                          <div className="border-2 border-primary/30 rounded-xl p-5 bg-gradient-to-br from-muted/50 to-muted/30">
-                            <div className="flex items-center justify-between gap-3 mb-3">
-                              <div className="flex items-center gap-3">
+                      {/* 2-Column Layout */}
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        {/* Left Column: Why it fits + Prompt */}
+                        <div className="space-y-5">
+                          {/* Why it fits */}
+                          <div className="relative overflow-hidden rounded-xl p-5 bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+                            <div className="relative">
+                              <div className="flex items-center gap-2 mb-3">
                                 <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                                  <Zap className="h-5 w-5 text-primary-foreground" />
+                                  <CheckCircle className="h-5 w-5 text-primary-foreground" />
                                 </div>
-                                <span className="text-sm font-semibold text-foreground">Ready-to-Use Prompt</span>
+                                <h4 className="font-semibold text-foreground text-sm">
+                                  Why This Fits
+                                </h4>
                               </div>
-                              <Button
-                                size="sm"
-                                variant="default"
-                                onClick={() => {
-                                  navigator.clipboard.writeText(tip.copy_paste_prompt);
-                                  toast({
-                                    title: "Copied!",
-                                    description: "Prompt copied to clipboard",
-                                  });
-                                }}
-                                className="font-semibold"
-                              >
-                                Copy
-                              </Button>
-                            </div>
-                            <div className="bg-background rounded-lg p-3 border-2 border-border">
-                              <code className="text-sm text-foreground break-words leading-relaxed block">
-                                {tip.copy_paste_prompt}
-                              </code>
+                              <p className="text-sm text-foreground/90 leading-relaxed">
+                                {tip.why_it_fits}
+                              </p>
                             </div>
                           </div>
-                        )}
+
+                          {/* Copy-Paste Prompt */}
+                          {tip.copy_paste_prompt && (
+                            <div className="border-2 border-primary/30 rounded-xl p-5 bg-gradient-to-br from-muted/50 to-muted/30">
+                              <div className="flex items-center justify-between gap-3 mb-3">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                                    <Zap className="h-5 w-5 text-primary-foreground" />
+                                  </div>
+                                  <span className="text-sm font-semibold text-foreground">Ready-to-Use Prompt</span>
+                                </div>
+                                <Button
+                                  size="sm"
+                                  variant="default"
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(tip.copy_paste_prompt);
+                                    toast({
+                                      title: "Copied!",
+                                      description: "Prompt copied to clipboard",
+                                    });
+                                  }}
+                                  className="font-semibold"
+                                >
+                                  Copy
+                                </Button>
+                              </div>
+                              <div className="bg-background rounded-lg p-3 border-2 border-border">
+                                <code className="text-sm text-foreground break-words leading-relaxed block">
+                                  {tip.copy_paste_prompt}
+                                </code>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                         
-                        {/* Action Steps */}
+                        {/* Right Column: Action Steps */}
                         {tip.do_this_now_steps && tip.do_this_now_steps.length > 0 && (
                           <div className="border-2 border-border rounded-xl p-5 bg-muted/30">
                             <div className="flex items-center gap-3 mb-3 pb-3 border-b-2 border-border">
