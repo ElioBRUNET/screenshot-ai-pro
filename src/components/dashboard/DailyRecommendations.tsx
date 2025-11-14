@@ -441,123 +441,151 @@ export function DailyRecommendations() {
               
               {/* Recommendations */}
               {dailyTips.map((tip, index) => (
-                <div key={index} className="border border-border/40 rounded-xl p-6 bg-background/80">
-                  <div className="space-y-5">
-                    {/* Header with tool info */}
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="flex-shrink-0">
-                            <img 
-                              src={tip.required_tool.logo_url} 
-                              alt={tip.required_tool.name}
-                              className="w-8 h-8 rounded-md object-contain"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iI2Y1ZjVmNSIvPgo8cGF0aCBkPSJNMTIgOGMtMi4yMSAwLTQgMS43OS00IDRzMS43OSA0IDQgNCA0LTEuNzkgNC00LTEuNzktNC00LTR6bTAgNmMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6IiBmaWxsPSIjOTk5Ii8+Cjwvc3ZnPgo=';
-                              }}
-                            />
+                <div key={index} className="relative group">
+                  {/* Decorative gradient border */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl blur-sm opacity-50 group-hover:opacity-75 transition-opacity" />
+                  
+                  <div className="relative border-2 border-border rounded-2xl p-8 bg-background shadow-lg hover:shadow-xl transition-all">
+                    <div className="space-y-6">
+                      {/* Header with tool info */}
+                      <div className="flex items-start justify-between gap-4 pb-6 border-b-2 border-border/50">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-4 mb-3">
+                            <div className="flex-shrink-0 p-2 bg-primary/10 rounded-xl border border-primary/20">
+                              <img 
+                                src={tip.required_tool.logo_url} 
+                                alt={tip.required_tool.name}
+                                className="w-10 h-10 rounded-md object-contain"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iI2Y1ZjVmNSIvPgo8cGF0aCBkPSJNMTIgOGMtMi4yMSAwLTQgMS43OS00IDRzMS43OSA0IDQgNCA0LTEuNzkgNC00LTEuNzktNC00LTR6bTAgNmMtMS4xIDAtMi0uOS0yLTJzLjktMiAyLTIgMiAuOSAyIDItLjkgMi0yIDJ6IiBmaWxsPSIjOTk5Ii8+Cjwvc3ZnPgo=';
+                                }}
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="font-bold text-foreground text-xl mb-1">
+                                {tip.tailored_title}
+                              </h3>
+                              <p className="text-base text-muted-foreground font-medium">
+                                using {tip.required_tool.name}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <h3 className="font-semibold clean-text text-base">
-                              {tip.tailored_title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              with {tip.required_tool.name}
-                            </p>
+                          
+                          <div className="flex items-center gap-6 mt-4">
+                            <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg border border-primary/20">
+                              <Clock className="h-4 w-4 text-primary" />
+                              <span className="text-sm font-semibold text-primary">
+                                Save {tip.expected_time_saved_minutes} min
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 px-3 py-1.5 bg-muted rounded-lg">
+                              <Lightbulb className="h-4 w-4 text-foreground" />
+                              <span className="text-sm font-medium text-foreground">
+                                {tip.library_title}
+                              </span>
+                            </div>
                           </div>
                         </div>
                         
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            Save {tip.expected_time_saved_minutes} min
+                        <Button
+                          asChild
+                          size="lg"
+                          className="shrink-0 font-semibold"
+                        >
+                          <a 
+                            href={tip.required_tool.action_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2"
+                          >
+                            Open Tool
+                            <ArrowRight className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      </div>
+
+                      {/* Why it fits */}
+                      <div className="relative overflow-hidden rounded-xl p-5 bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+                        <div className="relative">
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                              <CheckCircle className="h-5 w-5 text-primary-foreground" />
+                            </div>
+                            <h4 className="font-bold text-foreground text-base">
+                              Why This Fits Your Workflow Today
+                            </h4>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Lightbulb className="h-3 w-3" />
-                            {tip.library_title}
-                          </div>
+                          <p className="text-base text-foreground/90 leading-relaxed font-medium">
+                            {tip.why_it_fits}
+                          </p>
                         </div>
                       </div>
                       
-                      <Button
-                        asChild
-                        size="sm"
-                        className="shrink-0"
-                      >
-                        <a 
-                          href={tip.required_tool.action_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2"
-                        >
-                          Open Tool
-                          <ArrowRight className="h-3 w-3" />
-                        </a>
-                      </Button>
-                    </div>
-
-                    {/* Why it fits */}
-                    <div className="border border-border/30 rounded-lg p-4 bg-primary/5">
-                      <h4 className="font-medium clean-text text-sm mb-2 text-primary">
-                        Why This Fits Today
-                      </h4>
-                      <p className="text-sm clean-text-muted leading-relaxed">
-                        {tip.why_it_fits}
-                      </p>
-                    </div>
-                    
-                    {/* Action Steps */}
-                    {tip.do_this_now_steps && tip.do_this_now_steps.length > 0 && (
-                      <div className="border border-border/30 rounded-lg p-4 bg-background/60">
-                        <div className="flex items-center gap-2 mb-3 pb-2 border-b border-border/20">
-                          <Target className="h-4 w-4 text-primary" />
-                          <span className="text-sm font-medium clean-text">Do This Now</span>
-                        </div>
-                        <div className="space-y-2">
-                          {tip.do_this_now_steps.map((step, stepIndex) => (
-                            <div key={stepIndex} className="flex items-start gap-3 p-3 border border-border/20 rounded-md bg-background/40">
-                              <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                <span className="text-xs text-primary font-medium">{stepIndex + 1}</span>
-                              </div>
-                              <p className="text-sm clean-text leading-relaxed">
-                                {step}
-                              </p>
+                      {/* Action Steps */}
+                      {tip.do_this_now_steps && tip.do_this_now_steps.length > 0 && (
+                        <div className="border-2 border-border rounded-xl p-6 bg-muted/30">
+                          <div className="flex items-center gap-3 mb-5 pb-4 border-b-2 border-border">
+                            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                              <Target className="h-5 w-5 text-primary-foreground" />
                             </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Copy-Paste Prompt */}
-                    {tip.copy_paste_prompt && (
-                      <div className="border border-border/30 rounded-lg p-4 bg-muted/20">
-                        <div className="flex items-center justify-between gap-2 mb-3">
-                          <div className="flex items-center gap-2">
-                            <Zap className="h-4 w-4 text-primary" />
-                            <span className="text-sm font-medium clean-text">Ready-to-Use Prompt</span>
+                            <div>
+                              <span className="text-lg font-bold text-foreground block">Action Steps</span>
+                              <span className="text-sm text-muted-foreground">Follow these to get started</span>
+                            </div>
                           </div>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => {
-                              navigator.clipboard.writeText(tip.copy_paste_prompt);
-                              toast({
-                                title: "Copied!",
-                                description: "Prompt copied to clipboard",
-                              });
-                            }}
-                          >
-                            Copy
-                          </Button>
+                          <div className="space-y-3">
+                            {tip.do_this_now_steps.map((step, stepIndex) => (
+                              <div key={stepIndex} className="flex items-start gap-4 p-4 border-2 border-border rounded-lg bg-background hover:border-primary/50 transition-colors">
+                                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                                  <span className="text-sm text-primary-foreground font-bold">{stepIndex + 1}</span>
+                                </div>
+                                <p className="text-base text-foreground leading-relaxed font-medium flex-1">
+                                  {step}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                        <div className="bg-background/80 rounded-md p-3 border border-border/20">
-                          <code className="text-xs clean-text-muted break-words">
-                            {tip.copy_paste_prompt}
-                          </code>
+                      )}
+
+                      {/* Copy-Paste Prompt */}
+                      {tip.copy_paste_prompt && (
+                        <div className="border-2 border-primary/30 rounded-xl p-6 bg-gradient-to-br from-muted/50 to-muted/30">
+                          <div className="flex items-center justify-between gap-3 mb-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                                <Zap className="h-5 w-5 text-primary-foreground" />
+                              </div>
+                              <div>
+                                <span className="text-lg font-bold text-foreground block">Ready-to-Use Prompt</span>
+                                <span className="text-sm text-muted-foreground">Copy and paste into the tool</span>
+                              </div>
+                            </div>
+                            <Button
+                              size="lg"
+                              variant="default"
+                              onClick={() => {
+                                navigator.clipboard.writeText(tip.copy_paste_prompt);
+                                toast({
+                                  title: "Copied!",
+                                  description: "Prompt copied to clipboard",
+                                });
+                              }}
+                              className="font-semibold"
+                            >
+                              Copy Prompt
+                            </Button>
+                          </div>
+                          <div className="bg-background rounded-lg p-4 border-2 border-border">
+                            <code className="text-sm text-foreground break-words font-medium leading-relaxed block">
+                              {tip.copy_paste_prompt}
+                            </code>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               ))}
