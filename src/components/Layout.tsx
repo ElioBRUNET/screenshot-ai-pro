@@ -6,23 +6,23 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/hooks/useUser";
 import { useNavigate } from "react-router-dom";
-
-const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: Home },
-];
-
+const navigation = [{
+  name: "Dashboard",
+  href: "/dashboard",
+  icon: Home
+}];
 export default function Layout() {
   const location = useLocation();
-  const { userData, clearUser } = useUser();
+  const {
+    userData,
+    clearUser
+  } = useUser();
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     await clearUser();
     navigate("/login");
   };
-
-  return (
-      <div className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8 bg-background">
+  return <div className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8 bg-background">
         <div className="relative mx-auto max-w-6xl">
           {/* Header */}
           <header className="mb-6 sm:mb-8">
@@ -43,31 +43,12 @@ export default function Layout() {
                 
                 {/* Navigation */}
                 <nav className="flex items-center space-x-2">
-                  {navigation.map((item) => {
-                    const isActive = location.pathname === item.href;
-                    return (
-                      <Link
-                        key={item.name}
-                        to={item.href}
-                        className={cn(
-                          "flex items-center space-x-2 rounded-xl px-4 py-2 text-sm font-medium transition-colors",
-                          isActive
-                            ? "bg-primary text-primary-foreground"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                        )}
-                      >
-                        <item.icon className="h-4 w-4" />
-                        <span>{item.name}</span>
-                      </Link>
-                    );
-                  })}
+                  {navigation.map(item => {
+                const isActive = location.pathname === item.href;
+                return;
+              })}
                   <ThemeToggle />
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleLogout}
-                    className="h-9 w-9 p-0"
-                  >
+                  <Button variant="ghost" size="sm" onClick={handleLogout} className="h-9 w-9 p-0">
                     <LogOut className="h-4 w-4" />
                     <span className="sr-only">Logout</span>
                   </Button>
@@ -81,6 +62,5 @@ export default function Layout() {
             <Outlet />
           </main>
         </div>
-      </div>
-  );
+      </div>;
 }
