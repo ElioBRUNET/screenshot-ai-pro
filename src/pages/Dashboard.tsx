@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ActivitySummary } from "@/components/dashboard/ActivitySummary";
 import { DailyRecommendations } from "@/components/dashboard/DailyRecommendations";
-import { WeeklySummary } from "@/components/dashboard/WeeklySummary";
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("activity");
@@ -20,15 +19,18 @@ export default function Dashboard() {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-muted border-0">
-            <TabsTrigger value="activity" className="text-foreground">
-              Activity Summary
+          <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-primary/5 to-accent/5 border border-border/50 p-1 rounded-xl">
+            <TabsTrigger 
+              value="activity" 
+              className="text-foreground data-[state=active]:bg-background data-[state=active]:shadow-md rounded-lg transition-all"
+            >
+              <span className="font-semibold">Activity Summary</span>
             </TabsTrigger>
-            <TabsTrigger value="daily" className="text-foreground">
-              Daily AI Tips
-            </TabsTrigger>
-            <TabsTrigger value="weekly" className="text-foreground">
-              Weekly Report
+            <TabsTrigger 
+              value="daily" 
+              className="text-foreground data-[state=active]:bg-background data-[state=active]:shadow-md rounded-lg transition-all"
+            >
+              <span className="font-semibold">Daily AI Tips</span>
             </TabsTrigger>
           </TabsList>
 
@@ -38,10 +40,6 @@ export default function Dashboard() {
 
           <TabsContent value="daily" className="mt-6">
             <DailyRecommendations />
-          </TabsContent>
-
-          <TabsContent value="weekly" className="mt-6">
-            <WeeklySummary />
           </TabsContent>
         </Tabs>
       </div>

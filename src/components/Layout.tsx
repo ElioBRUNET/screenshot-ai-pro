@@ -1,6 +1,6 @@
 import { Outlet, useLocation, Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Settings, Home, LogOut } from "lucide-react";
+import { Home, LogOut } from "lucide-react";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: Home },
-  { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 export default function Layout() {
