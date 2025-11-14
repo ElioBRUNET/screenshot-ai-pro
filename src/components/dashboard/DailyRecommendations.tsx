@@ -436,50 +436,52 @@ export function DailyRecommendations() {
                         </Button>
                       </div>
 
-                      {/* Why it fits */}
-                      <div className="relative overflow-hidden rounded-xl p-5 bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30">
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
-                        <div className="relative">
-                          <div className="flex items-center gap-2 mb-3">
-                            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                              <CheckCircle className="h-5 w-5 text-primary-foreground" />
-                            </div>
-                            <h4 className="font-bold text-foreground text-base">
-                              Why This Fits Your Workflow Today
-                            </h4>
-                          </div>
-                          <p className="text-base text-foreground/90 leading-relaxed font-medium">
-                            {tip.why_it_fits}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      {/* Action Steps */}
-                      {tip.do_this_now_steps && tip.do_this_now_steps.length > 0 && (
-                        <div className="border-2 border-border rounded-xl p-6 bg-muted/30">
-                          <div className="flex items-center gap-3 mb-5 pb-4 border-b-2 border-border">
-                            <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
-                              <Target className="h-5 w-5 text-primary-foreground" />
-                            </div>
-                            <div>
-                              <span className="text-lg font-bold text-foreground block">Action Steps</span>
-                              <span className="text-sm text-muted-foreground">Follow these to get started</span>
-                            </div>
-                          </div>
-                          <div className="space-y-3">
-                            {tip.do_this_now_steps.map((step, stepIndex) => (
-                              <div key={stepIndex} className="flex items-start gap-4 p-4 border-2 border-border rounded-lg bg-background hover:border-primary/50 transition-colors">
-                                <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                                  <span className="text-sm text-primary-foreground font-bold">{stepIndex + 1}</span>
-                                </div>
-                                <p className="text-base text-foreground leading-relaxed font-medium flex-1">
-                                  {step}
-                                </p>
+                      {/* 2-Column Layout: Why it fits + Action Steps */}
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {/* Why it fits - Left Column */}
+                        <div className="relative overflow-hidden rounded-xl p-5 bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 h-fit">
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+                          <div className="relative">
+                            <div className="flex items-center gap-2 mb-3">
+                              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                                <CheckCircle className="h-5 w-5 text-primary-foreground" />
                               </div>
-                            ))}
+                              <h4 className="font-bold text-foreground text-base">
+                                Why This Fits
+                              </h4>
+                            </div>
+                            <p className="text-sm text-foreground/90 leading-relaxed font-medium">
+                              {tip.why_it_fits}
+                            </p>
                           </div>
                         </div>
-                      )}
+                        
+                        {/* Action Steps - Right Column */}
+                        {tip.do_this_now_steps && tip.do_this_now_steps.length > 0 && (
+                          <div className="border-2 border-border rounded-xl p-5 bg-muted/30 h-fit">
+                            <div className="flex items-center gap-3 mb-4 pb-3 border-b-2 border-border">
+                              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                                <Target className="h-5 w-5 text-primary-foreground" />
+                              </div>
+                              <div>
+                                <span className="text-base font-bold text-foreground block">Action Steps</span>
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              {tip.do_this_now_steps.map((step, stepIndex) => (
+                                <div key={stepIndex} className="flex items-start gap-3 p-3 border-2 border-border rounded-lg bg-background hover:border-primary/50 transition-colors">
+                                  <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span className="text-xs text-primary-foreground font-bold">{stepIndex + 1}</span>
+                                  </div>
+                                  <p className="text-sm text-foreground leading-relaxed font-medium flex-1">
+                                    {step}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
 
                       {/* Copy-Paste Prompt */}
                       {tip.copy_paste_prompt && (
